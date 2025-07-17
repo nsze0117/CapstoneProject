@@ -1,0 +1,6416 @@
+---
+title: "final code.Rmd"
+output: html_document
+date: "2025"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+set_wd <- "/data/6411spss28"
+
+#install.packages("haven")
+#install.packages("dplyr")
+library(haven)
+library(dplyr)
+library(mice)
+```
+
+#1. selecting variables from documents 
+# AGE 7 _____________________________________________________________________________________________________
+```{r}
+parent_cm_interview7 <- haven::read_sav("/data/6411spss28/mcs4_parent_cm_interview.sav")
+parent_interview7 <- haven::read_sav("/data/6411spss28/mcs4_parent_interview.sav")
+cm_interview7 <- haven::read_sav("/data/6411spss28/mcs4_cm_interview.sav")
+
+```
+
+1. select and put into a table
+physical abuse
+```{r}
+fam_physabuse_7<- select(parent_cm_interview7,
+                          "MCSID",
+                          "DPCHWL00")
+
+colnames(fam_physabuse_7) [1] <- "ID"
+colnames(fam_physabuse_7) [2] <- "fam_physabuse_7"
+
+md.pattern(fam_physabuse_7, rotate.names=TRUE)
+
+table (fam_physabuse_7$'fam_physabuse_7')
+
+View(fam_physabuse_7)
+
+
+library(dplyr)
+
+fam_physabuse_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_physabuse_7)),
+            pct_NA = 100 * mean(is.na(fam_physabuse_7)))
+
+
+```
+
+
+dv_witness
+```{r}
+fam_dv_7 <- select(parent_interview7,
+                   "MCSID",
+                   "DPFORC00")
+
+colnames(fam_dv_7) [1] <- "ID"
+colnames(fam_dv_7) [2] <- "fam_dv_7"
+
+md.pattern(fam_dv_7, rotate.names=TRUE)
+
+table (fam_dv_7$'fam_dv_7')
+
+View(fam_dv_7)
+
+
+```
+
+fam_mi_7
+```{r}
+fam_mi_7 <- select(parent_interview7,
+                   "MCSID",
+                   "DPDEAN00")
+
+colnames (fam_mi_7) [1] <- "ID"
+colnames (fam_mi_7) [2] <- "fam_mi_7"
+
+md.pattern(fam_mi_7, rotate.names=TRUE)
+
+table (fam_mi_7$'fam_mi_7')
+View(fam_mi_7)
+
+
+library(dplyr)
+
+fam_mi_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_mi_7)),
+            pct_NA = 100 * mean(is.na(fam_mi_7)))
+
+```
+
+family seperation
+```{r}
+fam_sep_7 <- select (parent_interview7,
+                     "MCSID",
+                     "DPFCIN00")
+
+colnames (fam_sep_7) [1] <- "ID"
+colnames (fam_sep_7) [2] <- "fam_sep_7"
+
+md.pattern (fam_sep_7, rotate.names =TRUE)
+table (fam_sep_7$'fam_sep_7')
+View(fam_sep_7)
+
+library(dplyr)
+
+fam_sep_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_sep_7)),
+            pct_NA = 100 * mean(is.na(fam_sep_7)))
+```
+
+
+family smoke
+```{r}
+fam_smoke_7 <- select (parent_interview7,
+                       "MCSID",
+                       "DPSMUS0A")
+
+colnames(fam_smoke_7) [1] <- "ID"
+colnames(fam_smoke_7) [2] <- "fam_smoke_7"
+
+md.pattern(fam_smoke_7, rotate.names=TRUE)
+
+table(fam_smoke_7$'fam_smoke_7')
+
+View(fam_smoke_7) 
+
+library(dplyr)
+
+fam_smoke_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_smoke_7)),
+            pct_NA = 100 * mean(is.na(fam_smoke_7)))
+```
+
+family sibling
+```{r}
+fam_siblingbully_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0018")
+
+colnames(fam_siblingbully_7) [1] <- "ID"
+colnames(fam_siblingbully_7) [2] <- "fam_siblingbully_7"
+
+md.pattern (fam_siblingbully_7, rotate.names = TRUE)
+
+table (fam_siblingbully_7$'fam_siblingbully_7')
+View(fam_siblingbully_7)
+
+library(dplyr)
+
+fam_siblingbully_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_siblingbully_7)),
+            pct_NA = 100 * mean(is.na(fam_siblingbully_7)))
+```
+
+
+family warmth
+
+```{r}
+fam_warmth_7 <- select (parent_cm_interview7,
+                              "MCSID",
+                              "DPEXAF00")
+
+colnames(fam_warmth_7) [1] <- "ID"
+colnames(fam_warmth_7) [2] <- "fam_warmth_7"
+
+md.pattern (fam_warmth_7, rotate.names = TRUE)
+
+table (fam_warmth_7$'fam_warmth_7')
+View(fam_warmth_7)
+
+library(dplyr)
+
+fam_warmth_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_warmth_7)),
+            pct_NA = 100 * mean(is.na(fam_warmth_7)))
+
+
+```
+
+
+
+
+family close
+```{r}
+fam_close_7 <- select (parent_cm_interview7,
+                              "MCSID",
+                              "DPENLI00")
+
+colnames(fam_close_7) [1] <- "ID"
+colnames(fam_close_7) [2] <- "fam_close_7"
+
+md.pattern (fam_close_7, rotate.names = TRUE)
+
+table (fam_close_7$'fam_close_7')
+View(fam_close_7)
+
+
+
+library(dplyr)
+
+fam_close_7 %>% 
+  summarise(n_NA   = sum(is.na(fam_close_7)),
+            pct_NA = 100 * mean(is.na(fam_close_7)))
+
+```
+
+
+
+peer_bully
+
+```{r}
+peer_bully_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0036")
+
+colnames(peer_bully_7) [1] <- "ID"
+colnames(peer_bully_7) [2] <- "peer_bully_7"
+
+md.pattern (peer_bully_7, rotate.names = TRUE)
+
+table (peer_bully_7$'peer_bully_7')
+View(peer_bully_7)
+
+
+library(dplyr)
+
+peer_bully_7 %>% 
+  summarise(n_NA   = sum(is.na(peer_bully_7)),
+            pct_NA = 100 * mean(is.na(peer_bully_7)))
+```
+
+sch_unhappy_7
+```{r}
+sch_unhappy_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0021")
+
+colnames(sch_unhappy_7) [1] <- "ID"
+colnames(sch_unhappy_7) [2] <- "sch_unhappy_7"
+
+md.pattern (sch_unhappy_7, rotate.names = TRUE)
+
+table (sch_unhappy_7$'sch_unhappy_7')
+View(sch_unhappy_7)
+
+library(dplyr)
+
+sch_unhappy_7 %>% 
+  summarise(n_NA   = sum(is.na(sch_unhappy_7)),
+            pct_NA = 100 * mean(is.na(sch_unhappy_7)))
+```
+
+
+peer_friend_7
+
+```{r}
+peer_friend_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0009")
+
+colnames(peer_friend_7) [1] <- "ID"
+colnames(peer_friend_7) [2] <- "peer_friend_7"
+
+md.pattern (peer_friend_7, rotate.names = TRUE)
+
+table (peer_friend_7$'peer_friend_7')
+View(peer_friend_7)
+
+
+
+library(dplyr)
+
+peer_friend_7 %>% 
+  summarise(n_NA   = sum(is.na(peer_friend_7)),
+            pct_NA = 100 * mean(is.na(peer_friend_7)))
+```
+
+
+sch_engage_7
+```{r}
+sch_engage_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0027")
+
+colnames(sch_engage_7) [1] <- "ID"
+colnames(sch_engage_7) [2] <- "sch_engage_7"
+
+md.pattern (sch_engage_7, rotate.names = TRUE)
+
+table (sch_engage_7$'sch_engage_7')
+View(sch_engage_7)
+
+library(dplyr)
+
+sch_engage_7 %>% 
+  summarise(n_NA   = sum(is.na(sch_engage_7)),
+            pct_NA = 100 * mean(is.na(sch_engage_7)))
+```
+
+
+
+
+neigh_unsafe_7
+```{r}
+neigh_unsafe_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0028")
+
+colnames(neigh_unsafe_7) [1] <- "ID"
+colnames(neigh_unsafe_7) [2] <- "neigh_unsafe_7"
+
+md.pattern (neigh_unsafe_7, rotate.names = TRUE)
+
+table (neigh_unsafe_7$'neigh_unsafe_7')
+View(neigh_unsafe_7)
+
+
+library(dplyr)
+
+neigh_unsafe_7 %>% 
+  summarise(n_NA   = sum(is.na(neigh_unsafe_7)),
+            pct_NA = 100 * mean(is.na(neigh_unsafe_7)))
+```
+
+neigh_poverty_7
+```{r}
+neigh_poverty_7 <- select (parent_interview7,
+                              "MCSID",
+                              "DPSTBE00")
+
+colnames(neigh_poverty_7) [1] <- "ID"
+colnames(neigh_poverty_7) [2] <- "neigh_poverty_7"
+
+md.pattern (neigh_poverty_7, rotate.names = TRUE)
+
+table (neigh_poverty_7$'neigh_poverty_7')
+View(neigh_poverty_7)
+
+library(dplyr)
+
+neigh_poverty_7 %>% 
+  summarise(n_NA   = sum(is.na(neigh_poverty_7)),
+            pct_NA = 100 * mean(is.na(neigh_poverty_7)))
+```
+
+comm_resource_7
+```{r}
+comm_resource_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0005")
+
+colnames(comm_resource_7) [1] <- "ID"
+colnames(comm_resource_7) [2] <- "comm_resource_7"
+
+md.pattern (comm_resource_7, rotate.names = TRUE)
+
+table (comm_resource_7$'comm_resource_7')
+View(comm_resource_7)
+
+library(dplyr)
+
+comm_resource_7 %>% 
+  summarise(n_NA   = sum(is.na(comm_resource_7)),
+            pct_NA = 100 * mean(is.na(comm_resource_7)))
+
+```
+
+ind_anger_7
+```{r}
+ind_anger_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0017")
+
+colnames(ind_anger_7) [1] <- "ID"
+colnames(ind_anger_7) [2] <- "ind_anger_7"
+
+md.pattern (ind_anger_7, rotate.names = TRUE)
+
+table (ind_anger_7$'ind_anger_7')
+View(ind_anger_7)
+
+
+library(dplyr)
+
+ind_anger_7 %>% 
+  summarise(n_NA   = sum(is.na(ind_anger_7)),
+            pct_NA = 100 * mean(is.na(ind_anger_7)))
+```
+
+
+
+
+
+ind_worry_7
+```{r}
+ind_worry_7 <- select (cm_interview7,
+                              "MCSID",
+                              "DCSC0012")
+
+colnames(ind_worry_7) [1] <- "ID"
+colnames(ind_worry_7) [2] <- "ind_worry_7"
+
+md.pattern (ind_worry_7, rotate.names = TRUE)
+
+table (ind_worry_7$'ind_worry_7')
+View(ind_worry_7)
+
+
+library(dplyr)
+
+ind_worry_7 %>% 
+  summarise(n_NA   = sum(is.na(ind_worry_7)),
+            pct_NA = 100 * mean(is.na(ind_worry_7)))
+```
+
+
+
+
+ind_er_7
+```{r}
+ind_er_7 <- select (parent_cm_interview7,
+                              "MCSID",
+                              "DPSEWS00")
+
+colnames(ind_er_7) [1] <- "ID"
+colnames(ind_er_7) [2] <- "ind_er_7"
+
+md.pattern (ind_er_7, rotate.names = TRUE)
+
+table (ind_er_7$'ind_er_7')
+View(ind_er_7)
+
+library(dplyr)
+
+ind_er_7 %>% 
+  summarise(n_NA   = sum(is.na(ind_er_7)),
+            pct_NA = 100 * mean(is.na(ind_er_7)))
+
+```
+
+ind_esteem_7
+```{r}
+ind_esteem_7 <- select (parent_cm_interview7,
+                              "MCSID",
+                              "DPSEAO00")
+
+colnames(ind_esteem_7) [1] <- "ID"
+colnames(ind_esteem_7) [2] <- "ind_esteem_7"
+
+md.pattern (ind_esteem_7, rotate.names = TRUE)
+
+table (ind_esteem_7$'ind_esteem_7')
+View(ind_esteem_7)
+
+
+
+```
+
+check for missingness
+```{r}
+library(dplyr)
+library(purrr)
+
+# put all column data faramess into a list
+mini_tables <- list(
+  fam_physabuse_7, fam_dv_7, fam_mi_7, fam_sep_7,
+  fam_smoke_7, fam_siblingbully_7, fam_warmth_7, fam_close_7,
+  peer_bully_7, sch_unhappy_7, peer_friend_7, sch_engage_7,
+  neigh_unsafe_7, neigh_poverty_7, comm_resource_7,
+  ind_anger_7, ind_worry_7, ind_er_7, ind_esteem_7
+)
+
+#returns one-row tibble for any 2-column mini-table
+na_report <- function(df) {
+  node_name <- names(df)[2]                
+  tibble(
+    node   = node_name,
+    n_NA   = sum(is.na(df[[2]])),
+    pct_NA = round(100 * mean(is.na(df[[2]])), 1)
+  )
+}
+
+#map over the result 
+na_summary_7 <- map_dfr(mini_tables, na_report)
+
+print(na_summary_7, n = Inf)  
+
+```
+
+# AGE14 _____________________________________________________________________________________________________
+
+
+```{r}
+parent_cm_interview14 <- haven::read_sav("/data/8156spss28/mcs6_parent_cm_interview.sav")
+parent_interview14 <- haven::read_sav("/data/8156spss28/mcs6_parent_interview.sav")
+cm_interview14 <- haven::read_sav("/data/8156spss28/mcs6_cm_interview.sav")
+
+```
+
+
+fam_physabuse_14
+
+```{r}
+fam_physabuse_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCDIST00")
+
+colnames(fam_physabuse_14) [1] <- "ID"
+colnames(fam_physabuse_14) [2] <- "fam_physabuse_14"
+
+md.pattern (fam_physabuse_14, rotate.names = TRUE)
+
+table (fam_physabuse_14$'fam_physabuse_14')
+View(fam_physabuse_14)
+
+
+library(dplyr)
+
+fam_physabuse_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_physabuse_14)),
+            pct_NA = 100 * mean(is.na(fam_physabuse_14)))
+
+
+
+
+
+```
+
+
+fam_dv_14
+```{r}
+fam_dv_14 <- select (parent_interview14,
+                              "MCSID",
+                              "FPFORC00")
+
+colnames(fam_dv_14) [1] <- "ID"
+colnames(fam_dv_14) [2] <- "fam_dv_14"
+
+md.pattern (fam_dv_14, rotate.names = TRUE)
+
+table (fam_dv_14$'fam_dv_14')
+View(fam_dv_14)
+
+library(dplyr)
+
+fam_dv_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_dv_14)),
+            pct_NA = 100 * mean(is.na(fam_dv_14)))
+
+
+```
+
+fam_mi_14
+```{r}
+fam_mi_14 <- select (parent_interview14,
+                              "MCSID",
+                              "FPDEAN00")
+
+colnames(fam_mi_14) [1] <- "ID"
+colnames(fam_mi_14) [2] <- "fam_mi_14"
+
+md.pattern (fam_mi_14, rotate.names = TRUE)
+
+table (fam_mi_14$'fam_mi_14')
+View(fam_mi_14)
+
+library(dplyr)
+
+fam_mi_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_mi_14)),
+            pct_NA = 100 * mean(is.na(fam_mi_14)))
+
+
+```
+
+
+
+fam_sep_14
+```{r}
+fam_sep_14 <- select (parent_interview14,
+                              "MCSID",
+                              "FPFCIN00")
+
+colnames(fam_sep_14) [1] <- "ID"
+colnames(fam_sep_14) [2] <- "fam_sep_14"
+
+md.pattern (fam_sep_14, rotate.names = TRUE)
+
+table (fam_sep_14$'fam_sep_14')
+View(fam_sep_14)
+
+library(dplyr)
+
+fam_sep_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_sep_14)),
+            pct_NA = 100 * mean(is.na(fam_sep_14)))
+
+
+```
+
+
+fam_smoke_14
+
+
+
+```{r}
+fam_smoke_14 <- select (parent_interview14,
+                              "MCSID",
+                              "FPSMUS0B")
+
+colnames(fam_smoke_14) [1] <- "ID"
+colnames(fam_smoke_14) [2] <- "fam_smoke_14"
+
+md.pattern (fam_smoke_14, rotate.names = TRUE)
+
+table (fam_smoke_14$'fam_smoke_14')
+View(fam_smoke_14)
+
+library(dplyr)
+
+fam_smoke_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_smoke_14)),
+            pct_NA = 100 * mean(is.na(fam_smoke_14)))
+
+```
+
+fam_siblingbully_14
+```{r}
+fam_siblingbully_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCBULB00")
+
+colnames(fam_siblingbully_14) [1] <- "ID"
+colnames(fam_siblingbully_14) [2] <- "fam_siblingbully_14"
+
+md.pattern (fam_siblingbully_14, rotate.names = TRUE)
+
+table (fam_siblingbully_14$'fam_siblingbully_14')
+View(fam_siblingbully_14)
+
+library(dplyr)
+
+fam_siblingbully_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_siblingbully_14)),
+            pct_NA = 100 * mean(is.na(fam_siblingbully_14)))
+```
+
+fam_warmth_14
+```{r}
+fam_warmth_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCSAFF00")
+
+colnames(fam_warmth_14) [1] <- "ID"
+colnames(fam_warmth_14) [2] <- "fam_warmth_14"
+
+md.pattern (fam_warmth_14, rotate.names = TRUE)
+
+table (fam_warmth_14$'fam_warmth_14')
+View(fam_warmth_14)
+
+library(dplyr)
+
+fam_warmth_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_warmth_14)),
+            pct_NA = 100 * mean(is.na(fam_warmth_14)))
+```
+
+
+
+fam_close_14
+```{r}
+fam_close_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCRLQM00")
+
+colnames(fam_close_14) [1] <- "ID"
+colnames(fam_close_14) [2] <- "fam_close_14"
+
+md.pattern (fam_close_14, rotate.names = TRUE)
+
+table (fam_close_14$'fam_close_14')
+View(fam_close_14)
+
+library(dplyr)
+
+fam_close_14 %>% 
+  summarise(n_NA   = sum(is.na(fam_close_14)),
+            pct_NA = 100 * mean(is.na(fam_close_14)))
+```
+
+
+peer_bully_14
+```{r}
+peer_bully_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCHURT00")
+
+colnames(peer_bully_14) [1] <- "ID"
+colnames(peer_bully_14) [2] <- "peer_bully_14"
+
+md.pattern (peer_bully_14, rotate.names = TRUE)
+
+table (peer_bully_14$'peer_bully_14')
+View(peer_bully_14)
+
+library(dplyr)
+
+peer_bully_14 %>% 
+  summarise(n_NA   = sum(is.na(peer_bully_14)),
+            pct_NA = 100 * mean(is.na(peer_bully_14)))
+```
+
+sch_unhappy_14
+```{r}
+sch_unhappy_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCSUNH00")
+
+colnames(sch_unhappy_14) [1] <- "ID"
+colnames(sch_unhappy_14) [2] <- "sch_unhappy_14"
+
+md.pattern (sch_unhappy_14, rotate.names = TRUE)
+
+table (sch_unhappy_14$'sch_unhappy_14')
+View(sch_unhappy_14)
+
+library(dplyr)
+
+sch_unhappy_14 %>% 
+  summarise(n_NA   = sum(is.na(sch_unhappy_14)),
+            pct_NA = 100 * mean(is.na(sch_unhappy_14)))
+```
+
+
+peer_friend_14
+```{r}
+peer_friend_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCNUFR00")
+
+colnames(peer_friend_14) [1] <- "ID"
+colnames(peer_friend_14) [2] <- "peer_friend_14"
+
+md.pattern (peer_friend_14, rotate.names = TRUE)
+
+table (peer_friend_14$'peer_friend_14')
+View(peer_friend_14)
+
+library(dplyr)
+
+peer_friend_14 %>% 
+  summarise(n_NA   = sum(is.na(peer_friend_14)),
+            pct_NA = 100 * mean(is.na(peer_friend_14)))
+```
+
+
+sch_engage_14
+```{r}
+sch_engage_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCSCBE00")
+
+colnames(sch_engage_14) [1] <- "ID"
+colnames(sch_engage_14) [2] <- "sch_engage_14"
+
+md.pattern (sch_engage_14, rotate.names = TRUE)
+
+table (sch_engage_14$'sch_engage_14')
+View(sch_engage_14)
+
+library(dplyr)
+
+sch_engage_14 %>% 
+  summarise(n_NA   = sum(is.na(sch_engage_14)),
+            pct_NA = 100 * mean(is.na(sch_engage_14)))
+```
+
+
+neigh_unsafe_14
+```{r}
+neigh_unsafe_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCVICG00")
+
+colnames(neigh_unsafe_14) [1] <- "ID"
+colnames(neigh_unsafe_14) [2] <- "neigh_unsafe_14"
+
+md.pattern (neigh_unsafe_14, rotate.names = TRUE)
+
+table (neigh_unsafe_14$'neigh_unsafe_14')
+View(neigh_unsafe_14)
+
+library(dplyr)
+
+neigh_unsafe_14 %>% 
+  summarise(n_NA   = sum(is.na(neigh_unsafe_14)),
+            pct_NA = 100 * mean(is.na(neigh_unsafe_14)))
+```
+
+neigh_poverty_14
+```{r}
+neigh_poverty_14 <- select (parent_interview14,
+                              "MCSID",
+                              "FPBENT0B")
+
+colnames(neigh_poverty_14) [1] <- "ID"
+colnames(neigh_poverty_14) [2] <- "neigh_poverty_14"
+
+md.pattern (neigh_poverty_14, rotate.names = TRUE)
+
+table (neigh_poverty_14$'neigh_poverty_14')
+View(neigh_poverty_14)
+
+library(dplyr)
+
+neigh_poverty_14 %>% 
+  summarise(n_NA   = sum(is.na(neigh_poverty_14)),
+            pct_NA = 100 * mean(is.na(neigh_poverty_14)))
+```
+
+
+
+comm_resource_14
+```{r}
+comm_resource_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCORGA00")
+
+colnames(comm_resource_14) [1] <- "ID"
+colnames(comm_resource_14) [2] <- "comm_resource_14"
+
+md.pattern (comm_resource_14, rotate.names = TRUE)
+
+table (comm_resource_14$'comm_resource_14')
+View(comm_resource_14)
+
+library(dplyr)
+
+comm_resource_14 %>% 
+  summarise(n_NA   = sum(is.na(comm_resource_14)),
+            pct_NA = 100 * mean(is.na(comm_resource_14)))
+```
+
+ind_anger_14
+```{r}
+ind_anger_14 <- select (parent_cm_interview14,
+                              "MCSID",
+                              "FPSDTT00")
+
+colnames(ind_anger_14) [1] <- "ID"
+colnames(ind_anger_14) [2] <- "ind_anger_14"
+
+md.pattern (ind_anger_14, rotate.names = TRUE)
+
+table (ind_anger_14$'ind_anger_14')
+View(ind_anger_14)
+
+library(dplyr)
+
+ind_anger_14 %>% 
+  summarise(n_NA   = sum(is.na(ind_anger_14)),
+            pct_NA = 100 * mean(is.na(ind_anger_14)))
+```
+
+ind_worry_14
+```{r}
+ind_worry_14 <- select (parent_cm_interview14,
+                              "MCSID",
+                              "FPSDMW00")
+
+colnames(ind_worry_14) [1] <- "ID"
+colnames(ind_worry_14) [2] <- "ind_worry_14"
+
+md.pattern (ind_worry_14, rotate.names = TRUE)
+
+table (ind_worry_14$'ind_worry_14')
+View(ind_worry_14)
+
+library(dplyr)
+
+ind_worry_14 %>% 
+  summarise(n_NA   = sum(is.na(ind_worry_14)),
+            pct_NA = 100 * mean(is.na(ind_worry_14)))
+```
+
+ind_er_14
+```{r}
+ind_er_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCPTNT00")
+
+colnames(ind_er_14) [1] <- "ID"
+colnames(ind_er_14) [2] <- "ind_er_14"
+
+md.pattern (ind_er_14, rotate.names = TRUE)
+
+table (ind_er_14$'ind_er_14')
+View(ind_er_14)
+
+library(dplyr)
+
+ind_er_14 %>% 
+  summarise(n_NA   = sum(is.na(ind_er_14)),
+            pct_NA = 100 * mean(is.na(ind_er_14)))
+```
+
+ind_esteem_14
+```{r}
+ind_esteem_14 <- select (cm_interview14,
+                              "MCSID",
+                              "FCSATI00")
+
+colnames(ind_esteem_14) [1] <- "ID"
+colnames(ind_esteem_14) [2] <- "ind_esteem_14"
+
+md.pattern (ind_esteem_14, rotate.names = TRUE)
+
+table (ind_esteem_14$'ind_esteem_14')
+View(ind_esteem_14)
+
+library(dplyr)
+
+ind_esteem_14 %>% 
+  summarise(n_NA   = sum(is.na(ind_esteem_14)),
+            pct_NA = 100 * mean(is.na(ind_esteem_14)))
+```
+
+outcome variable
+```{r}
+
+library(dplyr)
+#1
+smfq_14_01 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSA00")
+colnames(smfq_14_01) [1] <- "ID"
+colnames(smfq_14_01) [2] <- "smfq_14_01"
+md.pattern (smfq_14_01, rotate.names = TRUE)
+table (smfq_14_01$'smfq_14_01')
+View(smfq_14_01)
+library(dplyr)
+smfq_14_01 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_01)),
+            pct_NA = 100 * mean(is.na(smfq_14_01)))
+
+#2
+smfq_14_02 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSB00")
+colnames(smfq_14_02) [1] <- "ID"
+colnames(smfq_14_02) [2] <- "smfq_14_02"
+md.pattern (smfq_14_02, rotate.names = TRUE)
+table (smfq_14_02$'smfq_14_02')
+View(smfq_14_02)
+library(dplyr)
+smfq_14_02 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_02)),
+            pct_NA = 100 * mean(is.na(smfq_14_02)))
+
+#3
+smfq_14_03 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSC00")
+colnames(smfq_14_03) [1] <- "ID"
+colnames(smfq_14_03) [2] <- "smfq_14_03"
+md.pattern (smfq_14_03, rotate.names = TRUE)
+table (smfq_14_03$'smfq_14_03')
+View(smfq_14_03)
+library(dplyr)
+smfq_14_03 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_03)),
+            pct_NA = 100 * mean(is.na(smfq_14_03)))
+
+
+#4
+smfq_14_04 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSD00")
+colnames(smfq_14_04) [1] <- "ID"
+colnames(smfq_14_04) [2] <- "smfq_14_04"
+md.pattern (smfq_14_04, rotate.names = TRUE)
+table (smfq_14_04$'smfq_14_04')
+View(smfq_14_04)
+library(dplyr)
+smfq_14_04 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_04)),
+            pct_NA = 100 * mean(is.na(smfq_14_04)))
+
+#5
+smfq_14_05 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSE00")
+colnames(smfq_14_05) [1] <- "ID"
+colnames(smfq_14_05) [2] <- "smfq_14_05"
+md.pattern (smfq_14_05, rotate.names = TRUE)
+table (smfq_14_05$'smfq_14_05')
+View(smfq_14_05)
+library(dplyr)
+smfq_14_05 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_05)),
+            pct_NA = 100 * mean(is.na(smfq_14_05)))
+
+
+#6
+smfq_14_06 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSF00")
+colnames(smfq_14_06) [1] <- "ID"
+colnames(smfq_14_06) [2] <- "smfq_14_06"
+md.pattern (smfq_14_06, rotate.names = TRUE)
+table (smfq_14_06$'smfq_14_06')
+View(smfq_14_06)
+library(dplyr)
+smfq_14_06 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_06)),
+            pct_NA = 100 * mean(is.na(smfq_14_06)))
+
+#7
+smfq_14_07 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSG00")
+colnames(smfq_14_07) [1] <- "ID"
+colnames(smfq_14_07) [2] <- "smfq_14_07"
+md.pattern (smfq_14_07, rotate.names = TRUE)
+table (smfq_14_07$'smfq_14_07')
+View(smfq_14_07)
+library(dplyr)
+smfq_14_07 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_07)),
+            pct_NA = 100 * mean(is.na(smfq_14_07)))
+
+
+#8
+smfq_14_08 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSH00")
+colnames(smfq_14_08) [1] <- "ID"
+colnames(smfq_14_08) [2] <- "smfq_14_08"
+md.pattern (smfq_14_08, rotate.names = TRUE)
+table (smfq_14_08$'smfq_14_08')
+View(smfq_14_08)
+library(dplyr)
+smfq_14_08 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_08)),
+            pct_NA = 100 * mean(is.na(smfq_14_08)))
+
+
+#9
+smfq_14_09 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSI00")
+colnames(smfq_14_09) [1] <- "ID"
+colnames(smfq_14_09) [2] <- "smfq_14_09"
+md.pattern (smfq_14_09, rotate.names = TRUE)
+table (smfq_14_09$'smfq_14_09')
+View(smfq_14_09)
+library(dplyr)
+smfq_14_09 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_09)),
+            pct_NA = 100 * mean(is.na(smfq_14_09)))
+
+#10
+smfq_14_10 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSJ00")
+colnames(smfq_14_10) [1] <- "ID"
+colnames(smfq_14_10) [2] <- "smfq_14_10"
+md.pattern (smfq_14_10, rotate.names = TRUE)
+table (smfq_14_10$'smfq_14_10')
+View(smfq_14_10)
+library(dplyr)
+smfq_14_10 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_10)),
+            pct_NA = 100 * mean(is.na(smfq_14_10)))
+
+
+
+#11
+smfq_14_11 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSK00")
+colnames(smfq_14_11) [1] <- "ID"
+colnames(smfq_14_11) [2] <- "smfq_14_11"
+md.pattern (smfq_14_11, rotate.names = TRUE)
+table (smfq_14_11$'smfq_14_11')
+View(smfq_14_11)
+library(dplyr)
+smfq_14_11 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_11)),
+            pct_NA = 100 * mean(is.na(smfq_14_11)))
+
+
+
+#12
+smfq_14_12 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSL00")
+colnames(smfq_14_12) [1] <- "ID"
+colnames(smfq_14_12) [2] <- "smfq_14_12"
+md.pattern (smfq_14_12, rotate.names = TRUE)
+table (smfq_14_12$'smfq_14_12')
+View(smfq_14_12)
+library(dplyr)
+smfq_14_12 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_12)),
+            pct_NA = 100 * mean(is.na(smfq_14_12)))
+
+
+#13
+smfq_14_13 <- select (cm_interview14,
+                              "MCSID",
+                              "FCMDSM00")
+colnames(smfq_14_13) [1] <- "ID"
+colnames(smfq_14_13) [2] <- "smfq_14_13"
+md.pattern (smfq_14_13, rotate.names = TRUE)
+table (smfq_14_13$'smfq_14_13')
+View(smfq_14_13)
+library(dplyr)
+smfq_14_13 %>% 
+  summarise(n_NA   = sum(is.na(smfq_14_13)),
+            pct_NA = 100 * mean(is.na(smfq_14_13)))
+
+```
+
+
+
+# AGE17 _____________________________________________________________________________________________________
+
+```{r}
+parent_cm_interview17 <- haven::read_sav("/data/8682spss28/mcs7_parent_cm_interview.sav")
+parent_interview17 <- haven::read_sav("/data/8682spss28/mcs7_parent_interview.sav")
+cm_interview17 <- haven::read_sav("/data/8682spss28/mcs7_cm_interview.sav")
+
+```
+
+
+fam_mi_17
+```{r}
+fam_mi_17 <- select (parent_interview17,
+                              "MCSID",
+                              "GPDEAN00")
+
+colnames(fam_mi_17) [1] <- "ID"
+colnames(fam_mi_17) [2] <- "fam_mi_17"
+
+md.pattern (fam_mi_17, rotate.names = TRUE)
+
+table (fam_mi_17$'fam_mi_17')
+View(fam_mi_17)
+
+library(dplyr)
+
+fam_mi_17 %>% 
+  summarise(n_NA   = sum(is.na(fam_mi_17)),
+            pct_NA = 100 * mean(is.na(fam_mi_17)))
+```
+
+fam_sep_17
+```{r}
+fam_sep_17 <- select (parent_interview17,
+                              "MCSID",
+                              "GPFCIN00")
+
+colnames(fam_sep_17) [1] <- "ID"
+colnames(fam_sep_17) [2] <- "fam_sep_17"
+
+md.pattern (fam_sep_17, rotate.names = TRUE)
+
+table (fam_sep_17$'fam_sep_17')
+View(fam_sep_17)
+
+library(dplyr)
+
+fam_sep_17 %>% 
+  summarise(n_NA   = sum(is.na(fam_sep_17)),
+            pct_NA = 100 * mean(is.na(fam_sep_17)))
+```
+
+
+fam_smoke_17
+```{r}
+fam_smoke_17 <- select (parent_interview17,
+                              "MCSID",
+                              "GPVAPE00")
+
+colnames(fam_smoke_17) [1] <- "ID"
+colnames(fam_smoke_17) [2] <- "fam_smoke_17"
+
+md.pattern (fam_smoke_17, rotate.names = TRUE)
+
+table (fam_smoke_17$'fam_smoke_17')
+View(fam_smoke_17)
+
+library(dplyr)
+
+fam_smoke_17 %>% 
+  summarise(n_NA   = sum(is.na(fam_smoke_17)),
+            pct_NA = 100 * mean(is.na(fam_smoke_17)))
+```
+
+
+
+
+fam_warmth_17
+```{r}
+fam_warmth_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCTAIM00")
+
+colnames(fam_warmth_17) [1] <- "ID"
+colnames(fam_warmth_17) [2] <- "fam_warmth_17"
+
+md.pattern (fam_warmth_17, rotate.names = TRUE)
+
+table (fam_warmth_17$'fam_warmth_17')
+View(fam_warmth_17)
+
+library(dplyr)
+
+fam_warmth_17 %>% 
+  summarise(n_NA   = sum(is.na(fam_warmth_17)),
+            pct_NA = 100 * mean(is.na(fam_warmth_17)))
+```
+
+
+fam_close_17
+```{r}
+fam_close_17 <- select (parent_cm_interview17,
+                              "MCSID",
+                              "GPSCHC00")
+
+colnames(fam_close_17) [1] <- "ID"
+colnames(fam_close_17) [2] <- "fam_close_17"
+
+md.pattern (fam_close_17, rotate.names = TRUE)
+
+table (fam_close_17$'fam_close_17')
+View(fam_close_17)
+
+library(dplyr)
+
+fam_close_17 %>% 
+  summarise(n_NA   = sum(is.na(fam_close_17)),
+            pct_NA = 100 * mean(is.na(fam_close_17)))
+```
+
+
+peer_bully_17
+```{r}
+peer_bully_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCSDQS00")
+
+colnames(peer_bully_17) [1] <- "ID"
+colnames(peer_bully_17) [2] <- "peer_bully_17"
+
+md.pattern (peer_bully_17, rotate.names = TRUE)
+
+table (peer_bully_17$'peer_bully_17')
+View(peer_bully_17)
+
+library(dplyr)
+
+peer_bully_17 %>% 
+  summarise(n_NA   = sum(is.na(peer_bully_17)),
+            pct_NA = 100 * mean(is.na(peer_bully_17)))
+```
+
+
+peer_friend_17
+```{r}
+peer_friend_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCSDQK00")
+
+colnames(peer_friend_17) [1] <- "ID"
+colnames(peer_friend_17) [2] <- "peer_friend_17"
+
+md.pattern (peer_friend_17, rotate.names = TRUE)
+
+table (peer_friend_17$'peer_friend_17')
+View(peer_friend_17)
+
+library(dplyr)
+
+peer_friend_17 %>% 
+  summarise(n_NA   = sum(is.na(peer_friend_17)),
+            pct_NA = 100 * mean(is.na(peer_friend_17)))
+```
+
+
+sch_engage_17
+```{r}
+sch_engage_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCEDUC00")
+
+colnames(sch_engage_17) [1] <- "ID"
+colnames(sch_engage_17) [2] <- "sch_engage_17"
+
+md.pattern (sch_engage_17, rotate.names = TRUE)
+
+table (sch_engage_17$'sch_engage_17')
+View(sch_engage_17)
+
+library(dplyr)
+
+sch_engage_17 %>% 
+  summarise(n_NA   = sum(is.na(sch_engage_17)),
+            pct_NA = 100 * mean(is.na(sch_engage_17)))
+```
+
+
+neigh_unsafe_17
+```{r}
+neigh_unsafe_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCVICA00")
+
+colnames(neigh_unsafe_17) [1] <- "ID"
+colnames(neigh_unsafe_17) [2] <- "neigh_unsafe_17"
+
+md.pattern (neigh_unsafe_17, rotate.names = TRUE)
+
+table (neigh_unsafe_17$'neigh_unsafe_17')
+View(neigh_unsafe_17)
+
+library(dplyr)
+
+neigh_unsafe_17 %>% 
+  summarise(n_NA   = sum(is.na(neigh_unsafe_17)),
+            pct_NA = 100 * mean(is.na(neigh_unsafe_17)))
+```
+
+
+neigh_poverty_17
+```{r}
+neigh_poverty_17 <- select (parent_interview17,
+                              "MCSID",
+                              "GPREPG00")
+
+colnames(neigh_poverty_17) [1] <- "ID"
+colnames(neigh_poverty_17) [2] <- "neigh_poverty_17"
+
+md.pattern (neigh_poverty_17, rotate.names = TRUE)
+
+table (neigh_poverty_17$'neigh_poverty_17')
+View(neigh_poverty_17)
+
+library(dplyr)
+
+neigh_poverty_17 %>% 
+  summarise(n_NA   = sum(is.na(neigh_poverty_17)),
+            pct_NA = 100 * mean(is.na(neigh_poverty_17)))
+```
+
+
+neigh_living_17
+```{r}
+neigh_living_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCHOMS00")
+
+colnames(neigh_living_17) [1] <- "ID"
+colnames(neigh_living_17) [2] <- "neigh_living_17"
+
+md.pattern (neigh_living_17, rotate.names = TRUE)
+
+table (neigh_living_17$'neigh_living_17')
+View(neigh_living_17)
+
+library(dplyr)
+
+neigh_living_17 %>% 
+  summarise(n_NA   = sum(is.na(neigh_living_17)),
+            pct_NA = 100 * mean(is.na(neigh_living_17)))
+```
+
+comm_resource_17
+```{r}
+comm_resource_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCDISC00")
+
+colnames(comm_resource_17) [1] <- "ID"
+colnames(comm_resource_17) [2] <- "comm_resource_17"
+
+md.pattern (comm_resource_17, rotate.names = TRUE)
+
+table (comm_resource_17$'comm_resource_17')
+View(comm_resource_17)
+
+library(dplyr)
+
+comm_resource_17 %>% 
+  summarise(n_NA   = sum(is.na(comm_resource_17)),
+            pct_NA = 100 * mean(is.na(comm_resource_17)))
+```
+
+
+
+ind_anger_17
+```{r}
+ind_anger_17 <- select (parent_cm_interview17,
+                              "MCSID",
+                              "GPSDTT00")
+
+colnames(ind_anger_17) [1] <- "ID"
+colnames(ind_anger_17) [2] <- "ind_anger_17"
+
+md.pattern (ind_anger_17, rotate.names = TRUE)
+
+table (ind_anger_17$'ind_anger_17')
+View(ind_anger_17)
+
+library(dplyr)
+
+ind_anger_17 %>% 
+  summarise(n_NA   = sum(is.na(ind_anger_17)),
+            pct_NA = 100 * mean(is.na(ind_anger_17)))
+```
+
+
+
+ind_worry_17
+```{r}
+ind_worry_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCSDQH00")
+
+colnames(ind_worry_17) [1] <- "ID"
+colnames(ind_worry_17) [2] <- "ind_worry_17"
+
+md.pattern (ind_worry_17, rotate.names = TRUE)
+
+table (ind_worry_17$'ind_worry_17')
+View(ind_worry_17)
+
+library(dplyr)
+
+ind_worry_17 %>% 
+  summarise(n_NA   = sum(is.na(ind_worry_17)),
+            pct_NA = 100 * mean(is.na(ind_worry_17)))
+```
+
+ind_er_17
+```{r}
+ind_er_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCSDQU00")
+
+colnames(ind_er_17) [1] <- "ID"
+colnames(ind_er_17) [2] <- "ind_er_17"
+
+md.pattern (ind_er_17, rotate.names = TRUE)
+
+table (ind_er_17$'ind_er_17')
+View(ind_er_17)
+
+library(dplyr)
+
+ind_er_17 %>% 
+  summarise(n_NA   = sum(is.na(ind_er_17)),
+            pct_NA = 100 * mean(is.na(ind_er_17)))
+```
+
+ind_esteem_17
+```{r}
+ind_esteem_17 <- select (cm_interview17,
+                              "MCSID",
+                              "GCSATI00")
+
+colnames(ind_esteem_17) [1] <- "ID"
+colnames(ind_esteem_17) [2] <- "ind_esteem_17"
+
+md.pattern (ind_esteem_17, rotate.names = TRUE)
+
+table (ind_esteem_17$'ind_esteem_17')
+View(ind_esteem_17)
+
+library(dplyr)
+
+ind_esteem_17 %>% 
+  summarise(n_NA   = sum(is.na(ind_esteem_17)),
+            pct_NA = 100 * mean(is.na(ind_esteem_17)))
+```
+
+outcome variable
+```{r}
+#1
+k6_17_01 <- select (cm_interview17,
+                              "MCSID",
+                              "GCPHDE00")
+colnames(k6_17_01) [1] <- "ID"
+colnames(k6_17_01) [2] <- "k6_17_01"
+md.pattern (k6_17_01, rotate.names = TRUE)
+table (k6_17_01$'k6_17_01')
+View(k6_17_01)
+library(dplyr)
+k6_17_01 %>% 
+  summarise(n_NA   = sum(is.na(k6_17_01)),
+            pct_NA = 100 * mean(is.na(k6_17_01)))
+
+#2
+k6_17_02 <- select (cm_interview17,
+                              "MCSID",
+                              "GCPHHO00")
+colnames(k6_17_02) [1] <- "ID"
+colnames(k6_17_02) [2] <- "k6_17_02"
+md.pattern (k6_17_02, rotate.names = TRUE)
+table (k6_17_02$'k6_17_02')
+View(k6_17_02)
+library(dplyr)
+k6_17_02 %>% 
+  summarise(n_NA   = sum(is.na(k6_17_02)),
+            pct_NA = 100 * mean(is.na(k6_17_02)))
+
+
+#3
+k6_17_03 <- select (cm_interview17,
+                              "MCSID",
+                              "GCPHRF00")
+colnames(k6_17_03) [1] <- "ID"
+colnames(k6_17_03) [2] <- "k6_17_03"
+md.pattern (k6_17_03, rotate.names = TRUE)
+table (k6_17_03$'k6_17_03')
+View(k6_17_03)
+library(dplyr)
+k6_17_03 %>% 
+  summarise(n_NA   = sum(is.na(k6_17_03)),
+            pct_NA = 100 * mean(is.na(k6_17_03)))
+
+
+
+
+#4
+k6_17_04 <- select (cm_interview17,
+                              "MCSID",
+                              "GCPHEE00")
+colnames(k6_17_04) [1] <- "ID"
+colnames(k6_17_04) [2] <- "k6_17_04"
+md.pattern (k6_17_04, rotate.names = TRUE)
+table (k6_17_04$'k6_17_04')
+View(k6_17_04)
+library(dplyr)
+k6_17_04 %>% 
+  summarise(n_NA   = sum(is.na(k6_17_04)),
+            pct_NA = 100 * mean(is.na(k6_17_04)))
+
+
+
+
+#5
+k6_17_05 <- select (cm_interview17,
+                              "MCSID",
+                              "GCPHWO00")
+colnames(k6_17_05) [1] <- "ID"
+colnames(k6_17_05) [2] <- "k6_17_05"
+md.pattern (k6_17_05, rotate.names = TRUE)
+table (k6_17_05$'k6_17_05')
+View(k6_17_05)
+library(dplyr)
+k6_17_05 %>% 
+  summarise(n_NA   = sum(is.na(k6_17_05)),
+            pct_NA = 100 * mean(is.na(k6_17_05)))
+
+
+
+#6
+k6_17_06 <- select (cm_interview17,
+                              "MCSID",
+                              "GCPHNE00")
+colnames(k6_17_06) [1] <- "ID"
+colnames(k6_17_06) [2] <- "k6_17_06"
+md.pattern (k6_17_06, rotate.names = TRUE)
+table (k6_17_06$'k6_17_06')
+View(k6_17_06)
+library(dplyr)
+k6_17_06 %>% 
+  summarise(n_NA   = sum(is.na(k6_17_06)),
+            pct_NA = 100 * mean(is.na(k6_17_06)))
+
+```
+
+
+
+#2. MERGE COLUMNS BY SAV FILE TYPE
+#Identifying duplications and removing duplication _____________________________________
+```{r}
+#FOR AGE 7 
+
+nrow (fam_physabuse_7) #have 23,229 rows 
+length(unique(fam_physabuse_7$ID)) #but only 13799 distinct cohort IDs
+#so 9430 IDs appear more than once 
+fam_physabuse_7 <- fam_physabuse_7 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_dv_7)
+length(unique(fam_dv_7$ID)) 
+fam_dv_7 <- fam_dv_7 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_mi_7)
+length(unique(fam_mi_7$ID))
+fam_mi_7 <- fam_mi_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_sep_7)
+length(unique(fam_sep_7$ID)) 
+fam_sep_7 <- fam_sep_7 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_smoke_7)
+length(unique(fam_smoke_7$ID)) 
+fam_smoke_7 <- fam_smoke_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_siblingbully_7)
+length(unique(fam_siblingbully_7$ID)) 
+fam_siblingbully_7 <- fam_siblingbully_7 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_warmth_7)
+length(unique(fam_warmth_7$ID))
+fam_warmth_7 <- fam_warmth_7 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_close_7)
+length(unique(fam_close_7$ID)) 
+fam_close_7 <- fam_close_7 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (peer_bully_7)
+length(unique(peer_bully_7$ID)) 
+peer_bully_7 <- peer_bully_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+
+nrow (sch_unhappy_7)
+length(unique(sch_unhappy_7$ID))
+sch_unhappy_7 <- sch_unhappy_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (peer_friend_7)
+length(unique(peer_friend_7$ID)) 
+peer_friend_7 <- peer_friend_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (sch_engage_7)
+length(unique(sch_engage_7$ID))
+sch_engage_7 <- sch_engage_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (neigh_unsafe_7)
+length(unique(neigh_unsafe_7$ID))
+neigh_unsafe_7 <- neigh_unsafe_7 %>% distinct(ID, .keep_all = TRUE)
+
+       
+nrow (neigh_poverty_7)
+length(unique(neigh_poverty_7$ID))
+neigh_poverty_7 <- neigh_poverty_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (comm_resource_7)
+length(unique(comm_resource_7$ID))
+comm_resource_7 <- comm_resource_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_anger_7)
+length(unique(ind_anger_7$ID))
+ind_anger_7 <- ind_anger_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_worry_7)
+length(unique(ind_worry_7$ID))
+ind_worry_7 <- ind_worry_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_er_7)
+length(unique(ind_er_7$ID))
+ind_er_7 <- ind_er_7 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_esteem_7)
+length(unique(ind_esteem_7$ID))
+ind_esteem_7 <- ind_esteem_7 %>% distinct(ID, .keep_all = TRUE)
+
+       
+```
+
+```{r}
+#FOR AGE 14
+
+nrow (fam_physabuse_14) 
+length(unique(fam_physabuse_14$ID)) 
+fam_physabuse_14 <- fam_physabuse_14 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_dv_14)
+length(unique(fam_dv_14$ID)) 
+fam_dv_14 <- fam_dv_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_mi_14)
+length(unique(fam_mi_14$ID)) 
+fam_mi_14 <- fam_mi_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_sep_14)
+length(unique(fam_sep_14$ID)) 
+fam_sep_14 <- fam_sep_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_smoke_14)
+length(unique(fam_smoke_14$ID)) 
+fam_smoke_14 <- fam_smoke_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_siblingbully_14)
+length(unique(fam_siblingbully_14$ID)) 
+fam_siblingbully_14 <- fam_siblingbully_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_warmth_14)
+length(unique(fam_warmth_14$ID)) 
+fam_warmth_14 <- fam_warmth_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (fam_close_14)
+length(unique(fam_close_14$ID)) 
+fam_close_14 <- fam_close_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (peer_bully_14)
+length(unique(peer_bully_14$ID)) 
+peer_bully_14 <- peer_bully_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (sch_unhappy_14)
+length(unique(sch_unhappy_14$ID)) 
+sch_unhappy_14 <- sch_unhappy_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (peer_friend_14)
+length(unique(peer_friend_14$ID)) 
+peer_friend_14 <- peer_friend_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (sch_engage_14)
+length(unique(sch_engage_14$ID))
+sch_engage_14 <- sch_engage_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (neigh_unsafe_14)
+length(unique(neigh_unsafe_14$ID))
+neigh_unsafe_14 <- neigh_unsafe_14 %>% distinct(ID, .keep_all = TRUE)
+      
+nrow (neigh_poverty_14)
+length(unique(neigh_poverty_14$ID))
+neigh_poverty_14 <- neigh_poverty_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (comm_resource_14)
+length(unique(comm_resource_14$ID))
+comm_resource_14 <- comm_resource_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (ind_anger_14)
+length(unique(ind_anger_14$ID))
+ind_anger_14 <- ind_anger_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (ind_worry_14)
+length(unique(ind_worry_14$ID))
+ind_worry_14 <- ind_worry_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (ind_er_14)
+length(unique(ind_er_14$ID))
+ind_er_14 <- ind_er_14 %>% distinct(ID, .keep_all = TRUE)
+
+nrow (ind_esteem_14)
+length(unique(ind_esteem_14$ID))
+ind_esteem_14 <- ind_esteem_14 %>% distinct(ID, .keep_all = TRUE)
+
+#1outcome variable #1
+nrow (smfq_14_01)
+length(unique(smfq_14_01$ID))
+smfq_14_01 <- smfq_14_01 %>% distinct(ID, .keep_all = TRUE)
+
+#2
+nrow (smfq_14_02)
+length(unique(smfq_14_02$ID))
+smfq_14_02 <- smfq_14_02 %>% distinct(ID, .keep_all = TRUE)
+
+#3
+nrow (smfq_14_03)
+length(unique(smfq_14_03$ID))
+smfq_14_03 <- smfq_14_03 %>% distinct(ID, .keep_all = TRUE)
+
+#4
+nrow (smfq_14_04)
+length(unique(smfq_14_04$ID))
+smfq_14_04 <- smfq_14_04 %>% distinct(ID, .keep_all = TRUE)
+
+#5
+nrow (smfq_14_05)
+length(unique(smfq_14_05$ID))
+smfq_14_05 <- smfq_14_05 %>% distinct(ID, .keep_all = TRUE)
+
+#6
+nrow (smfq_14_06)
+length(unique(smfq_14_06$ID))
+smfq_14_06 <- smfq_14_06 %>% distinct(ID, .keep_all = TRUE)
+
+#7
+nrow (smfq_14_07)
+length(unique(smfq_14_07$ID))
+smfq_14_07 <- smfq_14_07 %>% distinct(ID, .keep_all = TRUE)
+
+#8
+nrow (smfq_14_08)
+length(unique(smfq_14_08$ID))
+smfq_14_08 <- smfq_14_08 %>% distinct(ID, .keep_all = TRUE)
+
+#9
+nrow (smfq_14_09)
+length(unique(smfq_14_09$ID))
+smfq_14_09 <- smfq_14_09 %>% distinct(ID, .keep_all = TRUE)
+
+#10
+nrow (smfq_14_10)
+length(unique(smfq_14_10$ID))
+smfq_14_10 <- smfq_14_10 %>% distinct(ID, .keep_all = TRUE)
+
+#11
+nrow (smfq_14_11)
+length(unique(smfq_14_11$ID))
+smfq_14_11 <- smfq_14_11 %>% distinct(ID, .keep_all = TRUE)
+
+#12
+nrow (smfq_14_12)
+length(unique(smfq_14_12$ID))
+smfq_14_12 <- smfq_14_12 %>% distinct(ID, .keep_all = TRUE)
+
+#13
+nrow (smfq_14_13)
+length(unique(smfq_14_13$ID))
+smfq_14_13 <- smfq_14_13 %>% distinct(ID, .keep_all = TRUE)
+```
+
+
+```{r}
+#FOR AGE 17
+
+nrow (fam_mi_17)
+length(unique(fam_mi_17$ID)) 
+fam_mi_17 <- fam_mi_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_sep_17)
+length(unique(fam_sep_17$ID)) 
+fam_sep_17 <- fam_sep_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_smoke_17)
+length(unique(fam_smoke_17$ID))
+fam_smoke_17 <- fam_smoke_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_warmth_17)
+length(unique(fam_warmth_17$ID)) 
+fam_warmth_17 <- fam_warmth_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (fam_close_17)
+length(unique(fam_close_17$ID)) 
+fam_close_17 <- fam_close_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (peer_bully_17)
+length(unique(peer_bully_17$ID)) 
+peer_bully_17 <- peer_bully_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (peer_friend_17)
+length(unique(peer_friend_17$ID)) 
+peer_friend_17 <- peer_friend_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (sch_engage_17)
+length(unique(sch_engage_17$ID))
+sch_engage_17 <- sch_engage_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (neigh_unsafe_17)
+length(unique(neigh_unsafe_17$ID))
+neigh_unsafe_17 <- neigh_unsafe_17 %>% distinct(ID, .keep_all = TRUE)
+
+       
+nrow (neigh_poverty_17)
+length(unique(neigh_poverty_17$ID))
+neigh_poverty_17 <- neigh_poverty_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (comm_resource_17)
+length(unique(comm_resource_17$ID))
+comm_resource_17 <- comm_resource_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_anger_17)
+length(unique(ind_anger_17$ID))
+ind_anger_17 <- ind_anger_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_worry_17)
+length(unique(ind_worry_17$ID))
+ind_worry_17 <- ind_worry_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_er_17)
+length(unique(ind_er_17$ID))
+ind_er_17 <- ind_er_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+nrow (ind_esteem_17)
+length(unique(ind_esteem_17$ID))
+ind_esteem_17 <- ind_esteem_17 %>% distinct(ID, .keep_all = TRUE)
+
+
+#1 outcome variable 
+nrow (k6_17_01)
+length(unique(k6_17_01$ID))
+k6_17_01 <- k6_17_01 %>% distinct(ID, .keep_all = TRUE)
+
+#2
+nrow (k6_17_02)
+length(unique(k6_17_02$ID))
+k6_17_02 <- k6_17_02 %>% distinct(ID, .keep_all = TRUE)
+
+#3
+nrow (k6_17_03)
+length(unique(k6_17_03$ID))
+k6_17_03 <- k6_17_03 %>% distinct(ID, .keep_all = TRUE)
+
+#4
+nrow (k6_17_04)
+length(unique(k6_17_04$ID))
+k6_17_04 <- k6_17_04 %>% distinct(ID, .keep_all = TRUE)
+
+
+#5
+nrow (k6_17_05)
+length(unique(k6_17_05$ID))
+k6_17_05 <- k6_17_05 %>% distinct(ID, .keep_all = TRUE)
+
+
+#6
+nrow (k6_17_06)
+length(unique(k6_17_06$ID))
+k6_17_06 <- k6_17_06 %>% distinct(ID, .keep_all = TRUE)
+
+```
+
+
+#Merging files in same files together by MCSID____________________________________________________________
+```{r}
+#AGE 7 
+library(dplyr)
+library(purrr)
+
+#1. merge variables in each respective files 
+#parent_cm_interivew7
+data_tables_parent_cm_interview7 <- list (fam_physabuse_7, fam_warmth_7, fam_close_7, ind_er_7, ind_esteem_7)
+combined_parent_cm_interview7 <- reduce(data_tables_parent_cm_interview7, left_join, by = "ID")
+#parent_interview7
+data_tables_parent_interview7 <- list (fam_dv_7,fam_mi_7,fam_sep_7,  fam_smoke_7,neigh_poverty_7)
+combined_parent_interview7 <- reduce (data_tables_parent_interview7, left_join, by = "ID")
+#cm_interview7
+data_tables_cm_interview7 <- list ( fam_siblingbully_7, peer_bully_7, sch_unhappy_7, peer_friend_7, sch_engage_7, neigh_unsafe_7, comm_resource_7, ind_anger_7, ind_worry_7)
+combined_cm_interview7 <- reduce (data_tables_cm_interview7, left_join, by = "ID")
+
+
+
+
+#2. merge all together
+#comparing id's between datasets 
+ids_parent_cm_interview7 <- unique(combined_parent_cm_interview7$ID)
+ids_parent_interview7    <- unique(combined_parent_interview7$ID)
+ids_cm_interview7    <- unique(combined_cm_interview7$ID)
+
+#simple counts per source
+lengths_7 <- tibble(
+  source = c("parent_cm", "parent", "cm"),
+  n_ID   = c(length(ids_parent_cm_interview7),
+             length(ids_parent_interview7),
+             length(ids_cm_interview7)))
+
+print(lengths_7)
+
+#intersection count
+n_all7 <- length(Reduce(intersect,
+                        list(ids_parent_cm_interview7,
+                             ids_parent_interview7,
+                             ids_cm_interview7)))
+n_all7   
+
+#full join
+final_dataset7 <- reduce(
+  list(combined_parent_cm_interview7,
+       combined_parent_interview7,
+       combined_cm_interview7),
+  full_join,
+  by = "ID"
+)
+
+
+
+#3. Double checking for duplication after merging 
+num_unique_ids7 <- length(unique(final_dataset7$ID))
+num_rows7 <- nrow(final_dataset7)
+num_unique_ids7 == num_rows7
+
+View(final_dataset7)
+```
+
+```{r}
+#AGE 14
+library(dplyr)
+library(purrr)
+
+#parent_cm_interivew14
+data_tables_parent_cm_interview14 <- list (neigh_poverty_14, ind_anger_14, ind_worry_14)
+combined_parent_cm_interview14 <-  reduce(data_tables_parent_cm_interview14, left_join, by = "ID")
+View (combined_cm_interview14)
+
+#parent_interivew14
+data_tables_parent_interview14 <- list (fam_dv_14, fam_mi_14, fam_sep_14, fam_smoke_14)
+combined_parent_interview14 <- reduce(data_tables_parent_interview14, left_join, by = "ID")
+
+#cm_interview14
+data_tables_cm_interview14 <- list(fam_physabuse_14, fam_siblingbully_14, fam_warmth_14, fam_close_14, peer_bully_14, sch_unhappy_14, peer_friend_14, sch_engage_14, neigh_unsafe_14, comm_resource_14, ind_er_14, ind_esteem_14,smfq_14_01, smfq_14_02, smfq_14_03, smfq_14_04, smfq_14_05, smfq_14_06, smfq_14_07, smfq_14_08, smfq_14_09, smfq_14_10, smfq_14_11, smfq_14_12, smfq_14_13)
+combined_cm_interview14 <- reduce (data_tables_cm_interview14, left_join, by = "ID")
+
+
+ #2. merge all together
+#comparing id's between datasets 
+ids_parent_cm_interview14 <- unique(combined_parent_cm_interview14$ID)
+ids_parent_interview14    <- unique(combined_parent_interview14$ID)
+ids_cm_interview14    <- unique(combined_cm_interview14$ID)
+
+#simple counts per source
+lengths_7 <- tibble(
+  source = c("parent_cm", "parent", "cm"),
+  n_ID   = c(length(ids_parent_cm_interview14),
+             length(ids_parent_interview14),
+             length(ids_cm_interview14)))
+
+print(lengths_7)
+
+#intersection count
+n_all14 <- length(Reduce(intersect,
+                        list(ids_parent_cm_interview14,
+                             ids_parent_interview14,
+                             ids_cm_interview14)))
+n_all14  
+
+#full join
+final_dataset14 <- reduce(
+  list(
+    combined_parent_cm_interview14,
+    combined_parent_interview14,
+    combined_cm_interview14
+  ),
+  full_join,
+  by = "ID"
+)
+
+#3. Double checking for duplication after merging 
+num_unique_ids14 <- length(unique(final_dataset14$ID))
+num_rows14 <- nrow(final_dataset14)
+num_unique_ids14 == num_rows14
+
+
+View(final_dataset14)
+
+
+```
+
+
+
+```{r}
+#AGE 17
+
+library(dplyr)
+library(purrr)
+
+#parent_cm_interview17
+data_tables_parent_cm_interview17 <- list (ind_anger_17)
+combined_parent_cm_interview17 <- reduce (data_tables_parent_cm_interview17, left_join, by = "ID")
+
+#parent_interview17
+data_tables_parent_interview17 <- list (fam_mi_17, fam_sep_17, fam_smoke_17, neigh_poverty_17)
+combined_parent_interview17 <- reduce (data_tables_parent_interview17, left_join, by = "ID")
+
+#cm_interview14
+data_tables_cm_interview17 <- list (fam_warmth_17, fam_close_17, peer_bully_17, peer_friend_17, sch_engage_17, neigh_unsafe_17, ind_worry_17, ind_er_17, ind_esteem_17, comm_resource_17, k6_17_01, k6_17_02, k6_17_03, k6_17_04, k6_17_05, k6_17_06)
+combined_cm_interview17 <- reduce (data_tables_cm_interview17, left_join, by = "ID")
+
+ #2. merge all together
+#comparing id's between datasets 
+ids_parent_cm_interview17 <- unique(combined_parent_cm_interview17$ID)
+ids_parent_interview17   <- unique(combined_parent_interview17$ID)
+ids_cm_interview17 <- unique(combined_cm_interview17$ID)
+
+#simple counts per source
+lengths_17 <- tibble(
+  source = c("parent_cm", "parent", "cm"),
+  n_ID   = c(length(ids_parent_cm_interview17),
+             length(ids_parent_interview17),
+             length(ids_cm_interview17)))
+
+print(lengths_7)
+
+#intersection count
+n_all17 <- length(Reduce(intersect,
+                        list(ids_parent_cm_interview17,
+                             ids_parent_interview17,
+                             ids_cm_interview17)))
+n_all17
+
+#full join
+final_dataset17 <- reduce(
+  list(
+    combined_parent_cm_interview17,
+    combined_parent_interview17,
+    combined_cm_interview17
+  ),
+  full_join,
+  by = "ID"
+)
+
+#3. Double checking for duplication after merging 
+num_unique_ids17 <- length(unique(final_dataset17$ID))
+num_rows17 <- nrow(final_dataset17)
+num_unique_ids17 == num_rows17
+
+View(final_dataset17)
+
+
+```
+
+
+
+
+
+
+#Clean/Reverse/Z-score_________________________________________________________________________________
+
+```{r}
+#AGE 7 - code checking
+
+library(dplyr)
+
+#var 1
+var1_7 <- final_dataset7$fam_physabuse_7
+attr(var1_7, "label") #look at the SPSS metadata the full question text 
+attr(var1_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var1_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var1_7), v, sort = TRUE)
+
+#var 2
+var2_7 <- final_dataset7$fam_dv_7
+attr(var2_7, "label") #look at the SPSS metadata the full question text 
+attr(var2_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var2_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var2_7), v, sort = TRUE)
+
+#var 3
+var3_7 <- final_dataset7$fam_mi_7
+attr(var3_7, "label") #look at the SPSS metadata the full question text 
+attr(var3_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var3_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var3_7), v, sort = TRUE)
+
+#var 4
+var4_7 <- final_dataset7$fam_sep_7
+attr(var4_7, "label") #look at the SPSS metadata the full question text 
+attr(var4_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var4_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var4_7), v, sort = TRUE)
+
+#var 5
+var5_7 <- final_dataset7$fam_smoke_7
+attr(var5_7, "label") #look at the SPSS metadata the full question text 
+attr(var5_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var5_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var5_7), v, sort = TRUE)
+
+
+#var 6
+var6_7 <- final_dataset7$fam_siblingbully_7
+attr(var6_7, "label") #look at the SPSS metadata the full question text 
+attr(var6_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var6_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var6_7), v, sort = TRUE)
+
+#var 7
+var7_7 <- final_dataset7$fam_warmth_7
+attr(var7_7, "label") #look at the SPSS metadata the full question text 
+attr(var7_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var7_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var7_7), v, sort = TRUE)
+
+#var 8
+var8_7 <- final_dataset7$fam_close_7
+attr(var8_7, "label") #look at the SPSS metadata the full question text 
+attr(var8_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var8_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var8_7), v, sort = TRUE)
+
+#var 9
+var9_7 <- final_dataset7$peer_bully_7
+attr(var9_7, "label") #look at the SPSS metadata the full question text 
+attr(var9_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var9_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var9_7), v, sort = TRUE)
+
+#var 10 
+var10_7 <- final_dataset7$sch_unhappy_7
+attr(var10_7, "label") #look at the SPSS metadata the full question text 
+attr(var10_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var10_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var10_7), v, sort = TRUE)
+
+#var 11
+var11_7 <- final_dataset7$peer_friend_7
+attr(var11_7, "label") #look at the SPSS metadata the full question text 
+attr(var11_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var11_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var11_7), v, sort = TRUE)
+
+#var 12
+var12_7 <- final_dataset7$sch_engage_7
+attr(var12_7, "label") #look at the SPSS metadata the full question text 
+attr(var12_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var12_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var12_7), v, sort = TRUE)
+
+
+#var 13
+var13_7 <- final_dataset7$neigh_unsafe_7
+attr(var13_7, "label") #look at the SPSS metadata the full question text 
+attr(var13_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var13_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var13_7), v, sort = TRUE)
+
+#var 14
+var14_7 <- final_dataset7$neigh_poverty_7
+attr(var14_7, "label") #look at the SPSS metadata the full question text 
+attr(var14_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var14_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var14_7), v, sort = TRUE)
+
+#var 15
+var15_7 <- final_dataset7$comm_resource_7
+attr(var15_7, "label") #look at the SPSS metadata the full question text 
+attr(var15_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var15_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var15_7), v, sort = TRUE)
+
+#var 16
+var16_7 <- final_dataset7$ind_anger_7
+attr(var16_7, "label") #look at the SPSS metadata the full question text 
+attr(var16_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var16_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var16_7), v, sort = TRUE)
+
+#var 17
+var17_7 <- final_dataset7$ind_worry_7
+attr(var17_7, "label") #look at the SPSS metadata the full question text 
+attr(var17_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var17_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var17_7), v, sort = TRUE)
+
+#var 18
+var18_7 <- final_dataset7$ind_er_7
+attr(var18_7, "label") #look at the SPSS metadata the full question text 
+attr(var18_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var18_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var18_7), v, sort = TRUE)
+
+#var 19
+var19_7 <- final_dataset7$ind_esteem_7
+attr(var19_7, "label") #look at the SPSS metadata the full question text 
+attr(var19_7, "labels") #look at the SPSS metdata value-label mapping 
+#table(var19_7, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var19_7), v, sort = TRUE)
+
+```
+
+
+```{r}
+#AGE 7 
+library(dplyr)
+
+final_dataset7 <- final_dataset7 %>% 
+  mutate(
+    ## ── family risk ───────────────────────────────
+    fam_physabuse_7   = case_when(
+      fam_physabuse_7 %in% c(-9, -8, -1) ~ NA_real_,
+      fam_physabuse_7 == 1               ~ 1,
+      fam_physabuse_7 == 2               ~ 0,
+      TRUE                               ~ NA_real_
+    ),
+    fam_dv_7          = case_when(
+      fam_dv_7 %in% c(-9, -8, -1, 3) ~ NA_real_,
+      fam_dv_7 == 1                  ~ 1,
+      fam_dv_7 == 2                  ~ 0,
+      TRUE                           ~ NA_real_
+    ),
+    fam_mi_7          = case_when(
+      fam_mi_7 %in% c(-9, -8, -1) ~ NA_real_,
+      fam_mi_7 == 1               ~ 1,
+      fam_mi_7 == 2               ~ 0,
+      TRUE                        ~ NA_real_
+    ),
+    fam_sep_7         = case_when(
+      fam_sep_7 %in% c(-9, -8, -1) ~ NA_real_,
+      fam_sep_7 %in% c(1, 4, 5, 6) ~ 1,
+      fam_sep_7 %in% c(2, 3)       ~ 0,
+      TRUE                         ~ NA_real_
+    ),
+    fam_smoke_7       = case_when(
+      fam_smoke_7 %in% c(-9, -8, -1) ~ NA_real_,
+      fam_smoke_7 == 1               ~ 0,
+      fam_smoke_7 %in% c(2, 3, 4, 5, 6, 95) ~ 1,
+      TRUE                               ~ NA_real_
+    ),
+    fam_siblingbully_7 = case_when(
+      fam_siblingbully_7 %in% c(-9, -1, 4) ~ NA_real_,
+      fam_siblingbully_7 == 3              ~ 1,
+      fam_siblingbully_7 %in% c(1, 2)      ~ 0,
+      TRUE                                 ~ NA_real_
+    ),
+    ## ── family protection ────────────────────────
+    fam_warmth_7      = case_when(
+      fam_warmth_7 %in% c(-9, -8, -1) ~ NA_real_,
+      fam_warmth_7 %in% c(4, 5)       ~ 1,
+      fam_warmth_7 %in% c(1, 2, 3)    ~ 0,
+      TRUE                            ~ NA_real_
+    ),
+    fam_close_7       = case_when(
+      fam_close_7 %in% c(-9, -8, -1) ~ NA_real_,
+      fam_close_7 %in% c(4, 5)       ~ 1,
+      fam_close_7 %in% c(1, 2, 3)    ~ 0,
+      TRUE                           ~ NA_real_
+    ),
+    ## ── peer / school risk ───────────────────────
+    peer_bully_7      = case_when(
+      peer_bully_7 %in% c(-9, -1) ~ NA_real_,
+      peer_bully_7 %in% c(1, 2)   ~ 1,
+      peer_bully_7 == 3           ~ 0,
+      TRUE                        ~ NA_real_
+    ),
+    sch_unhappy_7     = case_when(
+      sch_unhappy_7 %in% c(-9, -1) ~ NA_real_,
+      sch_unhappy_7 == 3           ~ 1,
+      sch_unhappy_7 %in% c(1, 2)   ~ 0,
+      TRUE                         ~ NA_real_
+    ),
+    ## ── peer / school protection ────────────────
+    peer_friend_7     = case_when(
+      peer_friend_7 %in% c(-9, -1) ~ NA_real_,
+      peer_friend_7 == 1           ~ 1,
+      peer_friend_7 == 2           ~ 0,
+      TRUE                         ~ NA_real_
+    ),
+    sch_engage_7      = case_when(
+      sch_engage_7 %in% c(-9, -1) ~ NA_real_,
+      sch_engage_7 %in% c(1, 2)   ~ 1,
+      sch_engage_7 == 3           ~ 0,
+      TRUE                        ~ NA_real_
+    ),
+    ## ── neighbourhood risk / protection ────────
+    neigh_unsafe_7    = case_when(
+      neigh_unsafe_7 %in% c(-9, -1) ~ NA_real_,
+      neigh_unsafe_7 %in% c(2, 3)   ~ 1,
+      neigh_unsafe_7 == 1           ~ 0,
+      TRUE                          ~ NA_real_
+    ),
+    neigh_poverty_7   = case_when(
+      neigh_poverty_7 %in% c(-9, -8, -1) ~ NA_real_,
+      neigh_poverty_7 == 1               ~ 1,
+      neigh_poverty_7 == 2               ~ 0,
+      TRUE                               ~ NA_real_
+    ),
+    comm_resource_7   = case_when(
+      comm_resource_7 %in% c(-9, -1) ~ NA_real_,
+      comm_resource_7 %in% c(1, 2)   ~ 1,
+      comm_resource_7 == 3           ~ 0,
+      TRUE                           ~ NA_real_
+    ),
+    ## ── individual risk / protection ───────────
+    ind_anger_7       = case_when(
+      ind_anger_7 %in% c(-9, -1) ~ NA_real_,
+      ind_anger_7 %in% c(1, 2)   ~ 1,
+      ind_anger_7 == 3           ~ 0,
+      TRUE                       ~ NA_real_
+    ),
+    ind_worry_7       = case_when(
+      ind_worry_7 %in% c(-9, -1) ~ NA_real_,
+      ind_worry_7 %in% c(1, 2)   ~ 1,
+      ind_worry_7 == 3           ~ 0,
+      TRUE                       ~ NA_real_
+    ),
+    ind_er_7          = case_when(
+      ind_er_7 %in% c(-9, -8, -1, 4) ~ NA_real_,
+      ind_er_7 == 1                  ~ 0,
+      ind_er_7 %in% c(2, 3)          ~ 1,
+      TRUE                           ~ NA_real_
+    ),
+    ind_esteem_7      = case_when(
+      ind_esteem_7 %in% c(-9, -8, -1, 4) ~ NA_real_,
+      ind_esteem_7 == 1                  ~ 0,
+      ind_esteem_7 %in% c(2, 3)          ~ 1,
+      TRUE                               ~ NA_real_
+    )
+  )
+
+```
+
+
+
+
+```{r}
+#AGE 14- checking for code 
+
+#var 1
+var1_14 <- final_dataset14$fam_physabuse_14
+attr(var1_14, "label") #look at the SPSS metadata the full question text 
+attr(var1_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var1_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var1_14), v, sort = TRUE)
+
+#var 2
+var2_14 <- final_dataset14$fam_dv_14
+attr(var2_14, "label") #look at the SPSS metadata the full question text 
+attr(var2_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var2_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var2_14), v, sort = TRUE)
+
+#var 3
+var3_14 <- final_dataset14$fam_mi_14
+attr(var3_14, "label") #look at the SPSS metadata the full question text 
+attr(var3_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var3_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var3_14), v, sort = TRUE)
+
+#var 4
+var4_14 <- final_dataset14$fam_sep_14
+attr(var4_14, "label") #look at the SPSS metadata the full question text 
+attr(var4_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var4_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var4_14), v, sort = TRUE)
+
+#var 5
+var5_14 <- final_dataset14$fam_smoke_14
+attr(var5_14, "label") #look at the SPSS metadata the full question text 
+attr(var5_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var5_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var5_14), v, sort = TRUE)
+
+
+#var 6
+var6_14 <- final_dataset14$fam_siblingbully_14
+attr(var6_14, "label") #look at the SPSS metadata the full question text 
+attr(var6_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var6_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var6_14), v, sort = TRUE)
+
+#var 7
+var7_14 <- final_dataset14$fam_warmth_14
+attr(var7_14, "label") #look at the SPSS metadata the full question text 
+attr(var7_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var7_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var7_14), v, sort = TRUE)
+
+#var 8
+var8_14 <- final_dataset14$fam_close_14
+attr(var8_14, "label") #look at the SPSS metadata the full question text 
+attr(var8_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var8_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var8_14), v, sort = TRUE)
+
+#var 9
+var9_14 <- final_dataset14$peer_bully_14
+attr(var9_14, "label") #look at the SPSS metadata the full question text 
+attr(var9_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var9_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var9_14), v, sort = TRUE)
+
+#var 10 
+var10_14 <- final_dataset14$sch_unhappy_14
+attr(var10_14, "label") #look at the SPSS metadata the full question text 
+attr(var10_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var10_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var10_14), v, sort = TRUE)
+
+#var 11
+var11_14 <- final_dataset14$peer_friend_14
+attr(var11_14, "label") #look at the SPSS metadata the full question text 
+attr(var11_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var11_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var11_14), v, sort = TRUE)
+
+#var 12
+var12_14 <- final_dataset14$sch_engage_14
+attr(var12_14, "label") #look at the SPSS metadata the full question text 
+attr(var12_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var12_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var12_14), v, sort = TRUE)
+
+
+#var 13
+var13_14 <- final_dataset14$neigh_unsafe_14
+attr(var13_14, "label") #look at the SPSS metadata the full question text 
+attr(var13_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var13_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var13_14), v, sort = TRUE)
+
+#var 14
+var14_14 <- final_dataset14$neigh_poverty_14
+attr(var14_14, "label") #look at the SPSS metadata the full question text 
+attr(var14_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var14_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var14_14), v, sort = TRUE)
+
+#var 15
+var15_14 <- final_dataset14$comm_resource_14
+attr(var15_14, "label") #look at the SPSS metadata the full question text 
+attr(var15_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var15_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var15_14), v, sort = TRUE)
+
+#var 16
+var16_14 <- final_dataset14$ind_anger_14
+attr(var16_14, "label") #look at the SPSS metadata the full question text 
+attr(var16_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var16_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var16_14), v, sort = TRUE)
+
+#var 17
+var17_14 <- final_dataset14$ind_worry_14
+attr(var17_14, "label") #look at the SPSS metadata the full question text 
+attr(var17_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var17_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var17_14), v, sort = TRUE)
+
+#var 18
+var18_14 <- final_dataset14$ind_er_14
+attr(var18_14, "label") #look at the SPSS metadata the full question text 
+attr(var18_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var18_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var18_14), v, sort = TRUE)
+
+#var 19
+var19_14 <- final_dataset14$ind_esteem_14
+attr(var19_14, "label") #look at the SPSS metadata the full question text 
+attr(var19_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var19_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var19_14), v, sort = TRUE)
+
+
+```
+
+
+```{r}
+#AGE 14
+final_dataset14 <- final_dataset14 %>% 
+  mutate(
+    fam_physabuse_14 = case_when(
+      fam_physabuse_14 %in% c(-9, -8, -1) ~ NA_real_,  # Don’t-want, DK, N/A = NA
+      fam_physabuse_14 == 1               ~ 1,         # Yes=risk present
+      fam_physabuse_14 == 2               ~ 0,         # No=risk absent
+      TRUE                                ~ NA_real_   # catch the unexpected codes
+    ), 
+    fam_dv_14 = case_when(
+      fam_dv_14 %in% c(-1, 3) ~ NA_real_,   # NA or Don’t want = NA
+      fam_dv_14 == 1          ~ 1,          # Yes=risk present
+      fam_dv_14 == 2          ~ 0,          # No=risk absent
+      TRUE                    ~ NA_real_    # catch any unexpected code
+    ),
+    fam_mi_14 = case_when(
+      fam_mi_14 %in% c(-1, 3) ~ NA_real_,  # NA or Don’t-wish= NA
+      fam_mi_14 == 1          ~ 1,         # Yes=risk present
+      fam_mi_14 == 2          ~ 0,         # No=risk absent
+      TRUE                    ~ NA_real_   # catch unexpected codes
+    ), 
+    fam_sep_14 = case_when(
+      fam_sep_14 %in% c(-8, -1)            ~ NA_real_,   # DK / N-app
+      fam_sep_14 %in% c(2, 3, 7)           ~ 0,          # intact union=no risk
+      fam_sep_14 %in% c(1, 4, 5, 6, 8, 9)  ~ 1,          # separated / single / widowed / former CP
+      TRUE                                 ~ NA_real_    # catch unexpected
+    ), 
+    fam_smoke_14 = case_when(
+      fam_smoke_14 %in% c(-9, -8, -1) ~ NA_real_,   # Refused / DK / N-app= NA
+      fam_smoke_14 == 1               ~ 1,          # Yes =risk present
+      fam_smoke_14 %in% c(0, 2)       ~ 0,          # No   (coded 0 or 2) =no risk
+      TRUE                            ~ NA_real_    # catch any unexpected value
+    ), 
+    fam_siblingbully_14 = case_when(
+      fam_siblingbully_14 %in% c(-9, -8, -1, 7) ~ NA_real_,   # specials / no siblings
+      fam_siblingbully_14 %in% c(1, 2, 3, 4, 5) ~ 1,          # any recurrent bullying=risk
+      fam_siblingbully_14 == 6                  ~ 0,          # Never= no risk
+      TRUE                                      ~ NA_real_    # catch unexpected
+    ), 
+    fam_warmth_14 = case_when(
+      fam_warmth_14 %in% c(-9, -8, -1) ~ NA_real_,   # specials= NA
+      fam_warmth_14 %in% c(1, 2)       ~ 1,          # Very / Partly true=protection
+      fam_warmth_14 == 3               ~ 0,          # Not true at all=no protection
+      TRUE                             ~ NA_real_    # catch unexpected code
+    ), 
+    fam_close_14 = case_when(
+      fam_close_14 %in% c(-9, -8, -1, 5) ~ NA_real_,  # specials & no-mother =NA
+      fam_close_14 %in% c(3, 4)          ~ 1,         # Very / Extremely close=protection
+      fam_close_14 %in% c(1, 2)          ~ 0,         # Fairly / Not very close= no protection
+      TRUE                               ~ NA_real_   # catch unexpected
+    ), 
+    peer_bully_14 = case_when(
+      peer_bully_14 %in% c(-9, -8, -1) ~ NA_real_,     # Don’t-want / DK / N-app=NA
+      peer_bully_14 %in% c(1, 2, 3, 4, 5) ~ 1,         # Any recurring bullying=risk present
+      peer_bully_14 == 6                 ~ 0,         # Never =no risk
+      TRUE                               ~ NA_real_    # catch unexpected codes
+    ), 
+    sch_unhappy_14 = case_when(
+      sch_unhappy_14 %in% c(-9, -8, -1) ~ NA_real_,   # Don’t-want / DK / N-app=NA
+      sch_unhappy_14 %in% c(1, 2, 3)    ~ 1,          # All / Most / Some of the time= risk present
+      sch_unhappy_14 == 4               ~ 0,          # Never unhappy=no risk
+      TRUE                              ~ NA_real_    # catch unexpected codes
+    ),
+    peer_friend_14 = case_when(
+      peer_friend_14 %in% c(-9, -8, -1) ~ NA_real_,   # Don’t-want / DK / N-app= NA
+      peer_friend_14 == 1               ~ 1,          # Yes=protection present
+      peer_friend_14 == 2               ~ 0,          # No= protection absent
+      TRUE                              ~ NA_real_    # catch unexpected codes
+    ), 
+    sch_engage_14 = case_when(
+      sch_engage_14 %in% c(-9, -8, -1) ~ NA_real_,   # Don’t-want / DK / N-app =NA
+      sch_engage_14 %in% c(1, 2, 3)    ~ 1,          # All / Most / Some of the time= protection
+      sch_engage_14 == 4               ~ 0,          # Never tries best= no protection
+      TRUE                             ~ NA_real_    # catch unexpected codes
+    ), 
+    neigh_unsafe_14 = case_when(
+      neigh_unsafe_14 %in% c(-9, -8, -1) ~ NA_real_,  # Don’t-want / DK / N-app=NA
+      neigh_unsafe_14 == 1               ~ 1,         # Yes= risk present
+      neigh_unsafe_14 == 2               ~ 0,         # No=no risk
+      TRUE                               ~ NA_real_   # catch unexpected codes
+    ),
+    neigh_poverty_14 = case_when(
+      neigh_poverty_14 %in% c(-9, -8, -1) ~ NA_real_,   # Refused / DK / N-app=NA
+      neigh_poverty_14 == 1               ~ 1,          # Yes=economic-hardship risk
+      neigh_poverty_14 == 0               ~ 0,          # No=no hardship flag
+      TRUE                                ~ NA_real_    # catch unexpected codes
+    ), 
+    comm_resource_14 = case_when(
+      comm_resource_14 %in% c(-9, -8, -1) ~ NA_real_,   # specials=NA
+      comm_resource_14 %in% c(1, 2, 3, 4) ~ 1,          # regular / occasional participation
+      comm_resource_14 %in% c(5, 6)       ~ 0,          # very infrequent / never
+      TRUE                                ~ NA_real_    # catch unexpected codes
+    ), 
+    ind_anger_14 = case_when(
+      ind_anger_14 %in% c(-9, -1) ~ NA_real_,   # Not answered / N-applicable=NA
+      ind_anger_14 %in% c(2, 3)   ~ 1,          # Somewhat or Certainly true =risk present
+      ind_anger_14 == 1           ~ 0,          # Not true=no risk
+      TRUE                        ~ NA_real_    # catch unexpected codes
+    ), 
+    ind_worry_14 = case_when(
+      ind_worry_14 %in% c(-9, -1) ~ NA_real_,   # Not answered / Not applicable=NA
+      ind_worry_14 %in% c(2, 3)   ~ 1,          # Somewhat true / Certainly true =risk present
+      ind_worry_14 == 1           ~ 0,          # Not true= no risk
+      TRUE                        ~ NA_real_    # catch any unexpected codes
+    ), 
+    ind_er_14 = case_when(
+      ind_er_14 %in% c(-9, -8, -1) ~ NA_real_,          # specials=NA
+      ind_er_14 == 0               ~ 0,                 # Never patient=  no protection
+      ind_er_14 >= 1 & ind_er_14 <= 10 ~ 1,             # Any patience (1–10)= protection present
+      TRUE                           ~ NA_real_         # catch unexpected codes
+    ),
+    ind_esteem_14 = case_when(
+      ind_esteem_14 %in% c(-9, -8, -1) ~ NA_real_,   # Don’t-want / DK / N-app =NA
+      ind_esteem_14 %in% c(1, 2)       ~ 1,          # Strongly agree / Agree =protection present
+      ind_esteem_14 %in% c(3, 4)       ~ 0,          # Disagree / Strongly disagree =no protection
+      TRUE                             ~ NA_real_    # catch unexpected codes
+    )
+  )
+    
+  
+```
+
+
+```{r}
+#age 14- checking code for y variables
+
+
+#outcome variable 1
+var20_14 <- final_dataset14$smfq_14_01
+attr(var20_14, "label") #look at the SPSS metadata the full question text 
+attr(var20_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var20_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var20_14), v, sort = TRUE)
+
+
+#2
+var21_14 <- final_dataset14$smfq_14_02
+attr(var21_14, "label") #look at the SPSS metadata the full question text 
+attr(var21_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var21_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var21_14), v, sort = TRUE)
+
+#3
+var22_14 <- final_dataset14$smfq_14_03
+attr(var22_14, "label") #look at the SPSS metadata the full question text 
+attr(var22_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var22_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var22_14), v, sort = TRUE)
+
+#4
+var23_14 <- final_dataset14$smfq_14_04
+attr(var23_14, "label") #look at the SPSS metadata the full question text 
+attr(var23_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var23_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var23_14), v, sort = TRUE)
+
+#5
+var24_14 <- final_dataset14$smfq_14_05
+attr(var24_14, "label") #look at the SPSS metadata the full question text 
+attr(var24_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var24_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var24_14), v, sort = TRUE)
+
+#6
+var25_14 <- final_dataset14$smfq_14_06
+attr(var25_14, "label") #look at the SPSS metadata the full question text 
+attr(var25_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var25_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var25_14), v, sort = TRUE)
+
+#7
+var26_14 <- final_dataset14$smfq_14_07
+attr(var26_14, "label") #look at the SPSS metadata the full question text 
+attr(var26_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var26_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var26_14), v, sort = TRUE)
+
+#8
+var27_14 <- final_dataset14$smfq_14_08
+attr(var27_14, "label") #look at the SPSS metadata the full question text 
+attr(var27_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var27_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var27_14), v, sort = TRUE)
+
+#9
+var28_14 <- final_dataset14$smfq_14_09
+attr(var28_14, "label") #look at the SPSS metadata the full question text 
+attr(var28_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var28_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var28_14), v, sort = TRUE)
+
+#10
+var29_14 <- final_dataset14$smfq_14_10
+attr(var29_14, "label") #look at the SPSS metadata the full question text 
+attr(var29_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var29_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var29_14), v, sort = TRUE)
+
+#11
+var30_14 <- final_dataset14$smfq_14_11
+attr(var30_14, "label") #look at the SPSS metadata the full question text 
+attr(var30_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var30_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var30_14), v, sort = TRUE)
+
+#12
+var31_14 <- final_dataset14$smfq_14_12
+attr(var31_14, "label") #look at the SPSS metadata the full question text 
+attr(var31_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var31_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var31_14), v, sort = TRUE)
+
+#13
+var32_14 <- final_dataset14$smfq_14_13
+attr(var32_14, "label") #look at the SPSS metadata the full question text 
+attr(var32_14, "labels") #look at the SPSS metdata value-label mapping 
+table(var32_14, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var32_14), v, sort = TRUE)
+```
+
+
+
+```{r}
+#Age 14- for y variables
+
+smfq_items_14 <- sprintf("smfq_14_%02d", 1:13)   
+
+final_dataset14 <- final_dataset14 %>% 
+  mutate(across(
+    .cols = all_of(smfq_items_14),
+    .fns  = ~ case_when(
+               .x %in% c(-9, -8, -1) ~ NA_real_,   # specials --> NA
+               .x %in% 1:3           ~ (.x - 1),   # 1-->0, 2-->1, 3-->2
+               TRUE                  ~ NA_real_
+             )
+  ))
+
+#check
+smfq_items_14 <- sprintf("smfq_14_%02d", 1:13)
+# logical check: Does any item still contain a 3 (or anything >2)?
+has_bad_codes <- sapply(
+  final_dataset14[smfq_items_14],
+  function(x) any(!is.na(x) & x > 2)
+)
+print(has_bad_codes) 
+
+```
+
+
+
+
+
+
+```{r}
+#AGE 17- checking for code 
+
+#var 1
+var1_17 <- final_dataset17$fam_mi_17
+attr(var1_17, "label") #look at the SPSS metadata the full question text 
+attr(var1_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var1_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var1_17), v, sort = TRUE)
+
+#var 2
+var2_17 <- final_dataset17$fam_sep_17
+attr(var2_17, "label") #look at the SPSS metadata the full question text 
+attr(var2_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var2_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var2_17), v, sort = TRUE)
+
+#var 3
+var3_17 <- final_dataset17$fam_smoke_17
+attr(var3_17, "label") #look at the SPSS metadata the full question text 
+attr(var3_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var3_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var3_17), v, sort = TRUE)
+
+#var 4
+var4_17 <- final_dataset17$fam_warmth_17
+attr(var4_17, "label") #look at the SPSS metadata the full question text 
+attr(var4_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var4_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var4_17), v, sort = TRUE)
+
+#var 5
+var5_17 <- final_dataset17$fam_close_17
+attr(var5_17, "label") #look at the SPSS metadata the full question text 
+attr(var5_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var5_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var5_17), v, sort = TRUE)
+
+
+#var 6
+var6_17 <- final_dataset17$peer_bully_17
+attr(var6_17, "label") #look at the SPSS metadata the full question text 
+attr(var6_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var6_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var6_17), v, sort = TRUE)
+
+#var 7
+var7_17 <- final_dataset17$peer_friend_17
+attr(var7_17, "label") #look at the SPSS metadata the full question text 
+attr(var7_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var7_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var7_17), v, sort = TRUE)
+
+#var 8
+var8_17 <- final_dataset17$sch_engage_17
+attr(var8_17, "label") #look at the SPSS metadata the full question text 
+attr(var8_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var8_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var8_17), v, sort = TRUE)
+
+#var 9
+var9_17 <- final_dataset17$neigh_unsafe_17
+attr(var9_17, "label") #look at the SPSS metadata the full question text 
+attr(var9_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var9_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var9_17), v, sort = TRUE)
+
+#var 10 
+var10_17 <- final_dataset17$neigh_poverty_17
+attr(var10_17, "label") #look at the SPSS metadata the full question text 
+attr(var10_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var10_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var10_17), v, sort = TRUE)
+
+#var 11
+var11_17 <- final_dataset17$comm_resource_17
+attr(var11_17, "label") #look at the SPSS metadata the full question text 
+attr(var11_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var11_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var11_17), v, sort = TRUE)
+
+#var 12
+var12_17 <- final_dataset17$ind_anger_17
+attr(var12_17, "label") #look at the SPSS metadata the full question text 
+attr(var12_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var12_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var12_17), v, sort = TRUE)
+
+
+#var 13
+var13_17 <- final_dataset17$ind_worry_17
+attr(var13_17, "label") #look at the SPSS metadata the full question text 
+attr(var13_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var13_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var13_17), v, sort = TRUE)
+
+#var 14
+var14_17 <- final_dataset17$ind_er_17
+attr(var14_17, "label") #look at the SPSS metadata the full question text 
+attr(var14_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var14_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var14_17), v, sort = TRUE)
+
+#var 15
+var15_17 <- final_dataset17$ind_esteem_17
+attr(var15_17, "label") #look at the SPSS metadata the full question text 
+attr(var15_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var15_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var15_17), v, sort = TRUE)
+
+
+
+
+```
+
+
+```{r}
+#AGE 17
+final_dataset17 <- final_dataset17 %>% 
+
+  ## ────────────────────── parental mental-illness ──────────────────────
+  mutate(
+    fam_mi_17 = case_when(
+      fam_mi_17 %in% c(3, 4, 5) ~ NA_real_,
+      fam_mi_17 == 1            ~ 1,
+      fam_mi_17 == 2            ~ 0,
+      TRUE                      ~ NA_real_
+    )
+  ) %>%                                                     
+
+  ## ────────────────────── parental separation ─────────────────────────
+  mutate(
+    fam_sep_17 = case_when(
+      fam_sep_17 %in% c(10, 11, 12)       ~ NA_real_,
+      fam_sep_17 %in% c(2, 3, 7)          ~ 0,
+      fam_sep_17 %in% c(1, 4, 5, 6, 8, 9) ~ 1,
+      TRUE                                ~ NA_real_
+    )
+  ) %>% 
+
+  ## ────────────────────── household vaping / smoking ──────────────────
+  mutate(
+    fam_smoke_17 = case_when(
+      fam_smoke_17 %in% c(1, 2, 3, 4) ~ 1,
+      fam_smoke_17 == 5               ~ 0,
+      fam_smoke_17 %in% c(6, 7, 8)    ~ NA_real_,
+      TRUE                            ~ NA_real_
+    )
+  ) %>% 
+
+  ## ────────────────────── family warmth & closeness ───────────────────
+  mutate(
+    fam_warmth_17 = case_when(
+      fam_warmth_17 %in% c(1, 2, 3) ~ 1,
+      fam_warmth_17 %in% c(4, 5, 6) ~ 0,
+      fam_warmth_17 %in% c(7, 8, 9) ~ NA_real_,
+      TRUE                          ~ NA_real_
+    ),
+    fam_close_17  = case_when(
+      fam_close_17 %in% c(3, 4)     ~ 1,
+      fam_close_17 %in% c(1, 2)     ~ 0,
+      fam_close_17 %in% c(5, 6, 7)  ~ NA_real_,
+      TRUE                          ~ NA_real_
+    )
+  ) %>% 
+
+  ## ────────────────────── peer / school nodes ─────────────────────────
+  mutate(
+    peer_bully_17  = case_when(
+      peer_bully_17 %in% c(-9, -3, -1) ~ NA_real_,
+      peer_bully_17 %in% c(2, 3)       ~ 1,
+      peer_bully_17 == 1               ~ 0,
+      TRUE                             ~ NA_real_
+    ),
+    peer_friend_17 = case_when(
+      peer_friend_17 %in% c(-9, -3, -1) ~ NA_real_,
+      peer_friend_17 %in% c(2, 3)       ~ 1,
+      peer_friend_17 == 1               ~ 0,
+      TRUE                              ~ NA_real_
+    ),
+    sch_engage_17 = case_when(
+      sch_engage_17 == 1            ~ 1,
+      sch_engage_17 == 2            ~ 0,
+      sch_engage_17 %in% c(3, 4, 5) ~ NA_real_,
+      TRUE                          ~ NA_real_
+    )
+  ) %>% 
+
+  ## ────────────────────── neighbourhood nodes ─────────────────────────
+  mutate(
+    neigh_unsafe_17 = case_when(
+      neigh_unsafe_17 == 1            ~ 1,
+      neigh_unsafe_17 == 2            ~ 0,
+      neigh_unsafe_17 %in% c(3, 4, 5) ~ NA_real_,
+      TRUE                            ~ NA_real_
+    ),
+    neigh_poverty_17 = case_when(
+      neigh_poverty_17 == 1            ~ 1,
+      neigh_poverty_17 == 2            ~ 0,
+      neigh_poverty_17 %in% c(3, 4, 5) ~ NA_real_,
+      TRUE                             ~ NA_real_
+    ),
+    comm_resource_17 = case_when(
+      comm_resource_17 %in% c(1, 2, 3, 4) ~ 1,
+      comm_resource_17 %in% c(5, 6)       ~ 0,
+      comm_resource_17 %in% c(7, 8, 9)    ~ NA_real_,
+      TRUE                                ~ NA_real_
+    )
+  ) %>% 
+
+  ## ────────────────────── individual nodes ────────────────────────────
+  mutate(
+    ind_anger_17 = case_when(
+      ind_anger_17 %in% c(-1, 4) ~ NA_real_,
+      ind_anger_17 %in% c(2, 3)  ~ 1,
+      ind_anger_17 == 1          ~ 0,
+      TRUE                       ~ NA_real_
+    ),
+    ind_worry_17 = case_when(
+      ind_worry_17 %in% c(-9, -3, -1) ~ NA_real_,
+      ind_worry_17 %in% c(2, 3)       ~ 1,
+      ind_worry_17 == 1               ~ 0,
+      TRUE                            ~ NA_real_
+    ),
+    ind_er_17 = case_when(
+      ind_er_17 %in% c(-9, -3, -1) ~ NA_real_,
+      ind_er_17 %in% c(2, 3)       ~ 1,
+      ind_er_17 == 1               ~ 0,
+      TRUE                         ~ NA_real_
+    ),
+    ind_esteem_17 = case_when(
+      ind_esteem_17 %in% c(1, 2)      ~ 1,
+      ind_esteem_17 %in% c(3, 4)      ~ 0,
+      ind_esteem_17 %in% c(5, 6, 7)   ~ NA_real_,
+      TRUE                            ~ NA_real_
+    )
+  )
+
+```
+
+
+
+```{r}
+#Age 17- checkingcode
+
+#1
+var16_17 <- final_dataset17$k6_17_01
+attr(var16_17, "label") #look at the SPSS metadata the full question text 
+attr(var16_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var16_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var16_17), v, sort = TRUE)
+
+#2
+var17_17 <- final_dataset17$k6_17_02
+attr(var17_17, "label") #look at the SPSS metadata the full question text 
+attr(var17_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var17_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var17_17), v, sort = TRUE)
+
+#3
+var18_17 <- final_dataset17$k6_17_03
+attr(var18_17, "label") #look at the SPSS metadata the full question text 
+attr(var18_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var18_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var18_17), v, sort = TRUE)
+
+#4
+var19_17 <- final_dataset17$k6_17_04
+attr(var19_17, "label") #look at the SPSS metadata the full question text 
+attr(var19_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var19_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var19_17), v, sort = TRUE)
+
+
+#5
+var20_17 <- final_dataset17$k6_17_05
+attr(var20_17, "label") #look at the SPSS metadata the full question text 
+attr(var20_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var20_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var20_17), v, sort = TRUE)
+
+
+#6
+var21_17 <- final_dataset17$k6_17_06
+attr(var21_17, "label") #look at the SPSS metadata the full question text 
+attr(var21_17, "labels") #look at the SPSS metdata value-label mapping 
+table(var21_17, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = var21_17), v, sort = TRUE)
+
+
+```
+
+
+```{r}
+#Age 17- code
+
+
+k6_items_17 <- c(
+  "k6_17_01", "k6_17_02", "k6_17_03",
+  "k6_17_04", "k6_17_05", "k6_17_06"
+)
+
+# recode in place
+final_dataset17 <- final_dataset17 %>% 
+  mutate(across(
+    .cols  = all_of(k6_items_17),
+    .fns   = ~ case_when(
+                .x %in% c(6, 7, 8) ~ NA_real_,      # DK / refuse / blank → NA
+                .x %in% 1:5        ~ (5 - .x),      # 1→4, 2→3, 3→2, 4→1, 5→0
+                TRUE               ~ NA_real_       # catch anything else
+              ),
+    .names = "{.col}"                               # overwrite the same columns
+  ))
+
+#quick check
+table(final_dataset17$k6_17_03, useNA = "ifany")
+```
+
+
+
+
+
+#check for erroneous variables_______________________________________________________________________________
+```{r}
+library(tibble)
+
+# bad value checker
+check_errors_simple <- function(df) {
+  bad_list <- vector("list", length = 0)
+
+  for (colname in setdiff(names(df), "ID")) {
+    x <- df[[colname]]
+    u <- unique(na.omit(x))
+
+    # Decide which values are allowed based on column name patterns
+    if (grepl("^smfq_14_", colname)) {
+      allowed <- 0:2
+    } else if (grepl("^k6_17_", colname)) {
+      allowed <- 0:4
+    } else {
+      allowed <- 0:1
+    }
+
+    # Find bad codes outside the allowed set
+    bad <- setdiff(u, allowed)
+    if (length(bad) > 0) {
+      bad_list[[colname]] <- sort(bad)
+    }
+  }
+
+  if (length(bad_list) == 0) {
+    message("No errors found in ", deparse(substitute(df)))
+    return(tibble(variable = character(), bad_values = list()))
+  }
+
+  #Return a tibble of variable and convert in bad_values
+  bad_df <- enframe(bad_list, name = "variable", value = "bad_values")
+  message("✗ Found errors in ", deparse(substitute(df)), ":")
+  return(bad_df)
+}
+
+err7  <- check_errors_simple(final_dataset7)
+err14 <- check_errors_simple(final_dataset14)
+err17 <- check_errors_simple(final_dataset17)
+```
+
+
+
+
+
+
+
+#missing values __________________________________________________________________
+```{r}
+#missingness diagnosis for age 7, 14, 17
+round(100 * colMeans(is.na(final_dataset7)), 1)
+round(100 * colMeans(is.na(final_dataset14)), 1)
+round(100 * colMeans(is.na(final_dataset17)), 1)
+
+
+#flag for higher than 10
+library(dplyr)
+library(tibble)
+flag_high_na <- function(df, thresh = 10, id_col = "ID") {
+  pct <- 100 * colMeans(is.na(df))
+  tibble(variable     = names(pct),
+         pct_missing  = round(pct, 1)) %>%         
+    filter(variable != id_col,                     
+           pct_missing > thresh) %>%              
+    arrange(desc(pct_missing))                     
+}
+#run for each wave 
+high7  <- flag_high_na(final_dataset7,  thresh = 10)
+high14 <- flag_high_na(final_dataset14, thresh = 10)
+high17 <- flag_high_na(final_dataset17, thresh = 10)
+#print out for each wave 
+high7
+high14
+high17
+
+```
+
+#missing values imputation __________________________________________________________________
+
+#age 7
+```{r}
+#Age 7
+library(mice)
+library(dplyr)
+#drop the ID column
+dat7_clean <- final_dataset7 %>%
+  select(-ID) %>%      # everything except the ID
+  as.data.frame()      
+
+
+#initialize mice() for default methods and predictor matrix
+ini7        <- mice(dat7_clean, maxit = 0, printFlag = FALSE) #mice examies each columnt's type. all binary nodes become logistic regression, ordered bcoe proprotion ordds, continous becomes predictive-mean matching
+meth7       <- ini7$method
+predMat7    <- ini7$predictorMatrix
+
+#run multiple imputation (m-20 is the recomended)
+set.seed(2025)
+imp7 <- mice(
+  dat7_clean,
+  m               = 20,        # create 20 imputed datasets
+  method          = meth7,     # default methods from ini7
+  predictorMatrix = predMat7)  # default predictor matrix)
+  
+#check trace plots
+plot(imp7, y = "fam_mi_7")   
+plot(imp7, y = "fam_dv_7")   
+
+
+```
+
+#age 14
+```{r}
+library(mice)
+library(dplyr)
+
+dat14_clean <- final_dataset14 %>%
+  select(-ID) %>%      # everything except the ID
+  as.data.frame()      # mice wants a plain data.frame
+
+#Age 14
+ini14       <- mice(dat14_clean, maxit = 0, printFlag = FALSE) #mice examies each columnt's type. all binary nodes become logistic regression, ordered bcoe proprotion ordds, continous becomes predictive-mean matching
+meth14       <- ini14$method
+predMat14    <- ini14$predictorMatrix
+
+#run multiple imputation (m-20 is the recomended)
+set.seed(2025)
+imp14 <- mice(
+  dat14_clean,
+  m               = 20,        # create 20 imputed datasets
+  method          = meth14,     # default methods from ini7
+  predictorMatrix = predMat14)  # default predictor matrix)
+  
+#check trace plots
+plot(imp14, y = "fam_mi_14")   
+plot(imp14, y = "fam_dv_14")   
+
+
+```
+
+#age 17
+```{r}
+library(mice)
+library(dplyr)
+
+dat17_clean <- final_dataset17 %>%
+  select(-ID) %>%      # everything except the ID
+  as.data.frame()      # mice wants a plain data.frame
+
+#Age 17
+#initialize mice()
+ini17       <- mice(dat17_clean, maxit = 0, printFlag = FALSE) #mice examies each columnt's type. all binary nodes become logistic regression, ordered bcoe proprotion ordds, continous becomes predictive-mean matching
+meth17       <- ini17$method
+predMat17    <- ini17$predictorMatrix
+
+#run multiple imputation (m-20 is the recomended)
+set.seed(2025)
+imp17 <- mice(
+  dat17_clean,
+  m               = 20,        # create 20 imputed datasets
+  method          = meth17,     # default methods from ini7
+  predictorMatrix = predMat17)  # default predictor matrix)
+  
+#check trace plots
+plot(imp17, y = "ind_anger_17")   
+
+View(imp7)
+```
+
+#sum SMFQ/K-6 (13/6) to have a row sum before imputation _____________________________________________________________________________
+#standardize that row_sum___________________________________________________________________________________________
+
+```{r}
+
+#this code chunk, creates z-score totals and drop items
+
+library(mice)
+library(dplyr)
+
+#Wave 14:  SMFQ total == smfq_14_total_z, drop SMFQ items 
+
+# 1List of SMFQ item column‐names:
+smfq_items_14 <- paste0("smfq_14_", sprintf("%02d", 1:13))
+
+# 2.  Helper to add a row‐sum:
+add_smfq_total <- function(df) {
+  df$smfq_14_total <- rowSums(df[ , smfq_items_14], na.rm = TRUE)
+  return(df)
+}
+
+# 3 Extract all 20 “completed” data.frames:
+completed14_list <- complete(imp14, action = "all")
+
+# 4 Add the total to each:
+completed14_with_total <- lapply(completed14_list, add_smfq_total)
+
+# 5Standardize that total:
+add_smfq_z <- function(df) {
+  df$smfq_14_total_z <- as.numeric(scale(df$smfq_14_total))
+  return(df)
+}
+completed14_with_z <- lapply(completed14_with_total, add_smfq_z)
+
+# 6.  Choose exactly which columns to keep (all original binaries + smfq_14_total_z):
+keep14 <- c(
+  "fam_physabuse_14", "fam_dv_14", "fam_mi_14", "fam_sep_14", "fam_smoke_14",
+  "fam_siblingbully_14", "fam_warmth_14", "fam_close_14",
+  "peer_bully_14", "sch_unhappy_14", "peer_friend_14", "sch_engage_14",
+  "neigh_unsafe_14", "neigh_poverty_14", "comm_resource_14",
+  "ind_anger_14", "ind_worry_14", "ind_er_14", "ind_esteem_14",
+  "smfq_14_total_z"
+)
+
+# 7.  Subset each data.frame down to just those columns:
+final14_list <- lapply(completed14_with_z, function(df) {
+  df %>% select(all_of(keep14))
+})
+
+View(final14_list)
+
+# Wave 17:  K-6 total == k6_17_total_z, drop K-6 items 
+
+# 1.List of K-6 item column‐names:
+k6_items_17 <- paste0("k6_17_0", 1:6)
+
+# 2.  Helper to add a row‐sum:
+add_k6_total <- function(df) {
+  df$k6_17_total <- rowSums(df[ , k6_items_17], na.rm = TRUE)
+  return(df)
+}
+
+# 3Extract all 20 “completed” data.frames:
+completed17_list <- complete(imp17, action = "all")
+
+# 4.  Add the total to each:
+completed17_with_total <- lapply(completed17_list, add_k6_total)
+
+# 5.  Standardize that total:
+add_k6_z <- function(df) {
+  df$k6_17_total_z <- as.numeric(scale(df$k6_17_total))
+  return(df)
+}
+completed17_with_z <- lapply(completed17_with_total, add_k6_z)
+
+# 6.  Choose exactly which columns to keep (all original binaries + k6_17_total_z):
+keep17 <- c(
+  "fam_mi_17", "fam_sep_17", "fam_smoke_17",
+  "fam_warmth_17", "fam_close_17",
+  "peer_bully_17", "peer_friend_17", "sch_engage_17",
+  "neigh_unsafe_17", "neigh_poverty_17",
+  "comm_resource_17", "ind_anger_17", "ind_worry_17", 
+  "ind_er_17", "ind_esteem_17",
+  "k6_17_total_z"
+)
+
+# 7.  Subset each data.frame down to just those columns:
+final17_list <- lapply(completed17_with_z, function(df) {
+  df %>% select(all_of(keep17))
+})
+
+# Output
+#final14_list: a list of 20 data.frames (each with all wave-14 binaries + smfq_14_total_z).
+#final17_list: a list of 20 data.frames (each with all wave-17 binaries + k6_17_total_z).
+#(final17_list) #kept the z-score- (list of 20 completed data.frames for wave 14)
+#(final14_list) #kept the z-score- (list of 20 completed data.frames for wave 17)
+#imp 7: (a mice object for wave 7)
+
+
+```
+
+
+
+#________________________________________________________________________________________________________________
+#Research question 1: community detection on each wave
+
+#without brakces of belonging of adv/ protect
+
+```{r}
+
+# install.packages(c("mice","qgraph","glasso","EGAnet","dplyr"))
+library(mice)       # for complete()
+library(qgraph)     # for EBICglasso() & plotting
+library(glasso)     # backend for EBICglasso
+library(EGAnet)     # for EGA()
+library(dplyr)      # for setdiff()
+
+
+#Fisher‐Z pooling helper
+
+pool_fz <- function(rlist) {
+  z_list <- lapply(rlist, atanh)
+  mean_z <- Reduce(`+`, z_list) / length(z_list)
+  tanh(mean_z)
+}
+
+
+#Wrapper to run EGA on a correlation matrix, with sample size
+
+run_EGA <- function(pooled_cor, n, gamma = 0.5) {
+  EGA(
+    data       = pooled_cor,
+    n          = n,
+    model      = "glasso",
+    corMethod  = "pearson",
+    gamma      = gamma,
+    plot.EGA   = FALSE,
+    algorithm  = "walktrap"
+  )
+}
+
+#Print community memberships neatly
+
+print_communities <- function(ega_obj, wave) {
+  memb <- ega_obj$wc
+  labs <- sort(na.omit(unique(memb)))
+  cat("\n── Wave", wave, "→", length(labs), "communities ──\n")
+  for (k in labs) {
+    members <- names(memb)[memb == k]
+    cat("Community", k, "→", paste(members, collapse = ", "), "\n")
+  }
+  if (any(is.na(memb))) {
+    unconn <- names(memb)[is.na(memb)]
+    cat("Unconnected nodes (dropped):", paste(unconn, collapse = ", "), "\n")
+  }
+}
+
+
+# WAVE 7: all adversity + protection nodes
+comp7_list <- mice::complete(imp7, action = "all")
+r7_list    <- lapply(comp7_list, function(df) cor(df, use = "pairwise.complete.obs"))
+pooled7    <- pool_fz(r7_list)
+
+# drop any all‐zero rows/cols
+keep7   <- names(which(rowSums(abs(pooled7)) > 0))
+pooled7 <- pooled7[keep7, keep7]
+
+n7   <- nrow(comp7_list[[1]])
+ega7 <- run_EGA(pooled7, n = n7, gamma = 0.5)
+print_communities(ega7, 7)
+
+
+# WAVE 14: drop SMFQ total before pooling
+r14_list <- lapply(final14_list, function(df) {
+  df2 <- df %>% select(-smfq_14_total_z)
+  cor(df2, use = "pairwise.complete.obs")
+})
+pooled14 <- pool_fz(r14_list)
+
+keep14   <- names(which(rowSums(abs(pooled14)) > 0))
+pooled14 <- pooled14[keep14, keep14]
+
+n14   <- nrow(final14_list[[1]])
+ega14 <- run_EGA(pooled14, n = n14, gamma = 0.5)
+print_communities(ega14, 14)
+
+
+# WAVE 17: drop K-6 total before pooling
+
+r17_list <- lapply(final17_list, function(df) {
+  df2 <- df %>% select(-k6_17_total_z)
+  cor(df2, use = "pairwise.complete.obs")
+})
+pooled17 <- pool_fz(r17_list)
+
+keep17   <- names(which(rowSums(abs(pooled17)) > 0))
+pooled17 <- pooled17[keep17, keep17]
+
+n17   <- nrow(final17_list[[1]])
+ega17 <- run_EGA(pooled17, n = n17, gamma = 0.5)
+print_communities(ega17, 17)
+
+```
+
+
+#validating walktrap
+```{r}
+library(igraph)      
+
+validate_communities <- function(ega_obj, wave) {
+  # 1. Extract the weighted adjacency matrix directly
+  W <- ega_obj$network
+  
+  # 2. Build an unweighted igraph by thresholding at zero
+  g <- graph_from_adjacency_matrix(W != 0, mode = "undirected", diag = FALSE)
+  
+  # 3. Compute three clusterings
+  wt_comm <- cluster_walktrap(g, steps = 4)$membership
+  lv_comm <- cluster_louvain(g)$membership
+  im_comm <- cluster_infomap(g)$membership
+  
+  # 4. Adjusted Rand Index comparisons 
+  ari_wt_lv <- compare(wt_comm, lv_comm, method = "adjusted.rand")
+  ari_wt_im <- compare(wt_comm, im_comm, method = "adjusted.rand")
+  ari_lv_im <- compare(lv_comm, im_comm, method = "adjusted.rand")
+  
+  # 5. Modularity for each
+  mod_wt <- modularity(g, wt_comm)
+  mod_lv <- modularity(g, lv_comm)
+  mod_im <- modularity(g, im_comm)
+  
+  # 6. Report
+  cat(sprintf("\n--- Wave %d Community Validation ---\n", wave))
+  cat(sprintf("Walktrap vs. Louvain  ARI = %.3f\n", ari_wt_lv))
+  cat(sprintf("Walktrap vs. Infomap  ARI = %.3f\n", ari_wt_im))
+  cat(sprintf("Louvain vs. Infomap  ARI = %.3f\n", ari_lv_im))
+  cat(sprintf("Modularity: Walktrap = %.3f; Louvain = %.3f; Infomap = %.3f\n\n",
+              mod_wt, mod_lv, mod_im))
+}
+
+# then after each EGA run:
+validate_communities(ega7, 7)
+validate_communities(ega14, 14)
+validate_communities(ega17, 17)
+```
+
+
+
+
+
+
+#updated print of community membership (adv/ protect) - with NA without NA
+```{r}
+
+# 3) Print community memberships, annotating each variable
+
+adv7  <- c("fam_physabuse_7","fam_dv_7","fam_mi_7","fam_sep_7","fam_smoke_7",
+           "fam_siblingbully_7","peer_bully_7","sch_unhappy_7",
+           "neigh_unsafe_7","neigh_poverty_7","ind_anger_7","ind_worry_7")
+prot7 <- c("fam_warmth_7","fam_close_7","peer_friend_7","sch_engage_7",
+           "comm_resource_7","ind_er_7","ind_esteem_7")
+
+adv14  <- c("fam_physabuse_14","fam_dv_14","fam_mi_14","fam_sep_14","fam_smoke_14",
+            "fam_siblingbully_14","peer_bully_14","sch_unhappy_14",
+            "neigh_unsafe_14","neigh_poverty_14","ind_anger_14","ind_worry_14")
+prot14 <- c("fam_warmth_14","fam_close_14","peer_friend_14","sch_engage_14",
+            "comm_resource_14","ind_er_14","ind_esteem_14")
+
+adv17  <- c("fam_mi_17","fam_sep_17","fam_smoke_17",
+            "peer_bully_17","neigh_unsafe_17","ind_anger_17","ind_worry_17","neigh_poverty_17")
+prot17 <- c("fam_warmth_17","fam_close_17","peer_friend_17","sch_engage_17", "ind_er_17", "ind_esteem_17", "comm_resource_17")
+
+print_communities <- function(ega_obj, wave, adv, prot) {
+  memb <- ega_obj$wc
+  coms <- sort(na.omit(unique(memb)))
+  cat("\n── Wave", wave, "→", length(coms), "communities ──\n")
+  
+  # helper to annotate one name
+  annotate_item <- function(item) {
+    if (item %in% adv) {
+      paste0(item, " (adversity)")
+    } else if (item %in% prot) {
+      paste0(item, " (protective)")
+    } else {
+      item
+    }
+  }
+  
+  for (k in coms) {
+    members       <- names(memb)[memb == k]
+    annotated_mem <- vapply(members, annotate_item, FUN.VALUE = "")
+    cat("Community", k, "→", paste(annotated_mem, collapse = ", "), "\n")
+  }
+  
+  if (any(is.na(memb))) {
+    unconn        <- names(memb)[is.na(memb)]
+    annotated_unc <- vapply(unconn, annotate_item, FUN.VALUE = "")
+    cat("Unconnected nodes (dropped):", paste(annotated_unc, collapse = ", "), "\n")
+  }
+}
+
+
+# After running EGAs, call with adv/prot lists
+print_communities(ega7,  7, adv7,  prot7)
+print_communities(ega14, 14, adv14, prot14)
+print_communities(ega17, 17, adv17, prot17)
+
+
+
+
+
+
+
+
+
+
+#takes away NA
+print_communities <- function(ega_obj, wave, adv, prot) {
+  memb <- ega_obj$wc
+  
+  # only keep the non‐NA community assignments
+  assigned <- memb[!is.na(memb)]
+  coms     <- sort(unique(assigned))
+  
+  cat("\n── Wave", wave, "→", length(coms), "communities ──\n")
+  
+  annotate_item <- function(item) {
+    if (item %in% adv) {
+      paste0(item, " (adversity)")
+    } else if (item %in% prot) {
+      paste0(item, " (protective)")
+    } else {
+      item
+    }
+  }
+  
+  for (k in coms) {
+    # only names whose membership == k, and drop any NA‐positions
+    members       <- names(assigned)[assigned == k]
+    annotated_mem <- vapply(members, annotate_item, FUN.VALUE = "")
+    cat("Community", k, "→", paste(annotated_mem, collapse = ", "), "\n")
+  }
+  
+  #report any truly unconnected 
+  unconn <- names(memb)[is.na(memb)]
+  if (length(unconn)) {
+    annotated_unc <- vapply(unconn, annotate_item, FUN.VALUE = "")
+    cat("Unconnected nodes (dropped):", paste(annotated_unc, collapse = ", "), "\n")
+  }
+}
+
+#call it exactly as before:
+print_communities(ega7,  7, adv7,  prot7)
+print_communities(ega14, 14, adv14, prot14)
+print_communities(ega17, 17, adv17, prot17)
+
+
+```
+
+#table
+```{r}
+library(dplyr)
+library(purrr)
+library(tidyr)
+library(knitr)
+
+community_summary <- function(ega_obj, wave) {
+  # 1) membership (drop any NA / unconnected)
+  memb     <- ega_obj$wc
+  assigned <- memb[!is.na(memb)]
+  coms     <- sort(unique(assigned))
+  
+  # 2) denominator for %‐variance (sum of all positive eigenvalues)
+  full_ev  <- eigen(ega_obj$network, symmetric = TRUE)$values
+  denom    <- sum(full_ev[full_ev > 0])
+  
+  # 3) assemble one row per community
+  tibble(
+    wave      = wave,
+    community = coms,
+    members   = map(coms, ~ names(assigned)[assigned == .x]),
+    n_items   = lengths(members),
+    # collapse *all* items
+    all_items = map_chr(members, ~ paste(.x, collapse = ", ")),
+    # compute % variance explained by that community
+    var_raw   = map_dbl(members, function(ids) {
+      subm <- ega_obj$network[ids, ids]
+      ev   <- eigen(subm, symmetric = TRUE)$values
+      sum(ev[ev > 0])
+    }),
+    var_pct   = round(100 * var_raw / denom, 1)
+  ) %>%
+  select(wave, community, n_items, all_items, var_pct)
+}
+
+# apply
+tab7  <- community_summary(ega7,  "7")
+tab14 <- community_summary(ega14, "14")
+tab17 <- community_summary(ega17, "17")
+
+final_table <- bind_rows(tab7, tab14, tab17)
+
+#  render as a kable
+knitr::kable(
+  final_table,
+  caption = "Community structure by wave: cluster size, all member items, and % variance explained."
+)
+
+png("community_summary.png", width = 3000, height = 3000, res = 150)
+gridExtra::grid.table(final_table)
+```
+
+
+#visuals
+
+```{r}
+#identifying any unconnected ________________________________________________________________________
+
+# Wave 7: drop nodes with NA community
+keep7   <- names(ega7$wc)[!is.na(ega7$wc)]
+pooled7_sub <- pooled7[keep7, keep7]
+n7_sub <- length(keep7)
+ega7_sub <- run_EGA(pooled7_sub, n = n7, gamma = 0.5)
+
+# Wave 14: drop NA community nodes
+keep14   <- names(ega14$wc)[!is.na(ega14$wc)]
+pooled14_sub <- pooled14[keep14, keep14]
+n14_sub <- length(keep14)
+ega14_sub <- run_EGA(pooled14_sub, n = n14, gamma = 0.5)
+
+# Wave 17: drop NA community nodes
+keep17   <- names(ega17$wc)[!is.na(ega17$wc)]
+pooled17_sub <- pooled17[keep17, keep17]
+n17_sub <- length(keep17)
+ega17_sub <- run_EGA(pooled17_sub, n = n17, gamma = 0.5)
+
+
+#plot the actual plots ________________________________________________________________________
+# Wave 7
+plot(ega7_sub,
+     plot.EGA    = "GGally",
+     qgraph.args = list(layout = "spring", vsize = 2),
+     title       = "Wave 7 EGA (no unconnected nodes)")
+
+# Wave 14
+
+plot(ega14_sub,
+     plot.EGA    = "GGally",
+     qgraph.args = list(layout = "spring", vsize = 2),
+     title       = "Wave 14 EGA (no unconnected nodes)")
+
+# Wave 17
+plot(ega17_sub,
+     plot.EGA    = "GGally",
+     qgraph.args = list(layout = "spring", vsize = 2),
+     title       = "Wave 17 EGA (no unconnected nodes)")
+
+
+
+#circle (1.color= belonging of community/ cluster 2. size= do not strictly need it but bigger nodes are more connected overall)
+#lines (1. thickness= stronger partial correlation 2. color= green positive (A tends to co-occur with higher adversity B))
+#layout: spring layout
+
+
+
+
+
+# Wave-7 network ---------------------------------------------------------------
+png("wave7_EGA_compact.png", width = 3000, height = 3000, res = 300)
+plot(
+  ega7_sub,
+  plot.EGA    = "GGally",
+  title       = "Wave 7 EGA",
+  qgraph.args = list(
+    layout     = "spring",
+    vsize      = 2.6,      
+    label.cex  = 0.55,    
+    edge.width = 1.2      
+  )
+)
+
+# Wave-14 network --------------------------------------------------------------
+png("wave14_EGA_compact.png", width = 3000, height = 3000, res = 300)
+plot(
+  ega14_sub,
+  plot.EGA    = "GGally",
+  title       = "Wave 14 EGA",
+  qgraph.args = list(
+    layout     = "spring",
+    vsize      = 2.6,
+    label.cex  = 0.55,
+    edge.width = 1.2
+  )
+)
+
+# Wave-17 network --------------------------------------------------------------
+png("wave17_EGA_compact.png", width = 3000, height = 3000, res = 300)
+plot(
+  ega17_sub,
+  plot.EGA    = "GGally",
+  title       = "Wave 17 EGA",
+  qgraph.args = list(
+    layout     = "spring",
+    vsize      = 2.6,
+    label.cex  = 0.55,
+    edge.width = 1.2
+  )
+)
+
+
+
+
+```
+
+
+```{r}
+# Helper: density + top‐n edges for an EGA object
+library(dplyr)
+library(networktools)
+
+get_network_summary <- function(ega_sub, wave, top_n = 5) {
+  # 1) pull out the weight matrix
+  W <- getWmat(ega_sub$network)
+  diag(W) <- 0            # zero out self‐edges
+  
+  # 2) compute density
+  n_nodes        <- ncol(W)
+  possible_edges <- choose(n_nodes, 2)
+  actual_edges   <- sum(W[upper.tri(W)] != 0)
+  density        <- actual_edges / possible_edges
+  
+  # 3) extract & sort positive edges
+  eds <- which(W > 0, arr.ind = TRUE)
+  df_eds <- tibble(
+    node1 = rownames(W)[eds[,1]],
+    node2 = colnames(W)[eds[,2]],
+    beta  = W[eds]
+  ) %>%
+    filter(node1 < node2) %>%   
+    arrange(desc(beta))
+  
+  top_edges <- df_eds %>% slice_head(n = top_n)
+  
+  # 4) print & save
+  cat(sprintf("\n--- Wave %d network summary ---\n", wave))
+  cat(sprintf("Nodes: %d   Edges: %d/%d   Density = %.3f\n",
+              n_nodes, actual_edges, possible_edges, density))
+  cat(sprintf("Top %d positive partial correlations:\n", top_n))
+  print(top_edges)
+  
+  write.csv(top_edges,
+            sprintf("wave%d_top%d_edges.csv", wave, top_n),
+            row.names = FALSE)
+  
+  invisible(list(density = density, top_edges = top_edges))
+}
+
+#call for each wave
+sum7  <- get_network_summary(ega7_sub,  7, top_n = 5)
+sum14 <- get_network_summary(ega14_sub, 14, top_n = 5)
+sum17 <- get_network_summary(ega17_sub, 17, top_n = 5)
+```
+
+
+```{r}
+library(networktools)
+
+# Wave 7
+W7     <- getWmat(ega7_sub$network)
+p7     <- ncol(W7)
+e7     <- sum(abs(W7[upper.tri(W7)]) > 0)
+dens7  <- e7 / (p7 * (p7 - 1) / 2)
+cat(sprintf("Wave 7 → %d nonzero edges; density = %.3f\n", e7, dens7))
+
+# Wave 14
+W14    <- getWmat(ega14_sub$network)
+p14    <- ncol(W14)
+e14    <- sum(abs(W14[upper.tri(W14)]) > 0)
+dens14 <- e14 / (p14 * (p14 - 1) / 2)
+cat(sprintf("Wave 14 → %d nonzero edges; density = %.3f\n", e14, dens14))
+
+# Wave 17
+W17    <- getWmat(ega17_sub$network)
+p17    <- ncol(W17)
+e17    <- sum(abs(W17[upper.tri(W17)]) > 0)
+dens17 <- e17 / (p17 * (p17 - 1) / 2)
+cat(sprintf("Wave 17 → %d nonzero edges; density = %.3f\n", e17, dens17))
+```
+
+
+#tests- bootstrapped EGA
+
+```{r}
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
+set.seed(2025)
+
+if ("package:MASS" %in% loadedNamespaces()) {
+  detach("package:MASS", unload = TRUE)
+}
+
+B     <- 200    # number of bootstrap draws
+gamma <- 0.5    # same tuning as original
+
+bootstrap_case_EGA <- function(raw_df, keep, ega_orig, wave) {
+  # raw_df:  data.frame with only the keep‐columns
+  # keep:    character vector of node names to include
+  # ega_orig: original EGA object on that submatrix
+  
+  n_sub    <- length(keep)
+  orig_com <- ega_orig$wc[keep]
+  
+  same_comm <- matrix(FALSE, nrow = B, ncol = n_sub, dimnames = list(NULL, keep))
+  
+  for (b in seq_len(B)) {
+    samp <- raw_df[sample(nrow(raw_df), replace = TRUE), , drop = FALSE]
+    
+    Cb <- cor(samp, use = "pairwise.complete.obs")
+    nz <- which(colSums(abs(Cb)) > 0)
+    Cb <- Cb[nz, nz]
+    kb <- colnames(Cb)
+    
+    ega_b <- EGA(
+      data       = Cb,
+      n          = nrow(samp),
+      model      = "glasso",
+      corMethod  = "pearson",
+      gamma      = gamma,
+      plot.EGA   = FALSE,
+      algorithm  = "walktrap"
+    )
+    
+    matched      <- rep(NA, n_sub)
+    names(matched) <- keep
+    matched[kb]  <- (ega_b$wc[kb] == orig_com[kb])
+    same_comm[b, ] <- matched
+  }
+  
+  stab <- colMeans(same_comm, na.rm = TRUE)
+  df   <- tibble(Node = names(stab), Stability = stab)
+  
+  cat(sprintf("\nWave %d case-bootstrap EGA stability (B=%d):\n", wave, B))
+  print(df)
+  bad <- df$Node[df$Stability < 0.75]
+  if (length(bad)) {
+    cat(" → Unstable (<0.75):", paste(bad, collapse = ", "), "\n")
+  } else {
+    cat(" → All nodes ≥ 0.75\n")
+  }
+  
+  ggplot(df, aes(Stability)) +
+    geom_histogram(breaks = seq(0, 1, 0.05), fill = "tomato", color = "black") +
+    labs(
+      title = paste("Wave", wave, "EGA item stability"),
+      x     = "Proportion replicating original community",
+      y     = "Number of nodes"
+    ) +
+    theme_minimal()
+}
+
+#run for each wave 
+# Wave 7
+p7 <- bootstrap_case_EGA(
+  raw_df   = comp7_list[[1]][ , keep7, drop = FALSE],
+  keep     = keep7,
+  ega_orig = ega7_sub,
+  wave     = 7
+)
+
+# Wave 14
+raw14 <- final14_list[[1]][ , setdiff(names(final14_list[[1]]), "smfq_14_total_z"), drop = FALSE]
+p14    <- bootstrap_case_EGA(
+  raw_df   = raw14,
+  keep     = keep14,
+  ega_orig = ega14_sub,
+  wave     = 14
+)
+
+# Wave 17
+raw17 <- final17_list[[1]][ , setdiff(names(final17_list[[1]]), "k6_17_total_z"), drop = FALSE]
+p17   <- bootstrap_case_EGA(
+  raw_df   = raw17,
+  keep     = keep17,
+  ega_orig = ega17_sub,
+  wave     = 17
+)
+
+# Print the three histograms
+print(p7)
+print(p14)
+print(p17)
+
+png("EGA_bootstrap_stability_wave7.png",
+    width  = 2000, height = 1000, res = 200)
+print(p7)
+dev.off()
+
+# Save Wave 14 stability histogram
+png("EGA_bootstrap_stability_wave14.png",
+    width  = 2000, height = 1000, res = 200)
+print(p14)
+dev.off()
+
+# Save Wave 17 stability histogram
+png("EGA_bootstrap_stability_wave17.png",
+    width  = 2000, height = 1000, res = 200)
+print(p17)
+dev.off()
+
+```
+
+
+#the actual nodes
+```{r}
+library(dplyr)
+library(tibble)
+
+# helper 
+bootstrap_case_EGA_df <- function(raw_df, keep, ega_orig, wave, B = 200, gamma = 0.5) {
+  n_sub    <- length(keep)
+  orig_com <- ega_orig$wc[keep]
+  same_comm <- matrix(FALSE, nrow = B, ncol = n_sub, dimnames = list(NULL, keep))
+  for (b in seq_len(B)) {
+    samp <- raw_df[sample(nrow(raw_df), replace = TRUE), , drop = FALSE]
+    Cb   <- cor(samp, use = "pairwise.complete.obs")
+    nz   <- which(colSums(abs(Cb)) > 0)
+    Cb   <- Cb[nz, nz]; kb <- colnames(Cb)
+    ega_b <- EGA(
+      data       = Cb, n = nrow(samp),
+      model      = "glasso", corMethod = "pearson",
+      gamma      = gamma, plot.EGA = FALSE,
+      algorithm  = "walktrap"
+    )
+    matched      <- rep(NA, n_sub); names(matched) <- keep
+    matched[kb]  <- (ega_b$wc[kb] == orig_com[kb])
+    same_comm[b, ] <- matched
+  }
+  stab <- colMeans(same_comm, na.rm = TRUE)
+  tibble(Node = names(stab), Stability = stab, Wave = wave)
+}
+
+# 1) Compute stability for each wave
+stab7_df  <- bootstrap_case_EGA_df(comp7_list[[1]][ , keep7],  keep7,  ega7_sub,  wave = 7)
+stab14_df <- bootstrap_case_EGA_df(final14_list[[1]][ , keep14], keep14, ega14_sub, wave = 14)
+stab17_df <- bootstrap_case_EGA_df(final17_list[[1]][ , keep17], keep17, ega17_sub, wave = 17)
+
+# 2) Print node‐level stability
+print(stab7_df)
+print(stab14_df)
+print(stab17_df)
+
+# 3) Summarize and report
+for (df in list(stab7_df, stab14_df, stab17_df)) {
+  w <- unique(df$Wave)
+  minS <- round(min(df$Stability), 3)
+  maxS <- round(max(df$Stability), 3)
+  nTot <- nrow(df)
+  nGood <- sum(df$Stability >= .75)
+  bad  <- df$Node[df$Stability < .75]
+  cat(sprintf(
+    "\nWave %d stability: range = %.3f–%.3f; %d of %d nodes ≥ .75 stability\n",
+    w, minS, maxS, nGood, nTot
+  ))
+  if (length(bad)) {
+    cat("  Unstable nodes (< .75):", paste(bad, collapse = ", "), "\n")
+  }
+}
+```
+
+
+
+#tests- gamma sensiivity
+```{r}
+# 2) γ‐sensitivity sweep for run_EGA()
+
+# choose γ values
+gammas <- c(0.25, 0.50, 0.75)
+
+# Wave 7
+cat("\n--- γ-sensitivity: Wave 7 ---\n")
+for(g in gammas){
+  ega7_g <- run_EGA(pooled7_sub, n = 13840, gamma = g)
+  cat("γ =", g, "→", length(na.omit(ega7_g$wc)), "communities; membership counts:\n")
+  print(table(ega7_g$wc))
+}
+
+# Wave 14
+cat("\n--- γ-sensitivity: Wave 14 ---\n")
+for(g in gammas){
+  ega14_g <- run_EGA(pooled14_sub, n = 11711, gamma = g)
+  cat("γ =", g, "→", length(na.omit(ega14_g$wc)), "communities; membership counts:\n")
+  print(table(ega14_g$wc))
+}
+
+# Wave 17
+cat("\n--- γ-sensitivity: Wave 17 ---\n")
+for(g in gammas){
+  ega17_g <- run_EGA(pooled17_sub, n = 10641, gamma = g)
+  cat("γ =", g, "→", length(na.omit(ega17_g$wc)), "communities; membership counts:\n")
+  print(table(ega17_g$wc))
+}
+
+
+```
+
+
+
+
+
+
+#test: caese droping cororelatin stabilty analysis 
+```{r}
+library(dplyr)
+library(ggplot2)
+
+set.seed(2025)
+
+#helper: for a given data.frame and node list, drop cases & compute edge correlations 
+edge_cs <- function(raw_df, keep, wave,
+                    drop_levels = seq(0.1, 0.5, by = 0.1),
+                    B           = 100) {
+  # raw_df: data.frame of items
+  # keep:   character vector of column names to include
+  # wave:   just for labeling
+  mat       <- raw_df %>% select(all_of(keep))
+  orig_cor  <- cor(mat, use = "pairwise.complete.obs")
+  orig_vec  <- orig_cor[upper.tri(orig_cor)]
+  
+  out <- data.frame(
+    drop      = numeric(),
+    mean_cor  = numeric(),
+    sd_cor    = numeric()
+  )
+  
+  for (p in drop_levels) {
+    cors <- replicate(B, {
+      sub <- mat %>% sample_frac(1 - p)
+      cc  <- cor(sub, use = "pairwise.complete.obs")
+      new <- cc[upper.tri(cc)]
+      cor(orig_vec, new, use = "pairwise.complete.obs")
+    })
+    out <- bind_rows(out, data.frame(
+      drop     = p,
+      mean_cor = mean(cors),
+      sd_cor   = sd(cors)
+    ))
+  }
+  
+  cat("\n— Wave", wave, "edge‐weight stability —\n")
+  print(out)
+  
+  ggplot(out, aes(x = drop, y = mean_cor)) +
+    geom_line() +
+    geom_point() +
+    geom_errorbar(aes(
+      ymin = mean_cor - 2 * sd_cor,
+      ymax = mean_cor + 2 * sd_cor
+    ), width = 0.02) +
+    labs(
+      title = paste("Wave", wave, "edge‐weight stability"),
+      x = "Proportion of cases dropped",
+      y = "Corr(original, dropped)"
+    ) +
+    theme_minimal()
+}
+
+#pull out first completed list
+
+# Wave 7
+raw7 <- comp7_list[[1]]   %>% select(all_of(keep7))
+p7   <- edge_cs(raw7,   keep7, 7)
+
+# Wave 14
+raw14 <- final14_list[[1]] %>% select(all_of(keep14))
+p14   <- edge_cs(raw14, keep14, 14)
+
+# Wave 17
+raw17 <- final17_list[[1]] %>% select(all_of(keep17))
+p17   <- edge_cs(raw17, keep17, 17)
+
+# 1) Force a white panel & plot background
+library(ggplot2)
+# 2) Save with ggsave() specifying bg = "white"
+ggsave(
+  "edge_weight_stability_wave7.png",
+  plot = p7,
+  width = 6, height = 4, dpi = 300,
+  bg = "white"
+)
+
+ggsave(
+  "edge_weight_stability_wave14.png",
+  plot = p14,
+  width = 6, height = 4, dpi = 300,
+  bg = "white"
+)
+
+ggsave(
+  "edge_weight_stability_wave17.png",
+  plot = p17,
+  width = 6, height = 4, dpi = 300,
+  bg = "white"
+)
+
+```
+
+
+
+
+#______________________________________________________________________________________________________________________________
+
+
+
+
+
+#to any outside BEI
+```{r}
+
+# RQ2/EQ2: Bridge Expected Influence (BEI) for adversity & protective nodes
+
+# Load required packages
+# install.packages(c("networktools","ggplot2","dplyr"))  # run once if needed
+library(networktools)
+library(ggplot2)
+library(dplyr)
+library(qgraph)    
+library(EGAnet)    
+
+# 1) Definee node sets
+dep14  <- sprintf("smfq_14_%02d", 1:13)
+dep17  <- sprintf("k6_17_%02d",   1:6)
+
+adv14  <- c("fam_physabuse_14","fam_dv_14","fam_mi_14","fam_sep_14","fam_smoke_14",
+            "fam_siblingbully_14","peer_bully_14","sch_unhappy_14",
+            "neigh_unsafe_14","neigh_poverty_14","ind_anger_14","ind_worry_14")
+prot14 <- c("fam_warmth_14","fam_close_14","peer_friend_14","sch_engage_14",
+            "comm_resource_14","ind_er_14","ind_esteem_14")
+
+adv17  <- c("fam_mi_17","fam_sep_17","fam_smoke_17",
+            "peer_bully_17","neigh_unsafe_17","ind_anger_17","ind_worry_17","neigh_poverty_17")
+prot17 <- c("fam_warmth_17","fam_close_17","peer_friend_17","sch_engage_17",
+            "comm_resource_17","ind_er_17","ind_esteem_17")
+
+# 2) Function to compute BEI and return a tibble
+compute_BEI <- function(ega_obj, adv, prot, dep) {
+  W     <- getWmat(ega_obj$network)
+  nodes <- colnames(W)
+  # assign each node to one of three communities
+  com   <- rep(NA_character_, length(nodes)); names(com) <- nodes
+  com[nodes %in% adv]  <- "adversity"
+  com[nodes %in% prot] <- "protective"
+  com[nodes %in% dep]  <- "depression"
+
+  # run bridge() without a argument method
+  brid  <- bridge(W, communities = com, directed = FALSE)
+
+  # extract the Bridge Expected Influence
+  bei1  <- brid[["Bridge Expected Influence (1-step)"]]
+
+  # return as a tibble
+  tibble(
+    Node      = names(bei1),
+    community = com,
+    BridgeEI  = as.numeric(bei1)
+  )
+}
+
+# 3) Compute for waves 14 & 17
+bei14 <- compute_BEI(ega14, adv14, prot14, dep14)
+bei17 <- compute_BEI(ega17, adv17, prot17, dep17)
+
+# 4) Extract top 5 adversity & protective for each wave
+top14_adv <- bei14  %>% filter(community == "adversity")  %>% arrange(desc(BridgeEI)) %>% slice_head(n = 5)
+top14_pro <- bei14  %>% filter(community == "protective") %>% arrange(desc(BridgeEI)) %>% slice_head(n = 5)
+top17_adv <- bei17  %>% filter(community == "adversity")  %>% arrange(desc(BridgeEI)) %>% slice_head(n = 5)
+top17_pro <- bei17  %>% filter(community == "protective") %>% arrange(desc(BridgeEI)) %>% slice_head(n = 5)
+
+# 5) Print tables of the top 5
+cat("\n=== Wave 14 Top 5 Adversity BEI ===\n")
+print(top14_adv)
+cat("\n=== Wave 14 Top 5 Protective BEI ===\n")
+print(top14_pro)
+
+cat("\n=== Wave 17 Top 5 Adversity BEI ===\n")
+print(top17_adv)
+cat("\n=== Wave 17 Top 5 Protective BEI ===\n")
+print(top17_pro)
+
+# 6) Bar charts of the BEI values
+plot_BEI <- function(df_top, wave) {
+  ggplot(df_top, aes(x = reorder(Node, BridgeEI), y = BridgeEI, fill = community)) +
+    geom_col() +
+    coord_flip() +
+    scale_fill_manual(values = c(adversity = "tomato", protective = "steelblue")) +
+    labs(
+      title = paste("Wave", wave, "– Top 5 Bridge Expected Influence"),
+      x     = NULL,
+      y     = "Bridge Expected Influence"
+    ) +
+    theme_minimal()
+}
+
+plot_BEI(bind_rows(top14_adv, top14_pro), 14)
+plot_BEI(bind_rows(top17_adv, top17_pro), 17)
+
+
+```
+
+#to just depression
+```{r}
+
+# RQ2/EQ2: Bridge EI onto depression total – with clear, non‐conflicting names
+library(networktools)
+library(ggplot2)
+library(dplyr)
+library(qgraph)
+
+# 1) Re‐run Wave 14 & 17 EGAs INCLUDING the depression z‐scores
+## Wave 14
+r14_list_dep   <- lapply(final14_list, function(df) cor(df, use = "pairwise.complete.obs"))
+pooled14_dep   <- pool_fz(r14_list_dep)
+keep14_dep     <- names(which(rowSums(abs(pooled14_dep)) > 0))
+pooled14_dep   <- pooled14_dep[keep14_dep, keep14_dep]
+n14            <- nrow(final14_list[[1]])
+ega14_dep      <- run_EGA(pooled14_dep, n = n14, gamma = 0.5)
+
+## Wave 17
+r17_list_dep   <- lapply(final17_list, function(df) cor(df, use = "pairwise.complete.obs"))
+pooled17_dep   <- pool_fz(r17_list_dep)
+keep17_dep     <- names(which(rowSums(abs(pooled17_dep)) > 0))
+pooled17_dep   <- pooled17_dep[keep17_dep, keep17_dep]
+n17            <- nrow(final17_list[[1]])
+ega17_dep      <- run_EGA(pooled17_dep, n = n17, gamma = 0.5)
+
+
+# 2) Node‐sets 
+dep14       <- "smfq_14_total_z"
+dep17       <- "k6_17_total_z"
+adv14       <- c("fam_physabuse_14","fam_dv_14","fam_mi_14","fam_sep_14","fam_smoke_14",
+                 "fam_siblingbully_14","peer_bully_14","sch_unhappy_14",
+                 "neigh_unsafe_14","neigh_poverty_14","ind_anger_14","ind_worry_14")
+prot14      <- c("fam_warmth_14","fam_close_14","peer_friend_14","sch_engage_14",
+                 "comm_resource_14","ind_er_14","ind_esteem_14")
+adv17       <- c("fam_mi_17","fam_sep_17","fam_smoke_17",
+                 "peer_bully_17","neigh_unsafe_17","ind_anger_17","ind_worry_17","neigh_poverty_17")
+prot17      <- c("fam_warmth_17","fam_close_17","peer_friend_17","sch_engage_17",
+                 "comm_resource_17","ind_er_17","ind_esteem_17")
+
+
+# 3) Compute Bridge EI onto depression, named compute_BEI_dep()
+compute_BEI_dep <- function(ega_obj, adv, prot, dep) {
+  W        <- getWmat(ega_obj$network)
+  nodes    <- colnames(W)
+  com      <- rep(NA_character_, length(nodes)); names(com) <- nodes
+  com[nodes %in% c(adv, prot)] <- "nonDepression"
+  com[nodes == dep]           <- "depression"
+  brid     <- bridge(W, communities = com, directed = FALSE)
+  bei1     <- brid[["Bridge Expected Influence (1-step)"]]
+  tibble(Node = names(bei1), BridgeEI = as.numeric(bei1))
+}
+
+# 4) Run it for each wave, store as *_bei_dep
+bei14_dep_all <- compute_BEI_dep(ega14_dep, adv14, prot14, dep14)
+bei17_dep_all <- compute_BEI_dep(ega17_dep, adv17, prot17, dep17)
+
+# 5) Pull out top 5 from each, store as top*_dep
+top5_dep <- function(df, adv, prot) {
+  df <- df %>% filter(Node %in% c(adv, prot))
+  adv_top <- df %>%
+    filter(Node %in% adv) %>%
+    slice_max(BridgeEI, n = 5) %>%
+    mutate(Type="adversity")
+  prot_top <- df %>%
+    filter(Node %in% prot) %>%
+    slice_min(BridgeEI, n = 5) %>%
+    mutate(Type="protective")
+  bind_rows(adv_top, prot_top)
+}
+
+top14_dep <- top5_dep(bei14_dep_all, adv14, prot14)
+top17_dep <- top5_dep(bei17_dep_all, adv17, prot17)
+
+# 6) Print the results
+cat("\n=== Wave 14 Top 5 BEI onto Depression ===\n")
+print(top14_dep)
+cat("\n=== Wave 17 Top 5 BEI onto Depression ===\n")
+print(top17_dep)
+
+# 7) Bar‐charts, named plot_dep_EI()
+plot_dep_EI <- function(df, wave) {
+  ggplot(df, aes(x = reorder(Node, BridgeEI), y = BridgeEI, fill = Type)) +
+    geom_col() + coord_flip() +
+    scale_fill_manual(values = c(adversity = "tomato", protective = "steelblue")) +
+    labs(title = paste("Wave", wave, "Top 5 Bridge EI → Depression"),
+         x = NULL, y = "Bridge Expected Influence") +
+    theme_minimal()
+}
+
+plot_dep_EI(top14_dep, 14)
+plot_dep_EI(top17_dep, 17)
+
+
+
+plot_dep_EI <- function(df, wave) {
+  ggplot(df, aes(x = reorder(Node, BridgeEI), y = BridgeEI, fill = Type)) +
+    geom_col() +
+    geom_text(aes(label = sprintf("%.2f", BridgeEI)), 
+              hjust = ifelse(df$BridgeEI < 0, 1.1, -0.1),  # push negative labels inside, positives outside
+              color = "black", size = 3) +
+    coord_flip() +
+    scale_fill_manual(values = c(adversity = "tomato", protective = "steelblue")) +
+    labs(title = paste("Wave", wave, "Top 5 Bridge EI → Depression"),
+         x = NULL, y = "Bridge Expected Influence") +
+    theme_minimal() +
+    theme(legend.position = "bottom")
+}
+
+# then
+plot_dep_EI(top14_dep, 14)
+plot_dep_EI(top17_dep, 17)
+
+
+
+library(ggplot2)
+
+plot_dep_EI <- function(df, wave) {
+  p <- ggplot(df, aes(x = reorder(Node, BridgeEI), y = BridgeEI, fill = Type)) +
+    geom_col() +
+    geom_text(aes(label = sprintf("%.2f", BridgeEI)),
+              hjust = ifelse(df$BridgeEI < 0, 1.1, -0.1),
+              color = "black", size = 3) +
+    coord_flip() +
+    scale_fill_manual(values = c(adversity = "tomato", protective = "steelblue")) +
+    labs(
+      title = paste0("Wave ", wave, ": Bridge Expected Influence\nonto Emerging-Adult Depression"),
+      x     = NULL,
+      y     = "Bridge Expected Influence"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(legend.position = "bottom")
+  
+  # save to disk
+  ggsave(
+    filename = paste0("wave", wave, "_BEI_depression.png"),
+    plot     = p,
+    width    = 8,
+    height   = 4,
+    dpi      = 600,
+    bg       = "white"
+  )
+  
+  invisible(p)
+}
+
+# Create & save
+p14 <- plot_dep_EI(top14_dep, 14)
+p17 <- plot_dep_EI(top17_dep, 17)
+
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(networktools)
+
+
+# 1) Helper of extract all nonzero Bridge Expected Influence
+all_nonzero_BEI <- function(bei_df, adv_nodes, prot_nodes) {
+  bei_df %>%
+    filter(Node %in% c(adv_nodes, prot_nodes), BridgeEI != 0) %>%
+    mutate(
+      Type = case_when(
+        Node %in% adv_nodes  ~ "adversity",
+        Node %in% prot_nodes ~ "protective"
+      )
+    )
+}
+
+
+# 2) Compute BEI onto depression for each wave 
+#compute_BEI_dep and stored results in bei14_dep_all, bei17_dep_all)
+
+bei14_dep_nz <- all_nonzero_BEI(bei14_dep_all, adv14, prot14)
+bei17_dep_nz <- all_nonzero_BEI(bei17_dep_all, adv17, prot17)
+
+
+# 3) Print out full tables
+cat("\n=== Wave 14 (Age 14) Nonzero BridgeEI onto Depression ===\n")
+print(bei14_dep_nz)
+cat("\n=== Wave 17 (Age 17) Nonzero BridgeEI onto Depression ===\n")
+print(bei17_dep_nz)
+
+
+# 4) Plot & save all non‐zero BridgeEI for each wave
+plot_and_save_BEI <- function(bei_nz_df, wave) {
+  age_label <- if (wave == 14) "Mid-Adolescence (Age 14)" else "Emerging Adulthood (Age 17)"
+  
+  p <- bei_nz_df %>%
+    ggplot(aes(x = reorder(Node, BridgeEI), y = BridgeEI, fill = Type)) +
+    geom_col() +
+    geom_text(aes(label = sprintf("%.3f", BridgeEI)),
+              hjust = ifelse(bei_nz_df$BridgeEI < 0, 1.1, -0.1),
+              size = 3) +
+    coord_flip() +
+    scale_fill_manual(values = c(adversity = "tomato", protective = "steelblue")) +
+    labs(
+      title = paste0(
+        "Wave ", wave, " — ", age_label, ": ",
+        "Bridge Expected Influence onto Depression at Age ", wave
+      ),
+      x     = NULL,
+      y     = "Bridge Expected Influence"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(legend.position = "bottom")
+  
+  ggsave(
+    filename = paste0("wave", wave, "_BEI_nonzero_depression.png"),
+    plot     = p,
+    width    = 10,
+    height   = 4,
+    dpi      = 600,
+    bg       = "white"
+  )
+  
+  invisible(p)
+}
+
+# Re-render & save
+p14_all <- plot_and_save_BEI(bei14_dep_nz, 14)
+p17_all <- plot_and_save_BEI(bei17_dep_nz, 17)
+
+```
+
+
+
+
+
+
+
+#tests to do - 1. correlation stability/case dropping
+
+```{r}
+
+# 0) Load packages
+# install.packages(c("bootnet","dplyr","tidyr","ggplot2","scales"))
+library(bootnet)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+
+# 1) Set bootstrap reps
+nBoots <- 500
+
+
+# WAVE 14
+# 2) Prepare data & community
+data14_dep <- final14_list[[1]] %>% select(all_of(c(adv14, prot14, dep14)))
+com14 <- setNames(
+  rep("nonDepression", length(c(adv14, prot14, dep14))),
+  c(adv14, prot14, dep14)
+)
+com14[dep14] <- "depression"
+
+# 3) Run case‐dropping bootstrap
+boot14_case <- bootnet(
+  data        = data14_dep,
+  default     = "EBICglasso",
+  corMethod   = "cor",
+  tuning      = 0.5,
+  missing     = "pairwise",
+  nBoots      = nBoots,
+  nCores      = 1,
+  type        = "case",
+  statistics  = "bridgeExpectedInfluence",
+  communities = com14
+)
+
+# 4) Extract full‐sample BEI
+full14_df  <- boot14_case$sampleTable %>%
+                filter(type == "bridgeExpectedInfluence") %>%
+                select(node1, value)
+full_bei14 <- setNames(full14_df$value, full14_df$node1)
+node_cols14 <- names(full_bei14)
+
+# 5) Pivot bootTable --> wide, collapse duplicates, fill NAs
+bootwide14 <- boot14_case$bootTable %>%
+  filter(type == "bridgeExpectedInfluence") %>%
+  select(id, nPerson, node1, value) %>%
+  pivot_wider(
+    id_cols     = c(id, nPerson),
+    names_from  = node1,
+    values_from = value,
+    values_fn   = list(value = mean),
+    values_fill = list(value = NA_real_)
+  )
+bootwide14[node_cols14] <- lapply(bootwide14[node_cols14],
+                                  function(x) ifelse(is.na(x), 0, x))
+
+# 6) Compute correlations per replicate
+cs14_df <- bootwide14 %>%
+  rowwise() %>%
+  mutate(
+    propRetained = nPerson / boot14_case$sampleSize,
+    corrRaw      = cor(c_across(all_of(node_cols14)), full_bei14),
+    corr         = ifelse(is.na(corrRaw), 0, corrRaw)
+  ) %>%
+  ungroup() %>%
+  select(propRetained, corr)
+
+# 7) Add full‐sample point, summarize
+cs14_summary <- bind_rows(data.frame(propRetained = 1, corr = 1), cs14_df) %>%
+  group_by(propRetained) %>%
+  summarise(meanCorr = mean(corr), .groups = "drop") %>%
+  arrange(desc(propRetained))
+
+# 8) Plot stability curve
+p14 <- ggplot(cs14_summary, aes(propRetained, meanCorr)) +
+  geom_line() + geom_point() +
+  geom_hline(yintercept = 0.70, linetype="dashed", color="red") +
+  scale_x_continuous(labels = percent_format(1)) +
+  labs(
+    title = "Wave 14 Bridge-EI Stability (Case-Dropping)",
+    x     = "Proportion of Cases Retained",
+    y     = "Mean Correlation with Full-Sample BEI"
+  ) +
+  theme_minimal()
+print(p14)
+
+# 9) Compute CS-coefficient
+cs14_coef <- min(cs14_summary$propRetained[cs14_summary$meanCorr >= 0.70])
+cat("Wave 14 CS-coefficient (r ≥ 0.70):", round(cs14_coef, 3), "\n\n")
+
+
+
+# WAVE 17
+# 10) Prepare data & community
+data17_dep <- final17_list[[1]] %>% select(all_of(c(adv17, prot17, dep17)))
+com17 <- setNames(
+  rep("nonDepression", length(c(adv17, prot17, dep17))),
+  c(adv17, prot17, dep17)
+)
+com17[dep17] <- "depression"
+
+# 11) Run case-dropping bootstrap
+boot17_case <- bootnet(
+  data        = data17_dep,
+  default     = "EBICglasso",
+  corMethod   = "cor",
+  tuning      = 0.5,
+  missing     = "pairwise",
+  nBoots      = nBoots,
+  nCores      = 1,
+  type        = "case",
+  statistics  = "bridgeExpectedInfluence",
+  communities = com17
+)
+
+# 12) Extract full-sample BEI
+full17_df  <- boot17_case$sampleTable %>%
+                filter(type == "bridgeExpectedInfluence") %>%
+                select(node1, value)
+full_bei17 <- setNames(full17_df$value, full17_df$node1)
+node_cols17 <- names(full_bei17)
+
+# 13) Pivot & fill
+bootwide17 <- boot17_case$bootTable %>%
+  filter(type == "bridgeExpectedInfluence") %>%
+  select(id, nPerson, node1, value) %>%
+  pivot_wider(
+    id_cols     = c(id, nPerson),
+    names_from  = node1,
+    values_from = value,
+    values_fn   = list(value = mean),
+    values_fill = list(value = NA_real_)
+  )
+bootwide17[node_cols17] <- lapply(bootwide17[node_cols17],
+                                  function(x) ifelse(is.na(x), 0, x))
+
+# 14) Compute correlations
+cs17_df <- bootwide17 %>%
+  rowwise() %>%
+  mutate(
+    propRetained = nPerson / boot17_case$sampleSize,
+    corrRaw      = cor(c_across(all_of(node_cols17)), full_bei17),
+    corr         = ifelse(is.na(corrRaw), 0, corrRaw)
+  ) %>%
+  ungroup() %>%
+  select(propRetained, corr)
+
+# 15) Add full-sample, summarize
+cs17_summary <- bind_rows(data.frame(propRetained = 1, corr = 1), cs17_df) %>%
+  group_by(propRetained) %>%
+  summarise(meanCorr = mean(corr), .groups = "drop") %>%
+  arrange(desc(propRetained))
+
+# 16) Plot
+p17 <- ggplot(cs17_summary, aes(propRetained, meanCorr)) +
+  geom_line() + geom_point() +
+  geom_hline(yintercept = 0.70, linetype="dashed", color="red") +
+  scale_x_continuous(labels = percent_format(1)) +
+  labs(
+    title = "Wave 17 Bridge-EI Stability (Case-Dropping)",
+    x     = "Proportion of Cases Retained",
+    y     = "Mean Correlation with Full-Sample BEI"
+  ) +
+  theme_minimal()
+print(p17)
+
+# 17) CS-coefficient
+cs17_coef <- min(cs17_summary$propRetained[cs17_summary$meanCorr >= 0.70])
+cat("Wave 17 CS-coefficient (r ≥ 0.70):", round(cs17_coef, 3), "\n")
+
+ggsave(
+  filename = "BEI_case_dropping_stability_wave14.png", 
+  plot     = p14, 
+  width    = 6, 
+  height   = 4, 
+  dpi      = 300, 
+  bg       = "white"
+)
+
+# After print(p17):
+ggsave(
+  filename = "BEI_case_dropping_stability_wave17.png", 
+  plot     = p17, 
+  width    = 6, 
+  height   = 4, 
+  dpi      = 300, 
+  bg       = "white"
+)
+
+```
+
+
+
+
+
+
+#tests to do - 2. non-paraetric boostrap for edge weight and BEI CLs
+```{r}
+
+# install.packages("bootnet")
+library(bootnet)
+
+# 1) Number of bootstrap replications
+nBoots <- 500
+
+# ---- Wave 14 ----
+boot14_np <- bootnet(
+  data        = data14_dep,
+  default     = "EBICglasso",
+  corMethod   = "cor",
+  tuning      = 0.5,
+  missing     = "pairwise",
+  nBoots      = nBoots,
+  nCores      = 1,
+  type        = "nonparametric",
+  statistics  = c("edge", "bridgeExpectedInfluence"),
+  communities = com14
+)
+
+# 2) Plot 95% CIs for edge‐weights
+plot(boot14_np,
+     plot   = "area",
+     labels = FALSE,
+     order  = "sample")
+
+# ---- Wave 14 Bridge EI ----
+# Plot CI regions for Bridge Expected Influence of top nodes
+plot(boot14_np,
+     statistics = "bridgeExpectedInfluence",
+     plot       = "area",
+     target     = top14_dep$Node,
+     order      = "sample",
+     labels     = TRUE)
+
+# ---- Wave 17 ----
+boot17_np <- bootnet(
+  data        = data17_dep,
+  default     = "EBICglasso",
+  corMethod   = "cor",
+  tuning      = 0.5,
+  missing     = "pairwise",
+  nBoots      = nBoots,
+  nCores      = 1,
+  type        = "nonparametric",
+  statistics  = c("edge", "bridgeExpectedInfluence"),
+  communities = com17
+)
+
+# ---- Wave 17 edges ----
+plot(boot17_np,
+     plot   = "area",
+     labels = FALSE,
+     order  = "sample")
+
+# ---- Wave 17 Bridge EI ----
+plot(boot17_np,
+     statistics = "bridgeExpectedInfluence",
+     plot       = "area",
+     target     = top17_dep$Node,
+     order      = "sample",
+     labels     = TRUE)
+
+
+# ---- Wave 14 Bridge EI (nonparametric bootstrap) ----
+png(
+  filename = "wave14_BEI_CI.png",
+  width    = 6,
+  height   = 4,
+  units    = "in",
+  res      = 300,
+  bg       = "white"
+)
+plot(
+  boot14_np,
+  statistics = "bridgeExpectedInfluence",
+  plot       = "area",
+  target     = top14_dep$Node,
+  order      = "sample",
+  labels     = TRUE,
+  main       = "Wave 14 Bridge EI: 95% Bootstrap CIs"
+)
+dev.off()
+
+# ---- Wave 17 Bridge EI (nonparametric bootstrap) ----
+png(
+  filename = "wave17_BEI_CI.png",
+  width    = 6,
+  height   = 4,
+  units    = "in",
+  res      = 300,
+  bg       = "white"
+)
+plot(
+  boot17_np,
+  statistics = "bridgeExpectedInfluence",
+  plot       = "area",
+  target     = top17_dep$Node,
+  order      = "sample",
+  labels     = TRUE,
+  main       = "Wave 17 Bridge EI: 95% Bootstrap CIs"
+)
+dev.off()
+
+```
+
+
+
+
+
+#tests to do- 3. sensitiivty to tuning parmeter
+
+
+
+```{r}
+
+#install.packages(c("qgraph","networktools","Matrix"))
+library(qgraph)        # for EBICglasso
+library(networktools)  # for bridge()
+library(Matrix)        # for nearPD()
+
+# 1) Ensure pooled correlation matrices are positive‐definite
+pd14 <- as.matrix( nearPD(pooled14_dep)$mat )
+pd17 <- as.matrix( nearPD(pooled17_dep)$mat )
+
+# 2) Function to compute 1‐step BridgeEI at a given gamma
+get_BEI_gamma <- function(pooled_cor_pd, n, gamma, adv, prot, dep) {
+  W     <- EBICglasso(pooled_cor_pd, n = n, gamma = gamma)
+  nodes <- colnames(W)
+  com   <- rep("nonDepression", length(nodes)); names(com) <- nodes
+  com[nodes %in% adv]  <- "nonDepression"
+  com[nodes %in% prot] <- "nonDepression"
+  com[nodes == dep]    <- "depression"
+  brid  <- bridge(W, communities = com, directed = FALSE)
+  brid[["Bridge Expected Influence (1-step)"]]
+}
+
+# 3) Specify γ values to test
+gammas <- c(0.25, 0.50, 0.75)
+
+# 4) Compute BEI across γ for Wave 14, subset to top 5 nodes
+bei_gamma_14 <- sapply(gammas, 
+  function(g) get_BEI_gamma(pd14, n14, g, adv14, prot14, dep14)
+)
+colnames(bei_gamma_14) <- paste0("gamma_", gammas)
+print( bei_gamma_14[top14_dep$Node, ] )
+
+# 5) Compute BEI across γ for Wave 17
+bei_gamma_17 <- sapply(gammas, 
+  function(g) get_BEI_gamma(pd17, n17, g, adv17, prot17, dep17)
+)
+colnames(bei_gamma_17) <- paste0("gamma_", gammas)
+print( bei_gamma_17[top17_dep$Node, ] )
+
+
+
+# (1) Required packages
+if (!requireNamespace("gridExtra", quietly = TRUE)) install.packages("gridExtra")
+if (!requireNamespace("grid",      quietly = TRUE)) install.packages("grid")
+library(gridExtra)
+library(grid)
+
+# (2) Prepare wave‐14 data.frame (all nodes)
+df14 <- as.data.frame(bei_gamma_14)      
+df14$Node <- rownames(df14)
+df14 <- df14[, c("Node", paste0("gamma_", gammas))]
+
+# (3) Save wave‐14 table as PNG
+png(
+  filename = "Wave14_BridgeEI_gamma_allnodes.png",
+  width    = 800, 
+  height   = 1000,
+  res      = 150,
+  bg       = "white"
+)
+grid.table(
+  df14,
+  rows    = NULL,
+  theme   = ttheme_minimal(
+    core    = list(fg_params = list(fontsize = 8)),
+    colhead = list(fg_params = list(fontsize = 10, fontface = "bold"))
+  )
+)
+dev.off()
+
+# (4) Prepare wave‐17 data.frame (all nodes)
+df17 <- as.data.frame(bei_gamma_17)      
+df17$Node <- rownames(df17)
+df17 <- df17[, c("Node", paste0("gamma_", gammas))]
+
+# (5) Save wave‐17 table as PNG
+png(
+  filename = "Wave17_BridgeEI_gamma_allnodes.png",
+  width    = 800, 
+  height   = 1000,
+  res      = 150,
+  bg       = "white"
+)
+grid.table(
+  df17,
+  rows    = NULL,
+  theme   = ttheme_minimal(
+    core    = list(fg_params = list(fontsize = 8)),
+    colhead = list(fg_params = list(fontsize = 10, fontface = "bold"))
+  )
+)
+dev.off()
+
+cat("PNGs written to:\n",
+    "  - Wave14_BridgeEI_gamma_allnodes.png\n",
+    "  - Wave17_BridgeEI_gamma_allnodes.png\n")
+```
+
+#________________________________________________________________________________________________________________
+
+#check coding for covariates: sex
+```{r}
+if ("package:MASS" %in% search()) detach("package:MASS", unload=TRUE)
+library(dplyr)
+library(mice)
+library(haven)
+
+#1= male, #2= female
+cm_interview7 <- haven::read_sav("/data/6411spss28/mcs4_cm_interview.sav")
+sex <- dplyr::select(cm_interview7, MCSID, DCCSEX00)
+colnames(sex) [1] <- "ID"
+colnames(sex) [2] <- "sex"
+md.pattern(sex, rotate.names=TRUE)
+table (sex$'sex')
+
+sex %>% 
+  summarise(n_NA   = sum(is.na(sex)),
+            pct_NA = 100 * mean(is.na(sex)))
+
+sex1 <- sex
+attr(sex1, "label") #look at the SPSS metadata the full question text 
+attr(sex1, "labels") #look at the SPSS metdata value-label mapping 
+#table(sex1, useNA = "ifany") #
+library(dplyr)
+dplyr::count(tibble(v = sex1), v, sort = TRUE)
+
+table(cm_interview7$DCCSEX00, useNA = "ifany")
+
+
+library(dplyr)
+sex_df <- cm_interview7 %>%
+  dplyr::select(MCSID, raw_sex = DCCSEX00) %>%
+  dplyr::filter(raw_sex %in% c(1,2)) %>%
+  dplyr::mutate(
+    sex = factor(raw_sex,
+                 levels = c(1, 2),
+                 labels = c("Male", "Female"))
+  ) %>%
+  dplyr::select(MCSID, sex)
+
+# check
+table(sex_df$sex, useNA="ifany")
+#View(sex_df) = has female and male 
+```
+
+#check coding for covariates: ses baseline= income
+
+```{r}
+#if ("package:MASS" %in% search()) detach("package:MASS", unload=TRUE)
+library(dplyr)
+library(mice)
+library(haven)
+
+parent_interview7 <- haven::read_sav("/data/6411spss28/mcs4_parent_interview.sav")
+# 2) Select & rename in one step: MCSID → ID, DPNTCO00 → income
+income_df <- parent_interview7 %>%
+  select(
+    ID     = MCSID,
+    income = DPNTCO00
+  )
+
+# 3) Inspect missingness
+md.pattern(income_df, rotate.names = TRUE)
+
+# 4) Value counts (including NAs)
+table(income_df$income, useNA = "ifany")
+
+# 5) Percent missing
+income_df %>%
+  summarise(
+    n_NA   = sum(is.na(income)),
+    pct_NA = 100 * mean(is.na(income))
+  )
+
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(income_df$income, "label")
+attr(income_df$income, "labels")
+
+# 7) Quick frequency check
+income_df %>%
+  count(income, sort = TRUE)
+
+
+
+
+#completed income_df
+library(dplyr)
+library(haven)
+income_df <- parent_interview7 %>%
+  transmute(
+    MCSID,
+    raw_income  = DPNTCO00,
+    # this will convert the labelled SPSS var to an ordered factor
+    income_band = as_factor(DPNTCO00, ordered = TRUE)
+  ) %>%
+  filter(!is.na(income_band))
+
+table(income_df$income_band, useNA="ifany")
+View(income_df)
+
+#now raw_income modification
+income_df <- income_df %>%
+  # only keep raw_income codes 2:20, everything else → NA
+  mutate(
+    raw_income = if_else(raw_income %in% 2:20, 
+                         raw_income, 
+                         NA_integer_)
+  )
+
+# check
+table(income_df$raw_income, useNA = "ifany")
+
+
+#now raw_band modification according to raw income
+income_df <- income_df %>%
+  # make income_band NA whenever raw_income is NA
+  mutate(
+    income_band = replace(income_band, is.na(raw_income), NA)
+  )
+
+# verify
+table(income_df$income_band, useNA = "ifany")
+
+View(income_df)
+
+
+```
+
+
+#check coding for covariates: depression baseline
+```{r}
+
+#1
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ1_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ1_df = DDEMOTION
+  )
+# 3) Inspect missingness
+md.pattern(SDQ1_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ1_df$SDQ1_df, useNA = "ifany")
+# 5) Percent missing
+SDQ1_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ1_df)),
+    pct_NA = 100 * mean(is.na(SDQ1_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ1_df$SDQ1_df, "label")
+attr(SDQ1_df$SDQ1_df, "labels")
+# 7) Quick frequency check
+SDQ1_df %>%
+  count(SDQ1_df, sort = TRUE)
+#View(SDQ1_df)
+
+
+
+
+
+#2
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ2_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ2_df = DDCONDUCT
+  )
+# 3) Inspect missingness
+md.pattern(SDQ2_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ2_df$SDQ2_df, useNA = "ifany")
+# 5) Percent missing
+SDQ2_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ2_df)),
+    pct_NA = 100 * mean(is.na(SDQ2_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ2_df$SDQ2_df, "label")
+attr(SDQ2_df$SDQ2_df, "labels")
+# 7) Quick frequency check
+SDQ2_df %>%
+  count(SDQ2_df, sort = TRUE)
+#View(SDQ2_df)
+
+
+
+
+
+
+#3
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ3_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ3_df = DDHYPER
+  )
+# 3) Inspect missingness
+md.pattern(SDQ3_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ3_df$SDQ3_df, useNA = "ifany")
+# 5) Percent missing
+SDQ3_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ3_df)),
+    pct_NA = 100 * mean(is.na(SDQ3_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ3_df$SDQ3_df, "label")
+attr(SDQ3_df$SDQ3_df, "labels")
+# 7) Quick frequency check
+SDQ3_df %>%
+  count(SDQ3_df, sort = TRUE)
+#View(SDQ3_df)
+
+
+
+
+#4
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ4_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ4_df = DDPEER
+  )
+# 3) Inspect missingness
+md.pattern(SDQ4_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ4_df$SDQ4_df, useNA = "ifany")
+# 5) Percent missing
+SDQ4_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ4_df)),
+    pct_NA = 100 * mean(is.na(SDQ4_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ4_df$SDQ4_df, "label")
+attr(SDQ4_df$SDQ4_df, "labels")
+# 7) Quick frequency check
+SDQ4_df %>%
+  count(SDQ4_df, sort = TRUE)
+#View(SDQ4_df)
+
+
+
+
+
+#5
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ5_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ5_df = DDPROSOC
+  )
+# 3) Inspect missingness
+md.pattern(SDQ5_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ5_df$SDQ5_df, useNA = "ifany")
+# 5) Percent missing
+SDQ5_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ5_df)),
+    pct_NA = 100 * mean(is.na(SDQ5_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ5_df$SDQ5_df, "label")
+attr(SDQ5_df$SDQ5_df, "labels")
+# 7) Quick frequency check
+SDQ5_df %>%
+  count(SDQ5_df, sort = TRUE)
+#View(SDQ5_df)
+
+
+
+#6
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ6_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ6_df = DDDEBDTOT
+  )
+# 3) Inspect missingness
+md.pattern(SDQ6_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ6_df$SDQ6_df, useNA = "ifany")
+# 5) Percent missing
+SDQ6_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ6_df)),
+    pct_NA = 100 * mean(is.na(SDQ6_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ6_df$SDQ6_df, "label")
+attr(SDQ6_df$SDQ6_df, "labels")
+# 7) Quick frequency check
+SDQ6_df %>%
+  count(SDQ6_df, sort = TRUE)
+#View(SDQ6_df)
+
+
+
+
+#7
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ7_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ7_df = DDIMPACT
+  )
+# 3) Inspect missingness
+md.pattern(SDQ7_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ7_df$SDQ7_df, useNA = "ifany")
+# 5) Percent missing
+SDQ7_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ7_df)),
+    pct_NA = 100 * mean(is.na(SDQ7_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ7_df$SDQ7_df, "label")
+attr(SDQ7_df$SDQ7_df, "labels")
+# 7) Quick frequency check
+SDQ7_df %>%
+  count(SDQ7_df, sort = TRUE)
+#View(SDQ7_df)
+
+
+
+
+
+#8
+cm_derived7 <- haven::read_sav("/data/6411spss28/mcs4_cm_derived.sav")
+SDQ8_df <- cm_derived7 %>%
+  select(
+    ID     = MCSID,
+    SDQ8_df = DDDEBDDIFF
+  )
+# 3) Inspect missingness
+md.pattern(SDQ8_df, rotate.names = TRUE)
+# 4) Value counts (including NAs)
+table(SDQ8_df$SDQ8_df, useNA = "ifany")
+# 5) Percent missing
+SDQ8_df %>%
+  summarise(
+    n_NA   = sum(is.na(SDQ8_df)),
+    pct_NA = 100 * mean(is.na(SDQ8_df))
+  )
+# 6) Look at the SPSS variable label & value‐label mapping
+attr(SDQ8_df$SDQ8_df, "label")
+attr(SDQ8_df$SDQ8_df, "labels")
+# 7) Quick frequency check
+SDQ8_df %>%
+  count(SDQ8_df, sort = TRUE)
+#View(SDQ8_df)
+
+
+
+
+#for all chnage -9, -8, -1 to NAs
+sdq_names <- paste0("SDQ", 1:8, "_df")
+
+for(nm in sdq_names) {
+  vec <- get(nm)                   # pull the vector
+  vec[ vec %in% c(-9, -8, -1) ] <- NA  # recode those codes to NA
+  assign(nm, vec)                  # write it back to workspace
+}
+
+
+
+```
+
+#Merge covariates onto wave-7 predictor set
+```{r}
+#Take  final_dataset7 (which already has all of adversity & protective variables at age 7), and left-join in the covariate table by MCSID.
+library(dplyr)
+
+# 1) Deduplicate each covariate table by its key:
+sex_df    <- sex_df    %>% distinct(MCSID, .keep_all = TRUE)
+income_df <- income_df %>% distinct(MCSID, .keep_all = TRUE)
+
+SDQ1_df   <- SDQ1_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ2_df   <- SDQ2_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ3_df   <- SDQ3_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ4_df   <- SDQ4_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ5_df   <- SDQ5_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ6_df   <- SDQ6_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ7_df   <- SDQ7_df   %>% distinct(ID, .keep_all = TRUE)
+SDQ8_df   <- SDQ8_df   %>% distinct(ID, .keep_all = TRUE)
+
+# 2) Now do merges
+final7_cov <- final_dataset7 %>%
+  rename(MCSID = ID) %>%
+  left_join(sex_df,    by = "MCSID") %>%
+  left_join(income_df %>% select(MCSID, income_band),
+            by = "MCSID") %>%
+  left_join(SDQ1_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ2_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ3_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ4_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ5_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ6_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ7_df   %>% rename(MCSID = ID), by = "MCSID") %>%
+  left_join(SDQ8_df   %>% rename(MCSID = ID), by = "MCSID")
+
+```
+
+
+#sum and z-score age 7, age 14, age 17 and drops raw items = created total + total_z
+```{r}
+
+#Wave 7  total & z, drop the 8 raw items
+library(dplyr)
+sdq_cols <- paste0("SDQ", 1:8, "_df")
+final7_sum <- final7_cov %>%
+  mutate(
+    sdq_7_total   = rowSums(across(all_of(sdq_cols)), na.rm = TRUE),
+    sdq_7_total_z = as.numeric(scale(sdq_7_total))
+  ) %>%
+  select(-all_of(sdq_cols))
+
+# Wave-14 SMFQ --> total & z, drop the 13 raw items
+
+final14_sum <- final_dataset14 %>%
+  mutate(
+    smfq_14_total   = rowSums(across(smfq_14_01:smfq_14_13), na.rm = TRUE),
+    smfq_14_total_z = as.numeric(scale(smfq_14_total))
+  ) %>%
+  select(-smfq_14_01:-smfq_14_13)
+
+# Wave-17 K6 --> total & z, drop the 6 raw items
+final17_sum <- final_dataset17 %>%
+  mutate(
+    k6_17_total   = rowSums(across(k6_17_01:k6_17_06), na.rm = TRUE),
+    k6_17_total_z = as.numeric(scale(k6_17_total))
+  ) %>%
+  select(-k6_17_01:-k6_17_06)
+
+```
+
+#merge all together into one wide dataset 
+```{r}
+
+library(dplyr)
+
+final14_sum <- final14_sum %>% rename(MCSID = ID)
+final17_sum <- final17_sum %>% rename(MCSID = ID)
+
+# merge into wide tbale by MCSID
+wide_all <- final7_sum %>%
+  left_join(final14_sum, by = "MCSID") %>%
+  left_join(final17_sum, by = "MCSID")
+
+library(dplyr)
+wide_final <- wide_all %>%
+  select(
+    -sdq_7_total,
+    -smfq_14_total,
+    -k6_17_total
+  )
+```
+
+
+
+#working now 
+```{r}
+library(dplyr)
+library(mice)
+library(lattice)
+
+# 1) Prepare data
+wide_final_clean <- wide_final %>%
+  select(-MCSID) %>%
+  as.data.frame()      
+
+# 2) Scan classes & unique‐value counts
+var_info <- data.frame(
+  var      = names(wide_final_clean),
+  class    = sapply(wide_final_clean, function(x) class(x)[1]),
+  n_unique = sapply(wide_final_clean, function(x) length(unique(na.omit(x))))
+)
+print(var_info)
+
+# 3) Auto‐detect binary numerics (0/1)
+bin_vars <- with(var_info, var[class == "numeric" & n_unique == 2])
+
+# 4) Convert to factors, ensure sex & income_band are factors
+wide_final_clean[bin_vars] <- lapply(
+  wide_final_clean[bin_vars],
+  function(x) factor(x, levels = sort(unique(na.omit(x))))
+)
+wide_final_clean$sex <- factor(wide_final_clean$sex)
+wide_final_clean$income_band <- ordered(wide_final_clean$income_band)
+
+# 5) Init mice() so can grab its defaults
+init     <- mice(wide_final_clean, maxit = 0, printFlag = FALSE)
+meth     <- init$method
+predMat  <- init$predictorMatrix
+
+# 6) Override methods
+meth[]               <- "pmm"      
+meth[bin_vars]       <- "logreg"    
+meth["sex"]          <- "logreg"
+meth["income_band"]  <- "polr"      
+
+# 7) Run the imputation
+set.seed(2025)
+imp <- mice(
+  data            = wide_final_clean,
+  method          = meth,
+  predictorMatrix = predMat,
+  m               = 3,
+  maxit           = 3,
+  printFlag       = FALSE
+)
+
+# 8) Traceplots – look for “flat” chains
+plot(imp, vars = c("smfq_14_total_z", "k6_17_total_z", "sdq_7_total_z"))
+
+# 9) Fit full longitudinal model on each imputed set
+fit <- with(imp, lm(
+  k6_17_total_z ~
+    sdq_7_total_z +
+    smfq_14_total_z +
+    sex + income_band +
+    fam_physabuse_7 + fam_warmth_7 + fam_close_7 +
+    ind_er_7 + ind_esteem_7 +
+    fam_dv_7 + fam_mi_7 + fam_sep_7 + fam_smoke_7 + neigh_poverty_7 +
+    fam_siblingbully_7 + peer_bully_7 + sch_unhappy_7 + peer_friend_7 +
+    sch_engage_7 + neigh_unsafe_7 + comm_resource_7 + ind_anger_7 + ind_worry_7 +
+    neigh_poverty_14 + ind_anger_14 + ind_worry_14 + fam_dv_14 + fam_mi_14 +
+    fam_sep_14 + fam_smoke_14 + fam_physabuse_14 + fam_siblingbully_14 +
+    fam_warmth_14 + fam_close_14 + peer_bully_14 + sch_unhappy_14 +
+    peer_friend_14 + sch_engage_14 + neigh_unsafe_14 + comm_resource_14 +
+    ind_er_14 + ind_esteem_14 +
+    ind_anger_17 + ind_worry_17 + ind_er_17 + ind_esteem_17 + comm_resource_17 +
+    fam_mi_17 + fam_sep_17 + fam_smoke_17 + neigh_poverty_17 +
+    fam_warmth_17 + fam_close_17 + peer_bully_17 + peer_friend_17 +
+    sch_engage_17 + neigh_unsafe_17
+))
+
+# 10) Pool & summarize
+pooled <- pool(fit)
+summary(pooled)
+```
+
+
+#regression (different models in more specifict)
+#model A: the baseline:demogrpahics only 
+#purpose: Establish how much variance in emerging‐adult depression can explain just by basic demographics, serve as null minimal model
+#key outputs to inspect: R^2 (explained variance), coefficents for sex and each polynomial term of icome_band
+
+#k6_17_total_z ~ sex + income_band
+```{r}
+
+# 1) Fit “Model A” to each imputed data set
+fitA <- with(
+  imp,
+  lm(k6_17_total_z ~ sex + income_band) 
+)
+
+# 2) Pool the coefficients via Rubin’s rules
+pooledA <- pool(fitA)
+
+# 3) View pooled estimates (coefficients, SEs, t’s, p’s for sex & income terms)
+summary(pooledA)
+
+# 4) Approximate R² for each imputed set and average them
+r2_list <- sapply(
+  1:imp$m,
+  function(i) {
+    dat_i <- complete(imp, i)
+    summary(lm(k6_17_total_z ~ sex + income_band, data = dat_i))$r.squared
+  }
+)
+mean_r2 <- mean(r2_list)
+sd_r2   <- sd(r2_list)
+
+cat(sprintf(
+  "Model A: mean R² = %.3f (SD = %.3f) across %d imputations\n",
+  mean_r2, sd_r2, imp$m
+))
+
+```
+
+
+#model B: add symptom continiuity
+#purpose: Depression is highly autoregressive: kids with higher SDQ scores at 7 tend to carry that risk forward to adolescence, and SMFQ at 14 poisons emerging‐adult mood, By including both, can then soak up the symptom‐to‐symptom chain effect. Any remaining variance is what’s not captured by the prior symptom levels.
+#key outputs to inspect: R^2 model B- R2 model A: how much extra variance is explained by the symptom chain beyond demogrpahics? sig of sda + smfq coefficients, confirm thatindeed, earlier symptoms forecase later one
+
+
+```{r}
+library(dplyr)
+library(mice)
+
+# Model B: add symptom‐to‐symptom continuity — 
+# Dependent: k6_17_total_z
+# Predictors: sex, income_band + sdq_7_total_z + smfq_14_total_z
+
+# 1) Fit the model on each imputed dataset
+fitB <- with(
+  imp,
+  lm(
+    k6_17_total_z ~
+      sex + income_band +
+      sdq_7_total_z +
+      smfq_14_total_z
+  )
+)
+
+# 2) Pool the coefficient estimates
+pooledB <- pool(fitB)
+
+# 3) View pooled coefficients & p-values
+summary(pooledB)
+
+# 4) Compute R² in each completed dataset:
+r2_B <- sapply(
+  1:imp$m,
+  function(i) {
+    ds <- complete(imp, i)
+    summary(
+      lm(k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z, 
+         data = ds)
+    )$r.squared
+  }
+)
+
+# 5) Mean R² and ΔR² vs. Model A
+mean_r2_B      <- mean(r2_B)
+mean_r2_A      <- 0.048    # replace with Model A mean R²
+delta_r2       <- mean_r2_B - mean_r2_A
+
+cat(
+  sprintf(
+    "Model B mean R² = %.3f (ΔR² over Model A = %.3f)\n",
+    mean_r2_B, delta_r2
+  )
+)
+
+```
+
+
+#model C: testing the bridge adveristy where bridge7, bridge- the nodes network flagged as having the highest BEI on depression
+#purpose: “Does knowing that a child was abused at 7 or bullied at 14 add anything to our prediction of adult depression, once already know their prior symptom levels and demographics?”
+#key outpts to inspect: R2 model C- R2model B: if positive and sig, can show unique forecase value. coefficnets and p value for each bride adverisyt: a sig B indicates a direct effect above and beyond the symptom chain. a nonsig B suggests its impact is fully mediated by SDQ7 --> smfq14
+
+#k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z + <bridge7> + <bridge14>
+#bridge14= added sch_unhappy_14 
+```{r}
+library(mice)
+library(dplyr)
+
+# 1) Fit Model C across imputed sets
+fitC <- with(imp, 
+  lm(
+    k6_17_total_z ~
+      # demographics & symptom chain
+      sdq_7_total_z +
+      smfq_14_total_z +
+      sex + income_band +
+      # + bridge adversity nodes
+      sch_unhappy_14
+  )
+)
+
+# 2) Pool the estimates (Rubin’s rules)
+pooledC <- pool(fitC)
+
+# 3) View coefficients & p-values
+summary(pooledC)
+
+# 4) Compute and compare R²
+#    (we’ll extract each imputed model’s R² and then average)
+r2_C <- unlist(lapply(complete(imp, "all"), function(d){
+  summary(lm(
+    k6_17_total_z ~
+      sdq_7_total_z + smfq_14_total_z + sex + income_band +
+      sch_unhappy_14,
+    data = d
+  ))$r.squared
+}))
+cat("Model C mean R² =", round(mean(r2_C), 3),
+    " (Δ over Model B =",
+    round(mean(r2_C) - 0.196, 3), ")\n")
+
+
+# 2) Model C₅: all five top‐BEI nodes
+fitC5 <- with(imp, lm(
+  k6_17_total_z ~
+    sdq_7_total_z + smfq_14_total_z +
+    sex + income_band +
+    sch_unhappy_14 +
+    neigh_unsafe_14 +
+    ind_worry_14 +
+    peer_bully_14 +
+    fam_siblingbully_14
+))
+pooledC5 <- pool(fitC5)
+summary(pooledC5)
+
+r2_C5 <- sapply(complete(imp, "all"), function(d) {
+  summary(
+    lm(
+      k6_17_total_z ~ sdq_7_total_z + smfq_14_total_z +
+        sex + income_band +
+        sch_unhappy_14 + neigh_unsafe_14 +
+        ind_worry_14 + peer_bully_14 + fam_siblingbully_14,
+      data = d
+    )
+  )$r.squared
+})
+cat("Model C₅ mean R² =", round(mean(r2_C5),3),
+    "(Δ over Model B =", round(mean(r2_C5) - 0.196,3), ")\n")
+
+
+# 3) Check multicollinearity in the “all‐five” model
+#    (using the first complete dataset)
+library(car)
+vif(lm(
+  k6_17_total_z ~ sdq_7_total_z + smfq_14_total_z +
+    sex + income_band +
+    sch_unhappy_14 + neigh_unsafe_14 +
+    ind_worry_14 + peer_bully_14 + fam_siblingbully_14,
+  data = complete(imp, 1)
+))
+```
+
+
+#modelD: Does the one network-identified protective experience at 14 predict lower adult depression, above and beyond basic demographics and the symptom-to-symptom chain?”
+#purpose:By adding just that one protective node to the minimal symptom-chain model can show whether it explains any extra variance—i.e. whether the network has pinpointed a truly “actionable” buffer.
+#R2 (model D-model:How much additional variance in K6₁₇ is explained by prot14_best?, a meaninful posive R means this protectie node carires unique predictive power, coefficent, compare AIC/ BIC)
+
+```{r}
+library(mice)
+library(dplyr)
+library(car)
+
+# — Model D₁: single top‐protective bridge at 14 — 
+fitD1 <- with(imp, 
+  lm(
+    k6_17_total_z ~
+      # demographics & symptom chain
+      sex + income_band +
+      sdq_7_total_z + smfq_14_total_z +
+      # single protective bridge
+      ind_esteem_14
+  )
+)
+pooledD1 <- pool(fitD1)
+cat("=== Model D₁: + ind_esteem_14 ===\n")
+print(summary(pooledD1))
+
+# compute and compare R²
+r2_D1 <- sapply(1:imp$m, function(i){
+  summary(
+    lm(
+      k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+        ind_esteem_14,
+      data = complete(imp, i)
+    )
+  )$r.squared
+})
+cat(sprintf(
+  "Model D₁ mean R² = %.3f  (Δ over Model B = %.3f)\n\n",
+  mean(r2_D1), mean(r2_D1) - 0.196
+))
+
+
+# — Model D₅: all five top‐protective bridges — 
+fitD5 <- with(imp, 
+  lm(
+    k6_17_total_z ~
+      sex + income_band +
+      sdq_7_total_z + smfq_14_total_z +
+      ind_esteem_14 + fam_close_14 + fam_warmth_14 +
+      peer_friend_14 + ind_er_14
+  )
+)
+pooledD5 <- pool(fitD5)
+cat("=== Model D₅: + top 5 protective bridges ===\n")
+print(summary(pooledD5))
+
+# compute and compare R²
+r2_D5 <- sapply(1:imp$m, function(i){
+  summary(
+    lm(
+      k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+        ind_esteem_14 + fam_close_14 + fam_warmth_14 +
+        peer_friend_14 + ind_er_14,
+      data = complete(imp, i)
+    )
+  )$r.squared
+})
+cat(sprintf(
+  "Model D₅ mean R² = %.3f  (Δ over Model B = %.3f)\n\n",
+  mean(r2_D5), mean(r2_D5) - 0.196
+))
+
+# 3) Multicollinearity check on the “all‐five” model (first completed set)
+vif_modD5 <- vif(
+  lm(
+    k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+      ind_esteem_14 + fam_close_14 + fam_warmth_14 +
+      peer_friend_14 + ind_er_14,
+    data = complete(imp, 1)
+  )
+)
+cat("=== VIFs for Model D₅ ===\n")
+print(vif_modD5)
+```
+
+
+#modelE: comparing network bridge vs. total adversity, where adversity7_sum is the sum/z-score of all age7 adveristy items, and likwise for adveristy14_sum
+#purpse: to benchmark does focusing on one network identified bridge node outperform using a crude total score of adveristy? if the network bridge beats the sum score, that validates the precision of graph appraoche
+#interpreation: compare R2 (B--> C) vs. R2 (B--> D): whichis larger? compare AIC/BIC (model C) to AIC/BIC (modelD): lower values signal a better trade off of fit vs. complexity
+
+#k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z + adversity7_sum + adversity14_sum
+```{r}
+library(dplyr)
+library(mice)
+
+# 1)  predefined item lists
+adv7  <- c("fam_physabuse_7","fam_dv_7","fam_mi_7","fam_sep_7","fam_smoke_7",
+           "fam_siblingbully_7","peer_bully_7","sch_unhappy_7",
+           "neigh_unsafe_7","neigh_poverty_7","ind_anger_7","ind_worry_7")
+adv14 <- c("fam_physabuse_14","fam_dv_14","fam_mi_14","fam_sep_14","fam_smoke_14",
+           "fam_siblingbully_14","peer_bully_14","sch_unhappy_14",
+           "neigh_unsafe_14","neigh_poverty_14","ind_anger_14","ind_worry_14")
+
+# 2) Build  testwide with explicit numeric coercion
+wide_final_clean_test <- wide_final_clean %>%
+  mutate(
+    # coerce all adv7 items to numeric (drops factor levels)
+    across(all_of(adv7),  ~ as.numeric(as.character(.)), .names = "{.col}"),
+    # coerce all adv14 items to numeric
+    across(all_of(adv14), ~ as.numeric(as.character(.)), .names = "{.col}"),
+    # now sums will work
+    adversity7_sum   = rowSums(across(all_of(adv7)),  na.rm = TRUE),
+    adversity7_sum_z = as.numeric(scale(adversity7_sum)),
+    adversity14_sum   = rowSums(across(all_of(adv14)), na.rm = TRUE),
+    adversity14_sum_z = as.numeric(scale(adversity14_sum))
+  )
+
+# quick check
+wide_final_clean_test %>% 
+  select(adversity7_sum_z, adversity14_sum_z) %>% 
+  summary()
+
+# 3) Inject these two new columns into  existing `imp` object
+#    (use maxit = 0 so nothing gets re‐imputed)
+impE <- mice(
+  data            = wide_final_clean_test,
+  m               = imp$m,
+  method          = imp$method,
+  predictorMatrix = imp$predictorMatrix,
+  maxit           = 0,
+  printFlag       = FALSE
+)
+
+# 4) Fit Model E on each imputed set
+fitE <- with(impE, lm(
+  k6_17_total_z ~
+    sex + income_band +
+    sdq_7_total_z + smfq_14_total_z +
+    adversity7_sum_z + adversity14_sum_z
+))
+
+# 5) Pool & inspect
+pooledE <- pool(fitE)
+summary(pooledE)
+
+# 6) Compute mean R² across imputations
+r2_E <- sapply(
+  1:impE$m,
+  function(i) {
+    d <- complete(impE, i)
+    summary(
+      lm(k6_17_total_z ~
+           sex + income_band +
+           sdq_7_total_z + smfq_14_total_z +
+           adversity7_sum_z + adversity14_sum_z,
+         data = d)
+    )$r.squared
+  }
+)
+cat(sprintf(
+  "Model E: mean R² = %.3f (SD = %.3f) across %d imputations\n",
+  mean(r2_E), sd(r2_E), impE$m
+))
+
+# 7) Compare AIC/BIC vs.  single‐bridge Model C (first completed set)
+modC1 <- lm(
+  k6_17_total_z ~ sex + income_band +
+    sdq_7_total_z + smfq_14_total_z +
+    sch_unhappy_14,
+  data = complete(imp, 1)
+)
+modE1 <- lm(
+  k6_17_total_z ~ sex + income_band +
+    sdq_7_total_z + smfq_14_total_z +
+    adversity7_sum_z + adversity14_sum_z,
+  data = complete(impE, 1)
+)
+print(AIC(modC1, modE1))
+print(BIC(modC1, modE1))
+```
+
+
+#printing ouut results
+```{r}
+# Define top 5
+adv5  <- c("sch_unhappy_14", "neigh_unsafe_14", "ind_worry_14",
+           "peer_bully_14", "fam_siblingbully_14")
+prot5 <- c("ind_esteem_14", "fam_close_14", "fam_warmth_14",
+           "peer_friend_14", "ind_er_14")
+
+
+# 1) Gather R² & ΔR²
+r2_vals <- list(
+  A  = list(mean = mean_r2,      sd = sd_r2),
+  B  = list(mean = mean_r2_B,    sd = sd(r2_B)),
+  C1 = list(mean = mean(r2_C),   sd = sd(r2_C)),
+  C5 = list(mean = mean(r2_C5),  sd = sd(r2_C5)),
+  D1 = list(mean = mean(r2_D1),  sd = sd(r2_D1)),
+  D5 = list(mean = mean(r2_D5),  sd = sd(r2_D5)),
+  E  = list(mean = mean(r2_E),   sd = sd(r2_E))
+)
+deltaB <- sapply(r2_vals, function(x) x$mean - r2_vals$B$mean)
+
+# 2) Key predictors for each model
+
+key_pred <- c(
+  A  = "sexFemale",
+  B  = "sdq_7_total_z",
+  C1 = "sch_unhappy_14",
+  C5 = "sch_unhappy_14",
+  D1 = "ind_esteem_14",
+  D5 = "ind_esteem_14",
+  E  = "adversity7_sum_z"
+)
+
+
+# 3) Extract pooled β, SE, p-value & compute 95% CI + stars
+library(broom)
+signif_star <- function(p) {
+  if (is.na(p)) return("")
+  if (p < 0.001) return("***")
+  if (p < 0.01)  return("**")
+  if (p < 0.05)  return("*")
+  ""
+}
+extract_term <- function(pooled_obj, term) {
+  tb <- tidy(pooled_obj)
+  row <- tb[tb$term == term, ]
+  if (nrow(row)==0) return(data.frame(
+    beta=NA, se=NA, p=NA, ci_low=NA, ci_high=NA, star=""
+  ))
+  ci    <- row$estimate + c(-1,1)*1.96*row$std.error
+  data.frame(
+    beta    = row$estimate,
+    se      = row$std.error,
+    p       = row$p.value,
+    ci_low  = ci[1],
+    ci_high = ci[2],
+    star    = signif_star(row$p.value)
+  )
+}
+coefs <- do.call(rbind, lapply(names(key_pred), function(m) {
+  po <- switch(m,
+    A  = pooledA,  B  = pooledB,  C1 = pooledC,  C5 = pooledC5,
+    D1 = pooledD1, D5 = pooledD5, E  = pooledE
+  )
+  df <- extract_term(po, key_pred[m])
+  rownames(df) <- m
+  df
+}))
+
+# 4) Fit raw LM on first completed set to grab AIC/BIC, ∆AIC, ∆BIC, df & N
+mods <- list(
+  A  = lm( k6_17_total_z ~ sex + income_band, data = complete(imp,  1)),
+  B  = lm( k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z,
+           data = complete(imp,  1)),
+  C1 = lm( k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+             sch_unhappy_14, data = complete(imp, 1)),
+  C5 = lm( k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+             sch_unhappy_14 + neigh_unsafe_14 + ind_worry_14 +
+             peer_bully_14 + fam_siblingbully_14,
+           data = complete(imp, 1)),
+  D1 = lm( k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+             ind_esteem_14, data = complete(imp,  1)),
+  D5 = lm( k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+             ind_esteem_14 + fam_close_14 + fam_warmth_14 +
+             peer_friend_14 + ind_er_14,
+           data = complete(imp,  1)),
+  E  = lm( k6_17_total_z ~ sex + income_band + sdq_7_total_z + smfq_14_total_z +
+             adversity7_sum_z + adversity14_sum_z,
+           data = complete(impE, 1))
+)
+aic_vals <- sapply(mods, AIC)
+bic_vals <- sapply(mods, BIC)
+deltaAIC  <- aic_vals - aic_vals["B"]
+deltaBIC  <- bic_vals - bic_vals["B"]
+df_res    <- sapply(mods, function(m) df.residual(m))
+n_obs     <- sapply(mods, nobs)
+
+# 5) Build the final summary tibble
+library(tibble)
+model_summary <- tibble(
+  Model        = names(r2_vals),
+  Predictors   = c(
+    "sex + income_band",
+    "+ sdq_7 + smfq_14",
+    "+ sch_unhappy_14",
+    "+ sch_unhappy_14 + neigh_unsafe_14 + ind_worry_14 + peer_bully_14 + fam_siblingbully_14",
+    "+ ind_esteem_14",
+    "+ ind_esteem_14 + fam_close_14 + fam_warmth_14 + peer_friend_14 + ind_er_14",
+    "+ adversity7_sum_z + adversity14_sum_z"
+  ),
+  Mean_R2      = sapply(r2_vals, `[[`, "mean"),
+  SD_R2        = sapply(r2_vals, `[[`, "sd"),
+  Delta_R2     = deltaB,
+  AIC          = aic_vals,
+  Delta_AIC    = deltaAIC,
+  BIC          = bic_vals,
+  Delta_BIC    = deltaBIC,
+  DF_residual  = df_res,
+  N            = n_obs,
+  KeyPredictor = key_pred,
+  Beta         = coefs[ , "beta"],
+  SE_beta      = coefs[ , "se"],
+  CI_low       = coefs[ , "ci_low"],
+  CI_high      = coefs[ , "ci_high"],
+  P_value      = coefs[ , "p"],
+  star         = coefs[ , "star"]
+)
+
+# Print to console
+print(model_summary)
+
+# Save as png 
+if (!requireNamespace("gridExtra", quietly = TRUE)) install.packages("gridExtra")
+library(gridExtra); library(grid)
+
+png(
+  filename = "model_summary.png",
+  width    = 4000,
+  height   = 900,
+  res      = 200,
+  bg       = "white"
+)
+grid.table(
+  model_summary,
+  rows  = NULL,
+  theme = ttheme_minimal(
+    core    = list(fg_params = list(fontsize = 9)),
+    colhead = list(fg_params = list(fontsize = 11, fontface = "bold"))
+  )
+)
+dev.off()
+
+cat("→ Saved detailed model summary (with ΔAIC/ΔBIC & stars) to model_summary.png\n")
+
+```
+
+
+
+
+
+#exploring partial controls and sensitivity
+##these 5= demonstrate that network pinpointed preditors are 1. direct (not just via the sypmtom chain in either dierection) 2. stable (across tunign parameters) 3. consistent (imputed vs. compete -case) 4. resistant to unmeasred confouindg 
+
+#F, G, I = directly speak to the core causal story
+#F′ confirms whether skipping adolescence still yields a direct childhood “bridge” effect
+#G tests if that effect depends on symptom severity at either wave
+#I shows  network‐selection was robust to tuning
+```{r}
+
+# F′: “Skip adolescence” test (drop SMFQ₁₄, keep only SDQ₇ + childhood bridge node)
+library(mice); library(dplyr); library(lattice)
+
+# 1) Fit Model F′ on each imputed set
+fitFprime <- with(imp, lm(
+  k6_17_total_z ~
+    sex + income_band +
+    sdq_7_total_z +
+    sch_unhappy_14         
+))
+
+# 2) Pool & view
+pooledFprime <- pool(fitFprime)
+cat("\n— Model F′ (no SMFQ₁₄) —\n")
+print(summary(pooledFprime))
+
+# 3) R²  
+r2_Fprime <- sapply(1:imp$m, function(i){
+  dat <- complete(imp, i)
+  summary(lm(
+    k6_17_total_z ~ sex + income_band + sdq_7_total_z + sch_unhappy_14,
+    data = dat
+  ))$r.squared
+})
+cat(sprintf(
+  "Model F′ mean R² = %.3f (Δ over Model C = %.3f)\n",
+  mean(r2_Fprime), mean(r2_Fprime) - 0.206  
+))
+
+
+
+# G′: Moderation test (does the bridge node effect vary by baseline/adolescent symptoms?)
+# 1) Fit Model G′ with two interaction terms
+fitGprime <- with(imp, lm(
+  k6_17_total_z ~
+    sex + income_band +
+    sdq_7_total_z + smfq_14_total_z +
+    sch_unhappy_14:sdq_7_total_z +   #  childhood adversity × baseline symptoms 
+    sch_unhappy_14:smfq_14_total_z   #  childhood adversity × adolescent symptoms 
+))
+
+# 2) Pool & view
+pooledGprime <- pool(fitGprime)
+cat("\n— Model G′ (two‐timepoint interactions) —\n")
+print(summary(pooledGprime))
+
+
+# I: Robustness of network‐selection to the γ tuning parameter
+library(networktools)
+
+gammas <- c(0.25, 0.75)
+cat("\n— Bridge node stability across γ = 0.25, 0.75 —\n")
+for(g in gammas){
+  ega_g <- run_EGA(pooled14_dep, n = n14, gamma = g)
+  bei_g <- compute_BEI_dep(ega_g, adv14, prot14, dep14) %>%
+    mutate(Type = ifelse(Node %in% adv14, "adversity",
+                  ifelse(Node %in% prot14, "protective", "depression")))
+  top_adv <- bei_g %>%
+    filter(Type == "adversity") %>%
+    slice_max(BridgeEI, n = 1)
+  cat(sprintf("\nγ = %.2f → top adversity bridge:\n", g))
+  print(top_adv)
+}
+```
+
+
+#III & V= final robustness appendeices
+```{r}
+
+# III) Complete‐case sensitivity check
+
+library(dplyr)
+
+# 1) Subset to just the vars in  Model C and drop any rows with NA
+cc_df <- wide_final_clean %>%
+  select(
+    k6_17_total_z,
+    sex, income_band,
+    sdq_7_total_z, smfq_14_total_z,
+    sch_unhappy_14
+  ) %>%
+  na.omit()
+
+# 2) Re‐fit Model C on the complete‐case data
+modelC_cc <- lm(
+  k6_17_total_z ~
+    sdq_7_total_z +
+    smfq_14_total_z +
+    sex + income_band +
+    sch_unhappy_14,
+  data = cc_df
+)
+
+
+# 3) Summarize
+summary(modelC_cc)
+
+# 4) Print the complete‐case R²
+cat("Complete‐case Model C R² =", round(summary(modelC_cc)$r.squared, 3), "\n")
+
+
+
+# V) Robustness via sensemakr 
+# install.packages("sensemakr")  # if not already
+library(sensemakr)
+
+# Compute the robustness value for the 'sch_unhappy_14' coefficient
+sensC <- sensemakr(
+  model              = modelC_cc,
+  treatment          = "sch_unhappy_141",
+  benchmark_covariates = c("sdq_7_total_z", "smfq_14_total_z"),
+  kd                 = 1      # assumes 1 confounder
+)
+
+#Print a summary
+summary(sensC)
+
+```
+
+
+#Tables to compute for demographics (4 responses)
+#the final7_sum +... before merging 
+```{r}
+#observed N at each wave: to show raw sample size before merging
+#sex split 
+#SES distribution
+#age
+#primary outcome mean 
+#missing out
+View(final7_sum)
+View(final14_sum)
+View(final17_sum)
+
+N_wave7  <- nrow(final7_sum)
+N_wave14 <- nrow(final14_sum)
+N_wave17 <- nrow(final17_sum)
+
+N_wave7 #13840 
+N_wave14 #11711
+N_wave17 #10641
+
+get_pct <- function(df, var, value) round(100 * mean(df[[var]] == value, na.rm = TRUE), 1)
+
+sex_pct <- tibble(
+  Wave   = c("7y","14y","17y"),
+  Female = c(get_pct(final7_sum,"sex","Female"),
+             get_pct(final14_sum,"sex","Female"),
+             get_pct(final17_sum,"sex","Female"))
+)
+
+ses_pct_low <- tibble(
+  Wave = c("7y","14y","17y"),
+  Low  = c(get_pct(final7_sum,"income_band","low"),
+           get_pct(final14_sum,"income_band","low"),
+           get_pct(final17_sum,"income_band","low"))
+)
+
+#χ² test: does sex predict retention?
+retained14 <- final7_sum %>% mutate(ret14 = MCSID %in% final14_sum$MCSID)
+chisq_sex14 <- chisq.test(table(retained14$sex, retained14$ret14, useNA="no"))
+
+
+
+```
+
+
+
+
+#in methods --> demographics of wave 7, 14, 17
+```{r}
+unique(wide_final$sex)
+wide_final <- wide_final %>% 
+  mutate(
+    sex_recoded = case_when(
+      sex %in% c("Female", "F", 1) ~ "Female",
+      sex %in% c("Male",   "M", 0) ~ "Male",
+      TRUE                         ~ NA_character_
+    )
+  )
+sex_var <- if ("sex_recoded" %in% names(wide_final)) "sex_recoded" else "sex"
+
+sex_counts <- table(wide_final[[sex_var]], useNA = "no")
+total_nonmiss <- sum(sex_counts)
+sex_pct <- round(100 * sex_counts / total_nonmiss, 1)
+
+#Print the result
+cat(sprintf("Female: %4.1f%% (%d/%d)\n",
+            sex_pct["Female"], sex_counts["Female"], total_nonmiss))
+cat(sprintf("Male:   %4.1f%% (%d/%d)\n",
+            sex_pct["Male"],   sex_counts["Male"],   total_nonmiss))
+
+
+sex_counts <- table(wide_final$sex, useNA = "ifany")  # shows each label + <NA>
+sex_counts
+
+
+wide_final <- wide_final %>% 
+  mutate(
+    sex_clean = case_when(
+      sex %in% c("Female", "F", 1) ~ "Female",
+      sex %in% c("Male",   "M", 0) ~ "Male",
+      TRUE                         ~ NA_character_
+    )
+  )
+
+table(wide_final$sex_clean, useNA = "ifany")
+
+#female: 6494, male: 6557, NA: 789
+```
+
+
+#in results --> descriptive statistics of adversity and protective responses in wave 7, 14, 17 (N=13,840)
+```{r}
+for (col in binary_cols) {
+  x <- wide_final[[col]]
+  
+  mean_x      <- mean(x, na.rm = TRUE)          # proportion of 1s
+  sd_x        <- sd(x,   na.rm = TRUE)        
+  n_nonmiss   <- sum(!is.na(x))
+  pct_missing <- mean(is.na(x)) * 100
+  
+  cat(sprintf(
+    "%-25s mean = %6.3f | SD = %6.3f | N = %4d | missing = %5.1f%%\n",
+    col, mean_x, sd_x, n_nonmiss, pct_missing
+  ))
+}
+
+```
+
+
+#in results --> table 3: prevalence rates of adversity and protective nodes in wave 7, 14, 17 (N=13,840)
+#deomgraphics
+```{r}
+#Identify which columns are really 0/1 
+binary_cols <- names(wide_final)[
+  sapply(wide_final, function(x) all(x %in% c(0, 1, NA)))
+]
+
+# Loop over those columns and print the stats 
+for (col in binary_cols) {
+  x <- wide_final[[col]]
+  
+  n_nonmiss   <- sum(!is.na(x))
+  pct_zero    <- sum(x == 0, na.rm = TRUE) / n_nonmiss * 100
+  pct_one     <- sum(x == 1, na.rm = TRUE) / n_nonmiss * 100
+  pct_missing <- mean(is.na(x)) * 100
+  
+  cat(sprintf(
+    "%-25s 0s = %6.1f%% | 1s = %6.1f%% | N = %4d | missing = %5.1f%%\n",
+    col, pct_zero, pct_one, n_nonmiss, pct_missing
+  ))
+}
+
+```
+
+#in results --> calculate for the composite scores
+```{r}
+library(dplyr)
+library(knitr)
+
+#Specify the raw-score columns 
+raw_totals <- c("sdq_7_total", "smfq_14_total", "k6_17_total")
+
+#Build the descriptive table 
+raw_desc <- wide_all %>%                      
+  select(all_of(raw_totals)) %>% 
+  pivot_longer(everything(),
+               names_to  = "Variable",
+               values_to = "value") %>% 
+  group_by(Variable) %>% 
+  summarise(
+    N_obs     = sum(!is.na(value)),
+    Mean      = round(mean(value, na.rm = TRUE), 2),
+    SD        = round(sd(value,   na.rm = TRUE), 2),
+    Range     = paste0(min(value, na.rm = TRUE), "–", max(value, na.rm = TRUE)),
+    `Missing_%` = round(mean(is.na(value)) * 100, 1),
+    .groups   = "drop"
+  )
+
+#Print / knit 
+kable(
+  raw_desc,
+  caption = "Raw-score descriptives for outcome scales (analytic cohort, N = 13 840)",
+  col.names = c("Variable", "N", "Mean", "SD", "Range", "% Missing"),
+  align = c("l","r","c","c","c","r")
+)
+
+
+```
+
+
+
+
+
+
